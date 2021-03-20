@@ -1,0 +1,74 @@
+#!/bin/bash
+
+echo "Content-Type: text/html"
+echo ""
+
+# load small-shell path
+. ../descriptor/.small_shell_path
+
+# auth for small-shell databox
+authkey="Ym9va19hcHA6ZWEyNGRiNjliYmVkNGIxNGQwMTFkNGIzODIyOWE5MzUwNDAzZTFjMgo="
+auth_req=`sudo -u small-shell ${small_shell_path}/bin/auth key_auth:${authkey} remote_addr:${REMOTE_ADDR}`
+user_name=`echo $auth_req | awk -F "," '{print $1}' | awk -F ":" '{print $2}'`
+session=`echo $auth_req | awk -F "," '{print $2}' | awk -F ":" '{print $2}'`
+onetime_pin=`echo $auth_req | awk -F "," '{print $3}' | awk -F ":" '{print $2}'`
+
+# preproceduure
+param=`date +%s`
+param="$param:$RANDOM"
+count=1
+session_update="required"
+
+while [ -f ../tmp/${param} ]
+do
+ sleep 0.01
+ count=`expr $count + 1`
+ if [ $count -eq 100 ];then
+   echo "error: please contact to adimin"
+   exit 1
+ fi
+done
+
+echo $QUERY_STRING | php -r "echo urldecode(file_get_contents('php://stdin'));" | sed "s/\`//g" | sed "s/\&/\n/g" > ../tmp/${param}
+cat ../tmp/${param} | sed -e "s/=/=\"/1" | sed "s/$/\"/g" | sed "s/^\"//g" > ../tmp/${param}.load
+chmod 755 ../tmp/${param}.load
+
+# load query string
+.  ../tmp/${param}.load
+rm  ../tmp/${param}*
+
+# dump posted data
+if [ "$post" = "yes" ];then
+  mkdir ../tmp/$session
+  # dump posted data
+  dd bs=${CONTENT_LENGTH} of=../tmp/$session/input 2>/dev/null
+
+  if [ ! "$multipart" -a ! "$databinary" ];then
+    ../bin/parse.sh $session urlenc
+  else
+    if [ "$multipart" = "yes" ];then
+      ../bin/parse.sh $session multipart
+    elif [ "$databinary" = "yes" ];then
+      ../bin/parse.sh $session data-binary
+    fi
+  fi
+fi
+
+#----------------------------
+# routing to action scripts
+#----------------------------
+
+case "$req" in
+
+  "get")
+    ../bin/book_app_get.sh session:$session onetime_pin:$onetime_pin id:$id remote_addr:${REMOTE_ADDR};;
+
+  "set")
+    ../bin/book_app_set.sh session:$session onetime_pin:$onetime_pin id:$id remote_addr:${REMOTE_ADDR};;
+
+  *)
+    echo "error: wrong request";;
+
+esac
+
+exit 0
