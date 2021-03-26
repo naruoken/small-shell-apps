@@ -8,8 +8,8 @@ do
     session=`echo $param | awk -F":" '{print $2}'`
   fi
 
-  if [[ $param == onetime_pin:* ]]; then
-    onetime_pin=`echo $param | awk -F":" '{print $2}'`
+  if [[ $param == pin:* ]]; then
+    pin=`echo $param | awk -F":" '{print $2}'`
   fi
 
   if [[ $param == user_name:* ]]; then
@@ -40,7 +40,7 @@ fi
 
 # SET BASE_COMMAND
 META="sudo -u small-shell ${small_shell_path}/bin/meta"
-DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session onetime_pin:$onetime_pin"
+DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session pin:$pin"
 
 if [ $id = "new" ];then
 
@@ -48,7 +48,7 @@ if [ $id = "new" ];then
   $META get.pdls:library.db{available} > ../tmp/$session/pdls_book_name
 
   # gen issue.db other values
-  $DATA_SHELL databox:issue.db action:get id:$id keys:user_name,start,end format:html_tag > ../tmp/$session/dataset
+  $DATA_SHELL databox:issue.db action:get id:$id keys:user_name,E-mail,date_from,date_to format:html_tag > ../tmp/$session/dataset
 
 else
 
@@ -57,10 +57,7 @@ else
   book_id=`$DATA_SHELL databox:library.db command:show_all[match=col1{$book_name}] format:json | jq .id | sed -s "s/\"//g"`
 
   # gen issue.db values
-  $DATA_SHELL databox:issue.db action:get id:$id keys:user_name,book_name,start,end format:html_tag > ../tmp/$session/dataset
-
-  # gen library.db value
-  $DATA_SHELL databox:library.db action:get id:$book_id key:status format:html_tag >> ../tmp/$session/dataset
+  $DATA_SHELL databox:issue.db action:get id:$id keys:user_name,E-mail,book_name,date_from,date_to,status format:html_tag > ../tmp/$session/dataset
 fi
 
 
@@ -76,13 +73,13 @@ if [ "$id" = "new" ];then
   | sed "s/%%dataset//g"\
   | sed "s/%%databox/$databox/g" \
   | sed "s/%%id/$id/g"\
-  | sed "s/%%params/session=$session\&onetime_pin=$onetime_pin\&databox=$databox/g" 
+  | sed "s/%%params/session=$session\&pin=$pin\&databox=$databox/g" 
 else
   cat ../descriptor/book_app_get.html.def | sed "s/^ *</</g" \
   | sed "/%%dataset/r ../tmp/$session/dataset" \
   | sed "s/%%dataset//g"\
   | sed "s/%%id/$id/g"\
-  | sed "s/%%params/session=$session\&onetime_pin=$onetime_pin\&databox=$databox/g" 
+  | sed "s/%%params/session=$session\&pin=$pin\&databox=$databox/g" 
 fi
 
 if [ "$session" ];then
