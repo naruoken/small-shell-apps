@@ -48,7 +48,7 @@ if [ $id = "new" ];then
   $META get.pdls:library.db{available} > ../tmp/$session/pdls_book_name
 
   # gen issue.db other values
-  $DATA_SHELL databox:issue.db action:get id:$id keys:user_name,E-mail,date_from,date_to format:html_tag > ../tmp/$session/dataset
+  $DATA_SHELL databox:issue.db action:get id:$id keys:user_name,email,date_from,date_to format:html_tag > ../tmp/$session/dataset
 
 else
 
@@ -57,7 +57,7 @@ else
   book_id=`$DATA_SHELL databox:library.db command:show_all[match=col1{$book_name}] format:json | jq .id | sed -s "s/\"//g"`
 
   # gen issue.db values
-  $DATA_SHELL databox:issue.db action:get id:$id keys:user_name,E-mail,book_name,date_from,date_to,status format:html_tag > ../tmp/$session/dataset
+  $DATA_SHELL databox:issue.db action:get id:$id keys:user_name,email,book_name,date_from,date_to,status format:html_tag > ../tmp/$session/dataset
 fi
 
 
