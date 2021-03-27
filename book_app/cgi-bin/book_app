@@ -11,7 +11,7 @@ authkey="Ym9va19hcHA6ZWEyNGRiNjliYmVkNGIxNGQwMTFkNGIzODIyOWE5MzUwNDAzZTFjMgo="
 auth_req=`sudo -u small-shell ${small_shell_path}/bin/auth key_auth:${authkey} remote_addr:${REMOTE_ADDR}`
 user_name=`echo $auth_req | awk -F "," '{print $1}' | awk -F ":" '{print $2}'`
 session=`echo $auth_req | awk -F "," '{print $2}' | awk -F ":" '{print $2}'`
-onetime_pin=`echo $auth_req | awk -F "," '{print $3}' | awk -F ":" '{print $2}'`
+pin=`echo $auth_req | awk -F "," '{print $3}' | awk -F ":" '{print $2}'`
 
 # preproceduure
 param=`date +%s`
@@ -61,10 +61,10 @@ fi
 case "$req" in
 
   "get")
-    ../bin/book_app_get.sh session:$session onetime_pin:$onetime_pin id:$id remote_addr:${REMOTE_ADDR};;
+    ../bin/book_app_get.sh session:$session pin:$pin id:$id remote_addr:${REMOTE_ADDR};;
 
   "set")
-    ../bin/book_app_set.sh session:$session onetime_pin:$onetime_pin id:$id remote_addr:${REMOTE_ADDR};;
+    ../bin/book_app_set.sh session:$session pin:$pin id:$id remote_addr:${REMOTE_ADDR};;
 
   *)
     echo "error: wrong request";;
