@@ -49,6 +49,9 @@ if [ $id = "new" ];then
 
   # gen issue.db other values
   $DATA_SHELL databox:issue.db action:get id:$id keys:user_name,email,date_from,date_to format:html_tag > ../tmp/$session/dataset
+ 
+  # insert comment
+  comment="This is book issue request form, please select book and send request to us. if you have any issue please contact to XXXXX"
 
 else
 
@@ -62,6 +65,9 @@ else
   # change htm format
   # key:value -> <li><label>$key</label><p>$value</p></li>
   cat ../tmp/$session/dataset.0.1 | sed "s/^/<li><label>/g" | sed "s/:/<\/label><p>/g" | sed "s/$/<\/p><\/li>/g"  > ../tmp/$session/dataset
+
+  # insert comment
+  comment="Issue status is as following, you can pick up book once status become waiting_pickup"
 
 fi
 
@@ -78,12 +84,14 @@ if [ "$id" = "new" ];then
   | sed "s/%%dataset//g"\
   | sed "s/%%databox/$databox/g" \
   | sed "s/%%id/$id/g"\
+  | sed "s/%%comment/$comment/g"\
   | sed "s/%%params/session=$session\&pin=$pin\&databox=$databox/g" 
 else
   cat ../descriptor/book_app_get.html.def | sed "s/^ *</</g" \
   | sed "/%%dataset/r ../tmp/$session/dataset" \
   | sed "s/%%dataset//g"\
   | sed "s/%%id/$id/g"\
+  | sed "s/%%comment/$comment/g"\
   | sed "s/%%params/session=$session\&pin=$pin\&databox=$databox/g" 
 fi
 

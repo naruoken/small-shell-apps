@@ -11,7 +11,7 @@
       <div class="form-box-mini">
       <div class="description">
       <h1>STATUS</h1>
-      <h6>This is book issue request form, please select book and send request to us. if you have any issue please contact to XXXXX</h6>
+      <h6>%%comment</h6>
       </div>
       <ul>
        %%dataset
