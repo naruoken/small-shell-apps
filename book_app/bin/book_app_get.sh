@@ -57,7 +57,12 @@ else
   book_id=`$DATA_SHELL databox:library.db command:show_all[match=col1{$book_name}] format:json | jq .id | sed -s "s/\"//g"`
 
   # gen issue.db values
-  $DATA_SHELL databox:issue.db action:get id:$id keys:user_name,email,book_name,date_from,date_to,status format:html_tag > ../tmp/$session/dataset
+  $DATA_SHELL databox:issue.db action:get id:$id keys:user_name,email,book_name,date_from,date_to,status format:none > ../tmp/$session/dataset.0.1
+
+  # change htm format
+  # key:value -> <li><label>$key</label><p>$value</p></li>
+  cat ../tmp/$session/dataset.0.1 | sed "s/^/<li><label>/g" | sed "s/:/<\/label><p>/g" | sed "s/$/<\/p><\/li>/g"  > ../tmp/$session/dataset
+
 fi
 
 
