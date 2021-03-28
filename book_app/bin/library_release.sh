@@ -65,10 +65,13 @@ done
 META="sudo -u small-shell ${small_shell_path}/bin/meta"
 DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session pin:$pin"
 
+# get issue id
+issue_id=`$DATA_SHELL databox:library.db id:$id key:issue_link action:get format:none | awk -F "id=" '{print $2}'`
+
 # gen %%result contents
 $DATA_SHELL databox:library.db action:set id:$id key:status value:available format:html_tag > ../tmp/$session/result
 $DATA_SHELL databox:library.db action:set id:$id key:issue_link value:%%null format:html_tag >> ../tmp/$session/result
-$DATA_SHELL databox:issue.db action:set id:$id key:status value:closed format:html_tag >> ../tmp/$session/result
+$DATA_SHELL databox:issue.db action:set id:$issue_id key:status value:closed format:html_tag >> ../tmp/$session/result
 
 # -----------------
 # render HTML
