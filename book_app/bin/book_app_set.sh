@@ -69,7 +69,7 @@ if [ ! "$flag" = "error" ];then
 
   # update issue.db
   $DATA_SHELL databox:issue.db \
-  action:set id:new keys:book_name,date_from,date_to,user_name,E-mail input_dir:../tmp/$session format:html_tag > ../tmp/$session/issue.db.result
+  action:set id:new keys:book_name,date_from,date_to,user_name,email input_dir:../tmp/$session format:html_tag > ../tmp/$session/issue.db.result
 
   # result check
   updated_id=`cat ../tmp/$session/issue.db.result | grep "^successfully set" | awk '{print $3}' | uniq`
