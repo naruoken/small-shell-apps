@@ -16,9 +16,6 @@
       <ul>
        %%dataset
       </ul>
-     <div class="action_links">
-      <span><p style="cursor: pointer" onclick="window.open('./controller?%%params&req=log_viewer&id=%%id', 'log_viewer', 'width=820,height=280')">Show data updated history</p></span>
-      </div>
      </div>
    </body>
 </html>
