@@ -73,19 +73,34 @@ $DATA_SHELL databox:library.db action:set id:$id key:status value:available form
 $DATA_SHELL databox:library.db action:set id:$id key:issue_link value:%%null format:html_tag >> ../tmp/$session/result
 $DATA_SHELL databox:issue.db action:set id:$issue_id key:status value:closed format:html_tag >> ../tmp/$session/result
 
+updated_id=`cat ../tmp/$session/result | grep "^successfully set" | awk '{print $3}' | uniq`
+
 # -----------------
 # render HTML
 # -----------------
 
+if [ "$updated_id" ];then
+  message="! serch index will be updated soon"
+  result="UPDATED"
+else
+  message=".."
+  result="! NO UPDATE"
+fi
+
 cat ../descriptor/library_release.html.def | sed "s/^ *</</g" \
 | sed "/%%databox_list/r ../tmp/$session/databox_list" \
 | sed "s/%%databox_list//g"\
-| sed "/%%common_menu/r ../descriptor/common_parts/common_menu" \
-| sed "s/%%common_menu//g"\
+| sed "/%%common_menu_rw/r ../descriptor/common_parts/common_menu_rw" \
+| sed "s/%%common_menu_rw//g"\
+| sed "/%%footer/r ../descriptor/common_parts/footer" \
+| sed "/%%footer/d"\
 | sed "/%%result/r ../tmp/$session/result" \
-| sed "s/%%result/# RESULT/g"\
+| sed "s/%%result/$result/g"\
 | sed "s/%%id/$id/g"\
-| sed "s/%%params/session=$session\&pin=$pin\&databox=$databox/g" 
+| sed "s/%%library_id/$id/g"\
+| sed "s/%%issue_id/$issue_id/g"\
+| sed "s/%%message/$message/g"\
+| sed "s/%%params/session=$session\&pin=$pin\&databox=$databox/g"
 
 if [ "$session" ];then
   rm -rf ../tmp/$session
