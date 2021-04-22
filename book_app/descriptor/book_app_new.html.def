@@ -8,7 +8,7 @@
     <body>
     <div class="container">
 
-      <div class="form-box-mini">
+      <div class="form-box">
       <div class="description">
       <h1>REQUEST</h1>
       <h6>This is book issue request form, please select book and send request to us. if you have any issue please contact to XXXXX</h6>
