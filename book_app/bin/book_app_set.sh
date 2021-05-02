@@ -81,10 +81,10 @@ if [ ! "$flag" = "error" ];then
  
     # insert issue id to library.db
     SERVER=`$META get.server`
-    issue_link="http{%%%}//${SERVER}/cgi-bin/controller?session=%%session&pin=%%pin&databox=issue.db&req=get&id=$updated_id"
+    issue_id=$updated_id
 
     $DATA_SHELL databox:library.db \
-    action:set id:$book_id key:issue_link value:$issue_link format:html_tag >> ../tmp/$session/library.db.result
+    action:set id:$book_id key:issue_id value:$issue_id >> ../tmp/$session/library.db.result
 
     # update issue.db status
     $DATA_SHELL databox:issue.db action:set id:$updated_id key:status value:waiting_approval format:html_tag > ../tmp/$session/issue.db.result
