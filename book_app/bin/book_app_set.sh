@@ -42,65 +42,28 @@ fi
 META="sudo -u small-shell ${small_shell_path}/bin/meta"
 DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session pin:$pin"
 
-# get book_id
-book_name=`cat ../tmp/$session/book_name`
-book_id=`$DATA_SHELL databox:library.db command:show_all[match=col1{$book_name}] format:json | jq .id | sed -s "s/\"//g"`
 
-if [ ! "$book_id" ];then
-  echo "<h1>It seems you set wrong book name</h1>"  > ../tmp/$session/result
-  echo "<a href=\"./book_app?req=get\">BACK</a>" >> ../tmp/$session/result
-  flag=error
+# push datas to databox
+$DATA_SHELL databox:issue.db action:set id:$id keys:$keys input_dir:../tmp/$session  > ../tmp/$session/result
+
+# result check
+updated_id=`cat ../tmp/$session/result | grep "^successfully set" | awk '{print $3}' | uniq`
+
+# set message
+if [ "$updated_id" ];then
+  echo "<h2>SUCCESSFULLY SUBMITTED</h2>" > ../tmp/$session/message
+  echo "<a href=\"./book_app?req=get&id=$updated_id\"><p><b>YOUR LINK</b></p></a>" >> ../tmp/$session/message
 else
-  # check status
-  status=`$DATA_SHELL databox:library.db action:get id:$book_id key:status format:none | sed "s/status://g"`
-
-  if [ ! "$status" = "available" ];then
-    echo "<h1>Book is already reserved</h2>"  > ../tmp/$session/result
-    echo "<a href=\"./book_app?req=get\">BACK</a>" >> ../tmp/$session/result
-    flag=error
-  fi
-fi
-
-
-if [ ! "$flag" = "error" ];then
-
-  # update library.db
-  $DATA_SHELL databox:library.db action:set id:$book_id key:status value:requested > ../tmp/$session/library.db.result
-
-  # update issue.db
-  $DATA_SHELL databox:issue.db \
-  action:set id:new keys:book_name,date_from,date_to,user_name,email input_dir:../tmp/$session  > ../tmp/$session/issue.db.result
-
-  # result check
-  updated_id=`cat ../tmp/$session/issue.db.result | grep "^successfully set" | awk '{print $3}' | uniq`
-
-  # check result
-  if [ "$updated_id" ];then
-    echo "<h2>REQUEST REGISTERED</h2>" > ../tmp/$session/result
-    echo "<a href=\"./book_app?req=get&id=$updated_id\"><p><b>REQUEST LINK</b></p></a>" >> ../tmp/$session/result
- 
-    # insert issue id to library.db
-    SERVER=`$META get.server`
-
-    $DATA_SHELL databox:library.db \
-    action:set.force id:$book_id key:issue_id value:$updated_id >> ../tmp/$session/library.db.result
-
-    # update issue.db status
-    $DATA_SHELL databox:issue.db action:set id:$updated_id key:status value:waiting_approval format:html_tag > ../tmp/$session/issue.db.result
-
-  else
-    echo "<h2>something wrong, please contact to web admin</h2>" > ../tmp/$session/result
-  fi
-
+  echo "<h2>Failed, something is wrong. please contact to your web admin</h2>" > ../tmp/$session/message
 fi
 
 # -----------------
 # render HTML
 # -----------------
-
 cat ../descriptor/book_app_set.html.def | sed "s/^ *</</g" \
-| sed "/%%result/r ../tmp/$session/result" \
-| sed "/%%result/d"
+| sed "/%%message/r ../tmp/$session/message" \
+| sed "s/%%message/$message/g"\
+| sed "s/%%id/$id/g"
 
 if [ "$session" ];then
   rm -rf ../tmp/$session

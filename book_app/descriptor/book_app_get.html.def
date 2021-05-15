@@ -1,21 +1,24 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>Request.status</title>
+        <title>%%id</title>
         <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
         <link rel="stylesheet" href="./css">
     </head>
     <body>
     <div class="container">
 
-      <div class="form-box">
+      <div class="tmplt-form">
       <div class="description">
-      <h1>STATUS</h1>
-      <h6>This is book issue request form, please select book and send request to us. if you have any issue please contact to XXXXX</h6>
+      <h2>book_app.data</h2>
+      <p>id:%%id</p>
       </div>
       <ul>
        %%dataset
       </ul>
+      <div class="description">
+      <p>%%history</p>
+      </div>
      </div>
    </body>
 </html>

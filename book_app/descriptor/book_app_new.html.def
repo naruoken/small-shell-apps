@@ -1,25 +1,29 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>Request.new</title>
+        <title>book_app.new</title>
         <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
         <link rel="stylesheet" href="./css">
     </head>
     <body>
     <div class="container">
 
-      <div class="form-box">
+      <div class="tmplt-form">
       <div class="description">
-      <h1>REQUEST</h1>
-      <h6>This is book issue request form, please select book and send request to us. if you have any issue please contact to XXXXX</h6>
+      <h2>Issue Request</h2>
+      <p>This is book issue request form, please select book and send request to us. if you have any issue please contact to XXXXX</p>
+      <hr color="#e6e6fa">
+      <br>
+
       </div>
       <form method="post" action="./book_app?req=set&id=%%id&post=yes">
       <ul>
-       %%pdls_book_name
        %%dataset
       </ul>
-      <button class="button" type="submit">SUBMIT REQUEST</button>
+      <button class="button" type="submit">SUBMIT</button>
       </form>
-     </div>
+      </div>
+
+    </div>
    </body>
 </html>
