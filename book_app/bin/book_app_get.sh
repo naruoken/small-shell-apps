@@ -51,7 +51,7 @@ if [ $id = "new" ];then
 else
 
   # get data with html format
-  $DATA_SHELL databox:issue.db action:get id:$id keys:user_name,email,date_from,date_to,status format:none > ../tmp/$session/dataset.0.1
+  $DATA_SHELL databox:issue.db action:get id:$id keys:user_name,email,date_from,date_to,status,feedback format:none > ../tmp/$session/dataset.0.1
 
   # change htm format
   # key:value -> <li><label>$key</label><p>$value</p></li>

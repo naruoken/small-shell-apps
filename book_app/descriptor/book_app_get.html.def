@@ -10,7 +10,7 @@
 
       <div class="tmplt-form">
       <div class="description">
-      <h2>book_app.data</h2>
+      <h2>Issue Record</h2>
       <p>id:%%id</p>
       </div>
       <ul>
