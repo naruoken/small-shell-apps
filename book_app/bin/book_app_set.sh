@@ -43,11 +43,36 @@ META="sudo -u small-shell ${small_shell_path}/bin/meta"
 DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session pin:$pin"
 
 
+# additional codes for book_app (get book_id)
+book_name=`cat ../tmp/$session/book_name`
+book_id=`$DATA_SHELL databox:library.db command:show_all[match=col1{$book_name}] format:json | jq .id | sed -s "s/\"//g"`
+
+if [ ! "$book_id" ];then
+  echo "<h1>It seems you set wrong book name</h1>"  > ../tmp/$session/result
+  echo "<a href=\"./book_app?req=get\">BACK</a>" >> ../tmp/$session/result
+  flag=error
+else
+  # check status
+  status=`$DATA_SHELL databox:library.db action:get id:$book_id key:status format:none | sed "s/status://g"`
+
+  if [ ! "$status" = "available" ];then
+    echo "<h1>Book is already reserved</h2>"  > ../tmp/$session/result
+    echo "<a href=\"./book_app?req=get\">BACK</a>" >> ../tmp/$session/result
+    flag=error
+  fi
+fi
+
+
 # push datas to databox
-$DATA_SHELL databox:issue.db action:set id:$id keys:$keys input_dir:../tmp/$session  > ../tmp/$session/result
+$DATA_SHELL databox:issue.db action:set id:$id keys:$keys input_dir:../tmp/$session > ../tmp/$session/result
 
 # result check
 updated_id=`cat ../tmp/$session/result | grep "^successfully set" | awk '{print $3}' | uniq`
+
+# additional codes for book_app
+$DATA_SHELL databox:issue.db action:set id:$updated_id key:status value:waiting_approval  >> ../tmp/$session/result
+$DATA_SHELL databox:library.db action:set.force id:$book_id key:status value:requested >> ../tmp/$session/result
+$DATA_SHELL databox:library.db action:set.force id:$book_id key:issue_id value:$updated_id >> ../tmp/$session/result
 
 # set message
 if [ "$updated_id" ];then
