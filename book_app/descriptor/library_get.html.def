@@ -22,7 +22,7 @@
         </div>
       </div>
 
-      <div class="form-box-mini">
+      <div class="form-box">
       <div class="description">
         <h2>Data.values</h2>
         <p><b>#ID </b>%%id</p>
