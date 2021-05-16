@@ -29,7 +29,7 @@ if [ "$IP_whitelisting" = "yes" ];then
 fi
 
 # auth for small-shell databox
-authkey="Ym9va19hcHA6ZWEyNGRiNjliYmVkNGIxNGQwMTFkNGIzODIyOWE5MzUwNDAzZTFjMgo="
+authkey="%%authkey"
 auth_req=`sudo -u small-shell ${small_shell_path}/bin/auth key_auth:${authkey} remote_addr:${REMOTE_ADDR}`
 user_name=`echo $auth_req | awk -F "," '{print $1}' | awk -F ":" '{print $2}'`
 session=`echo $auth_req | awk -F "," '{print $2}' | awk -F ":" '{print $2}'`
