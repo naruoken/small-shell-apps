@@ -33,7 +33,7 @@ fi
 META="sudo -u small-shell ${small_shell_path}/bin/meta"
 DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session pin:$pin app:team"
 
-# const json
+# gen event json
 $DATA_SHELL databox:events command:show_all[keys=name,start,end,color][filter=sync{yes}] format:json \
 | sed "s/{%%%%%%%%%%%%%}/#/g"\
 | sed "s/{%%%%%%%%%%%%}/|/g"\
@@ -47,6 +47,23 @@ $DATA_SHELL databox:events command:show_all[keys=name,start,end,color][filter=sy
 | sed "s/{%%%%}/\&/g"\
 | sed "s/{%%%}/:/g"  > ../tmp/$session/events
 
+# gen tasks json
+$DATA_SHELL databox:tasks command:show_all[keys=name,start,end,color][filter=sync{yes}] format:json \
+| sed "s/{%%%%%%%%%%%%%}/#/g"\
+| sed "s/{%%%%%%%%%%%%}/|/g"\
+| sed "s/{%%%%%%%%%%%}/\]/g"\
+| sed "s/{%%%%%%%%%%}/\[/g"\
+| sed "s/{%%%%%%%%%}/)/g"\
+| sed "s/{%%%%%%%%}/(/g"\
+| sed "s/{%%%%%%%}/_/g"\
+| sed "s/{%%%%%%}/,/g"\
+| sed "s/{%%%%%}/\//g"\
+| sed "s/{%%%%}/\&/g"\
+| sed "s/{%%%}/:/g"  > ../tmp/$session/tasks
+
+# merge events and tasks to 1 array
+jq -s add ../tmp/$session/events ../tmp/$session/tasks > ../tmp/$session/merged_events
+
 # -----------------
 # render HTML
 # -----------------
@@ -55,9 +72,9 @@ cat ../descriptor/team_main.html.def | sed "s/^ *</</g" \
 | sed "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
 | sed "s/%%common_menu//g"\
 | sed "s/%%user_name/$user_name/g" \
-| sed "/%%json/r ../tmp/$session/events"\
+| sed "/%%json/r ../tmp/$session/merged_events"\
 | sed "s/%%json//g"\
-| sed "s/%%params/session=$session\&pin=$pin\&databox=$databox/g"
+| sed "s/%%params/session=$session\&pin=$pin/g"
 
 if [ "$session" ];then
   rm -rf ../tmp/$session

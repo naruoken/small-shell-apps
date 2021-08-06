@@ -1,44 +1,29 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>table view</title>
+        <title>bookmarks portal</title>
         <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
         <link rel="stylesheet" href="./team_css">
     </head>
     <body>
     <div class="container">
       <div class="flex-header">
-       <div class="left-header">
-       <h4>Team APP</h4>
-       </div>
-       <div class="right-header">
+        <div class="left-header">
+        </div>
+        <div class="right-header">
         <button class="even-btn-menu">=</button>
         <nav>
-        <ul>
-        %%common_menu
-        </ul>
+         <ul>
+         %%common_menu
+         </ul>
         </nav>
         </div>
       </div>
-      <div class="table-box">
-       <div class="description">
-       <h1>#events</h1>
-       </div>
-       <form method="post" action="./team?%%params&req=table&post=yes">
-       <div class="wrapper">
-        <input type="search" name="table_command" placeholder="Hi %%user, please input filter words or input unix sort command with key name of column e.g.[sort -r %%key]">
-       </div>
-       </form>
-       <div class="tags">
-        <p>FILTER:%%filter&nbsp;&nbsp;[%%sort] data.num:%%num</p>
-        <a href="./team?%%params&req=get&id=new"><p>+ADD</p></a>
-        <a href="./team?%%params&req=table"><p>-CLR</p></a>
-        %%tag
-       </div>
-       %%table
-       <div class="pagelink">
-       %%page_link
-       </div>
+      <div class="main">
+      <div class="descriptor">
+        <h1>Hello Small Shell World, you must be %%user_name</h1>
+        <h3><a href="./team?%%params&req=table">Go to databox table</a></h3>
+      </div>
       </div>
     </div>
     <script>
@@ -62,3 +47,4 @@
    </script>
    </body>
 </html>
+

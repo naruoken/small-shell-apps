@@ -3,13 +3,13 @@
         <meta charset="UTF-8" />
         <title>table view</title>
         <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-        <link rel="stylesheet" href="./team_css">
+        <link rel="stylesheet" href="./tasks_css">
     </head>
     <body>
     <div class="container">
       <div class="flex-header">
        <div class="left-header">
-       <h4>Team APP</h4>
+       <p>tasks table</p>
        </div>
        <div class="right-header">
         <button class="even-btn-menu">=</button>
@@ -21,18 +21,15 @@
         </div>
       </div>
       <div class="table-box">
-       <div class="description">
-       <h1>#events</h1>
-       </div>
-       <form method="post" action="./team?%%params&req=table&post=yes">
+       <form method="post" action="./team.APP?%%params&req=table&post=yes">
        <div class="wrapper">
         <input type="search" name="table_command" placeholder="Hi %%user, please input filter words or input unix sort command with key name of column e.g.[sort -r %%key]">
        </div>
        </form>
        <div class="tags">
         <p>FILTER:%%filter&nbsp;&nbsp;[%%sort] data.num:%%num</p>
-        <a href="./team?%%params&req=get&id=new"><p>+ADD</p></a>
-        <a href="./team?%%params&req=table"><p>-CLR</p></a>
+        <a href="./team.APP?%%params&req=get&id=new"><p>+ADD</p></a>
+        <a href="./team.APP?%%params&req=table"><p>-CLR</p></a>
         %%tag
        </div>
        %%table

@@ -13,6 +13,7 @@
     <div class="container">
       <div class="flex-header">
         <div class="left-header">
+        <h1>Team APP</h1>
         </div>
         <div class="right-header">
         <button class="even-btn-menu">=</button>
@@ -24,13 +25,14 @@
         </div>
       </div>
       <div class="main">
-        <div class="descriptor">
-          <h1>Hello Small Shell World, you must be %%user_name</h1>
-          <h3><a href="./team?%%params&req=table">Go to databox table</a></3>
+        <div class="description">
+         <h1>#PORTAL</h1>
+         <h3> Hello %%user_name, welcome to the Team</h3>
+         <h2> Favorite links </h2>
+         <a href="">Drive #object storage</a>
         </div>
 
         <div class="calendar">
-        <h3>#tasks #events</h3>
           <div id="app">
           <v-app>
           <v-main>

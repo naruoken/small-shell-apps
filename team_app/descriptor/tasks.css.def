@@ -305,19 +305,10 @@ a {
 
 .table-box {
   line-height: .04em;
-  padding: 4px 2px;
+  padding: 18px 2px;
   margin: auto;
   color: #111111;
   margin-bottom: -24px;
-}
-
-.table-box .description {
-  padding-top: 12px;
-  padding-bottom: 12px;
-}
-
-.table-box .description h1 {
-  font-size: 280%;
 }
 
 .table-box .wrapper {
@@ -787,36 +778,28 @@ input[type="file"] {
 }
 
 .main {
- padding-top: 24px;
- height: 68%;
+ padding-top: 48px;
+ height: 80%;
  display: flex;
  flex-wrap: wrap;
  justify-content: center;
- align-items: flex-start;
+ align-items: center;
 }
 
-.main .description {
+.main .descriptor {
+  width: 100%;
   flex: none;
-  max-width: 480px;
-  text-align: left;
-}
-
-.main .description h1 {
-  font-size: 400%;
+  text-align: center;
 }
 
 .main .calendar {
  flex: auto;
- padding-top: 24px;
- padding-left: 24px;
- padding-right: 24px;
  line-height: 0.8em;
  letter-spacing: .09em;
+ max-width: 82%;
  text-align: center;
-}
-
-.main a {
- color: #000080;
+ padding-bottom: 40px;
+ padding-top: 20px;
 }
 
 .main a {

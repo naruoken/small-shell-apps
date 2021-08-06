@@ -9,7 +9,7 @@
     <div class="container">
       <div class="flex-header">
        <div class="left-header">
-       <h4>Team APP</h4>
+       <h2>team table</h2>
        </div>
        <div class="right-header">
         <button class="even-btn-menu">=</button>
@@ -20,10 +20,16 @@
         </nav>
         </div>
       </div>
+      <div class="main">
+        <div class="menu">
+          <h2><a href="./team?%%params&req=table">Event table</a></h2>
+          <h2><a href="./team?%%params&req=table">Task table</a></h2>
+          <h2><a href="./team?%%params&req=table">Team Drive</a></h2>
+          <h2><a href="./team?%%params&req=table">Requests</a></h2>
+          <h2><a href="./team?%%params&req=table">Bookmarks</a></h2>
+        </div>
+
       <div class="table-box">
-       <div class="description">
-       <h1>#events</h1>
-       </div>
        <form method="post" action="./team?%%params&req=table&post=yes">
        <div class="wrapper">
         <input type="search" name="table_command" placeholder="Hi %%user, please input filter words or input unix sort command with key name of column e.g.[sort -r %%key]">
@@ -40,6 +46,7 @@
        %%page_link
        </div>
       </div>
+    </div>
     </div>
     <script>
     const btn = document.querySelector('.even-btn-menu');

@@ -1,29 +1,40 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>table view</title>
+        <title>team portal</title>
         <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
         <link rel="stylesheet" href="./team_css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+
     </head>
     <body>
     <div class="container">
       <div class="flex-header">
-       <div class="left-header">
-       <h4>Team APP</h4>
-       </div>
-       <div class="right-header">
+        <div class="left-header">
+        <h2>Team APP</h2>
+        </div>
+        <div class="right-header">
         <button class="even-btn-menu">=</button>
         <nav>
-        <ul>
-        %%common_menu
-        </ul>
+         <ul>
+         %%common_menu
+         </ul>
         </nav>
         </div>
       </div>
+
+      <div class="main">
+        <div class="menu">
+          <h2><a href="./team?%%params&req=table">Event table</a></h2>
+          <h2><a href="./team?%%params&req=table">Task table</a></h2>
+          <h2><a href="./team?%%params&req=table">Team Drive</a></h2>
+          <h2><a href="./team?%%params&req=table">Requests</a></h2>
+          <h2><a href="./team?%%params&req=table">Bookmarks</a></h2>
+        </div>
+
       <div class="table-box">
-       <div class="description">
-       <h1>#events</h1>
-       </div>
        <form method="post" action="./team?%%params&req=table&post=yes">
        <div class="wrapper">
         <input type="search" name="table_command" placeholder="Hi %%user, please input filter words or input unix sort command with key name of column e.g.[sort -r %%key]">
@@ -40,6 +51,7 @@
        %%page_link
        </div>
       </div>
+    </div>
     </div>
     <script>
     const btn = document.querySelector('.even-btn-menu');
@@ -62,3 +74,4 @@
    </script>
    </body>
 </html>
+

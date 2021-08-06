@@ -165,6 +165,12 @@ case "$req" in
   "log_viewer")
     ../bin/team_log_viewer.sh databox:$databox session:$session pin:$pin id:$id ;;
 
+  # bookmark
+  "bookmarks.table") ../bin/bookmarks_table.sh session:$session pin:$pin user_name:$user_name remote_addr:${REMOTE_ADDR};;
+  "bookmarks.get") ../bin/bookmarks_get.sh session:$session pin:$pin user_name:$user_name id:$id databox:$databox remote_addr:${REMOTE_ADDR};;
+  "bookmarks.set") ../bin/bookmarks_set.sh session:$session pin:$pin user_name:$user_name id:$id databox:$databox remote_addr:${REMOTE_ADDR};;
+  "bookmarks.log_viewer") ../bin/bookmarks_log_viewer.sh session:$session pin:$pin databox:$databox id:$id remote_addr:${REMOTE_ADDR};;
+
   *)
     echo "error: wrong request";;
 
