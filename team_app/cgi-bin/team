@@ -70,7 +70,7 @@ if [ "$auth" = "required" ];then
         echo "Content-Type: text/html"
         echo ""
       fi
-      echo "<meta http-equiv=\"refresh\" content=\"0; url=./auth.team?req=$req&message=!%20Session%20Expired\">"
+      echo "<meta http-equiv=\"refresh\" content=\"0; url=./auth.team?req=$req&message=!%20Session%20ExpiredDDD\">"
       exit 1
     fi
   fi
@@ -165,11 +165,20 @@ case "$req" in
   "log_viewer")
     ../bin/team_log_viewer.sh databox:$databox session:$session pin:$pin id:$id ;;
 
+  "file")
+    ../bin/team_dl.sh session:$session pin:$pin id:$id databox:$databox ;;
+
   # bookmark
   "bookmarks.table") ../bin/bookmarks_table.sh session:$session pin:$pin user_name:$user_name remote_addr:${REMOTE_ADDR};;
   "bookmarks.get") ../bin/bookmarks_get.sh session:$session pin:$pin user_name:$user_name id:$id databox:$databox remote_addr:${REMOTE_ADDR};;
   "bookmarks.set") ../bin/bookmarks_set.sh session:$session pin:$pin user_name:$user_name id:$id databox:$databox remote_addr:${REMOTE_ADDR};;
   "bookmarks.log_viewer") ../bin/bookmarks_log_viewer.sh session:$session pin:$pin databox:$databox id:$id remote_addr:${REMOTE_ADDR};;
+ 
+  # drive
+  "drive.table") ../bin/drive_table.sh session:$session pin:$pin user_name:$user_name remote_addr:${REMOTE_ADDR};;
+  "drive.get") ../bin/drive_get.sh session:$session pin:$pin user_name:$user_name id:$id databox:$databox remote_addr:${REMOTE_ADDR};;
+  "drive.set") ../bin/drive_set.sh session:$session pin:$pin user_name:$user_name id:$id databox:$databox remote_addr:${REMOTE_ADDR};;
+  "drive.log_viewer") ../bin/drive_log_viewer.sh session:$session pin:$pin databox:$databox id:$id remote_addr:${REMOTE_ADDR};;
 
   *)
     echo "error: wrong request";;
