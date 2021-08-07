@@ -179,6 +179,7 @@ case "$req" in
   "drive.get") ../bin/drive_get.sh session:$session pin:$pin user_name:$user_name id:$id databox:$databox remote_addr:${REMOTE_ADDR};;
   "drive.set") ../bin/drive_set.sh session:$session pin:$pin user_name:$user_name id:$id databox:$databox remote_addr:${REMOTE_ADDR};;
   "drive.log_viewer") ../bin/drive_log_viewer.sh session:$session pin:$pin databox:$databox id:$id remote_addr:${REMOTE_ADDR};;
+  "drive.file") ../bin/drive_dl.sh session:$session pin:$pin databox:$databox id:$id remote_addr:${REMOTE_ADDR};;
 
   *)
     echo "error: wrong request";;

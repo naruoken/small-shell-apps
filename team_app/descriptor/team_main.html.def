@@ -29,7 +29,7 @@
          <h1>#PORTAL</h1>
          <h3> Hello %%user_name, welcome to the Team</h3>
          <h2> Favorite links </h2>
-         <a href="">Drive #object storage</a>
+         <a href="./team?%%params&subapp=drive&req=table">Drive #object storage</a>
         </div>
 
         <div class="calendar">

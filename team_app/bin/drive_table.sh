@@ -193,6 +193,7 @@ cat ../descriptor/$view | sed "s/^ *</</g" \
 | sed "s/{%%%%%}/\//g"\
 | sed "s/{%%%%}/\&/g"\
 | sed "s/{%%%}/:/g"\
+| sed "s/.\/shell.app?/.\/team?/g"\
 | sed "s/%%params/subapp=drive\&session=$session\&pin=$pin\&databox=$databox/g"
 
 

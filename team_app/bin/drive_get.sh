@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Target databox and keys
-keys=%%keys
+keys=all
 
 # load query string param
 for param in `echo $@`

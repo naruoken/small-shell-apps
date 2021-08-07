@@ -605,9 +605,9 @@ a {
 }
 
 .form-box .file_form #file_input_label {
-  background-color: #D8D8D8;
+  background-color: #0C47C1;
   cursor: pointer;
-  color: #333;
+  color: white;
   font-weight: bold;
   padding-left: 6px;
   padding-right: 6px;
