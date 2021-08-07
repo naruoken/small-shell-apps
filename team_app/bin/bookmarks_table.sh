@@ -193,6 +193,7 @@ cat ../descriptor/$view | sed "s/^ *</</g" \
 | sed "s/{%%%%%}/\//g"\
 | sed "s/{%%%%}/\&/g"\
 | sed "s/{%%%}/:/g"\
+| sed "s/%%session/session=$session\&pin=$pin/g" \
 | sed "s/%%params/subapp=bookmarks\&session=$session\&pin=$pin\&databox=$databox/g"
 
 

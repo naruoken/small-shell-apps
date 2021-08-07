@@ -74,7 +74,7 @@ cat ../descriptor/team_main.html.def | sed "s/^ *</</g" \
 | sed "s/%%user_name/$user_name/g" \
 | sed "/%%json/r ../tmp/$session/merged_events"\
 | sed "s/%%json//g"\
-| sed "s/%%params/session=$session\&pin=$pin/g"
+| sed "s/%%session/session=$session\&pin=$pin/g" 
 
 if [ "$session" ];then
   rm -rf ../tmp/$session

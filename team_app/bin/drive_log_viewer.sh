@@ -31,7 +31,7 @@ fi
 
 # SET BASE_COMMAND
 META="sudo -u small-shell ${small_shell_path}/bin/meta"
-DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session pin:$pin app:drive"
+DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session pin:$pin app:team"
 
 # -----------------
 # Exec command

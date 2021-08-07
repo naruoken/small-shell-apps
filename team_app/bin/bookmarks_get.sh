@@ -88,7 +88,7 @@ if [ "$id" = "new" ];then
   | sed "s/%%dataset//g"\
   | sed "s/%%id/$id/g" \
   | sed "s/%%pdls/session=$session\&pin=$pin\&req=get/g" \
-  | sed "s/%%params/subapp=bookmarks\&session=$session\&pin=$pin\&databox=$databox/g"
+  | sed "s/%%session/session=$session\&pin=$pin/g"
 else
   cat ../descriptor/bookmarks_get.html.def | sed "s/^ *</</g" \
   | sed "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
@@ -99,7 +99,7 @@ else
   | sed "s/%%history//g"\
   | sed "s/%%id/$id/g" \
   | sed "s/%%pdls/session=$session\&pin=$pin\&req=get/g" \
-  | sed "s/%%params/subapp=bookmarks\&session=$session\&pin=$pin\&databox=$databox/g"
+  | sed "s/%%session/session=$session\&pin=$pin/g"
 fi
 
 if [ "$session" ];then

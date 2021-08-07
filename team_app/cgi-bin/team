@@ -50,15 +50,16 @@ if [ "$subapp" ];then
 fi
 
 # define contents type except statistics file or graph
-if [ ! "$req" = "stats" -a ! "$req" = "file" ];then
+if [[ ! "$req" == *stats && ! "$req" == *file ]];then
   echo "Content-Type: text/html"
   echo ""
 fi
+
 # Session verification
 
 if [ "$auth" = "required" ];then
 
-  if [ "$req" = "log_viewer" -o "$req" = "csv" -o "$req" = "hash" -o "$req" = "stats" -o "$req" = "file" ];then
+  if [[ "$req" == *log_viewer || "$req" == *csv || "$req" == *hash || "$req" == *stats || "$req" == *file ]];then
     session_update=no
 
     # session check
@@ -66,7 +67,7 @@ if [ "$auth" = "required" ];then
     session_ip=`echo $session_chk | awk -F ":" '{print $2}'`
 
     if [ ! "${session_ip}" = ${REMOTE_ADDR} ];then
-      if [ "$req" = "stats" -o "$req" = "file" ];then
+      if [[ ! "$req" == *stats && ! "$req" == *file ]];then
         echo "Content-Type: text/html"
         echo ""
       fi
