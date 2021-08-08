@@ -90,7 +90,7 @@ a {
   padding-top: 10px;
   opacity: 0.8;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   top: 3.125rem;
   right: 0;
   overflow-x: hidden;
@@ -807,6 +807,7 @@ input[type="file"] {
 
 .main .calendar {
  flex: auto;
+ z-index: 1;
  padding-top: 24px;
  padding-left: 24px;
  padding-right: 24px;

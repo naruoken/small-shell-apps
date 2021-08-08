@@ -88,6 +88,7 @@ if [ "$id" = "new" ];then
   | sed "s/%%dataset//g"\
   | sed "s/%%id/$id/g" \
   | sed "s/%%pdls/session=$session\&pin=$pin\&req=get/g" \
+  | sed "s/%%session/session=$session\&pin=$pin/g" \
   | sed "s/%%params/session=$session\&pin=$pin\&databox=$databox/g"
 else
   cat ../descriptor/team_get.html.def | sed "s/^ *</</g" \
@@ -99,6 +100,7 @@ else
   | sed "s/%%history//g"\
   | sed "s/%%id/$id/g" \
   | sed "s/%%pdls/session=$session\&pin=$pin\&req=get/g" \
+  | sed "s/%%session/session=$session\&pin=$pin/g" \
   | sed "s/%%params/session=$session\&pin=$pin\&databox=$databox/g"
 fi
 
