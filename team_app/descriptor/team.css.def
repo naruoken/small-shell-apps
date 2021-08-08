@@ -534,7 +534,7 @@ a {
 
 
 @media screen and (max-width: 640px){
-  .form-box li label:not(.checkbox-label):not(.radio-label):not(#file_input_label) {
+  .form-box li label:not(.checkbox-label):not(.radio-label):not(#file_input_label):not(#gray_label) {
     font-size: 70%;
     text-align: left;
     color: #444444;
@@ -548,7 +548,7 @@ a {
 }
 
 @media screen and (min-width: 640px){
-  .form-box li label:not(.checkbox-label):not(.radio-label):not(#file_input_label) {
+  .form-box li label:not(.checkbox-label):not(.radio-label):not(#file_input_label):not(#gray_label) {
     font-size: 84%;
     font-weight:bold;
     color: #444444;
@@ -603,6 +603,18 @@ a {
 
 .form-box .file_form {
   padding-top: 12px;
+}
+
+.form-box #gray_label {
+    font-size: 70%;
+    text-align: left;
+    color: #c0c0c0;
+    min-width:100%;
+    font-weight: 300;
+    margin-right: 2px;
+    letter-spacing: .09em;
+    padding: 6px 6px;
+    font-weight: bold;
 }
 
 .form-box .file_form #file_input_label {
