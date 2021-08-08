@@ -13,7 +13,7 @@
     <div class="container">
       <div class="flex-header">
         <div class="left-header">
-        <h1>Team APP</h1>
+        <h1><a href="./team?%%session&req=main">Team APP</a></h1>
         </div>
         <div class="right-header">
         <button class="even-btn-menu">=</button>
@@ -29,7 +29,10 @@
          <h1>#PORTAL</h1>
          <h3> Hello %%user_name, welcome to the Team</h3>
          <h2> Favorite links </h2>
-         <a href="./team?%%params&subapp=drive&req=table">Drive #object storage</a>
+         <ul>
+         <li><a href="./team?%%session&subapp=drive&req=table">Drive #object storage</a></li>
+         <li><a href="./team?%%session&req=table">Events #table</a></li>
+         </ul>
         </div>
 
         <div class="calendar">
@@ -124,37 +127,6 @@
                       @click:date="viewDay"
                       @change="updateRange"
                     ></v-calendar>
-                    <v-menu
-                      v-model="selectedOpen"
-                      :close-on-content-click="false"
-                      :activator="selectedElement"
-                      offset-x
-                    >
-                      <v-card
-                        color="grey lighten-4"
-                        min-width="350px"
-                        flat
-                      >
-                        <v-toolbar
-                          :color="selectedEvent.color"
-                          dark
-                        >
-                        <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
-                        </v-toolbar>
-                        <v-card-text>
-                          <span v-html="selectedEvent.detail"></span>
-                        </v-card-text>
-                        <v-card-actions>
-                          <v-btn
-                            text
-                            color="secondary"
-                            @click="selectedOpen = false"
-                          >
-                            OK
-                          </v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-menu>
                   </v-sheet>
                 </v-col>
               </v-row>
@@ -205,21 +177,8 @@
              next () {
                this.$refs.calendar.next()
              },
-             showEvent ({ nativeEvent, event }) {
-               const open = () => {
-                 this.selectedEvent = event
-                 this.selectedElement = nativeEvent.target
-                 requestAnimationFrame(() => requestAnimationFrame(() => this.selectedOpen = true))
-               }
-
-               if (this.selectedOpen) {
-                 this.selectedOpen = false
-                 requestAnimationFrame(() => requestAnimationFrame(() => open()))
-               } else {
-                 open()
-               }
-
-               nativeEvent.stopPropagation()
+             showEvent({ event }) {
+               alert(`clicked ${event.name}`);
              },
 
              updateRange ({ start, end }) {

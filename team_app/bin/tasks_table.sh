@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Target databox and keys
-databox=%%databox
-keys=%%keys
+databox=tasks
+keys=all
 
 # load query string param
 for param in `echo $@`
@@ -36,7 +36,7 @@ done
 
 # SET BASE_COMMAND
 META="sudo -u small-shell ${small_shell_path}/bin/meta"
-DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session pin:$pin app:team.APP"
+DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session pin:$pin app:team"
 
 if [ "$page" = "" ];then
   page=1
@@ -48,9 +48,10 @@ if [ -s ../tmp/$session/table_command ];then
 fi
 
 primary_key=`$META get.key:$databox{primary}`
-sort_chk=`echo $table_command | grep ^sort, `
+sort_chk_post=`echo $table_command | grep "^sort "`
+sort_chk_query_string=`echo $table_command | grep "^sort,"`
 
-if [ "$sort_chk" ];then
+if [ "$sort_chk_post" -o "$sort_chk_query_string" ];then
   table_command=`echo $table_command | sed "s/ /,/g"`
   sort_option=`echo $table_command | sed "s/sort,//g" | awk -F "," '{print $1}'`
   sort_col=`echo $table_command  | sed "s/sort,//g" | awk -F "," '{print $2}'`
@@ -117,7 +118,7 @@ fi
 $META get.tag:tasks{$databox} > ../tmp/$session/tags
 for tag in `cat ../tmp/$session/tags`
 do
- echo "<p><a href=\"./team.APP%%params&req=table&table_command=$tag\">#$tag&nbsp;</a></p>" > ../tmp/$session/tag &
+ echo "<p><a href=\"./team?%%params&req=table&table_command=$tag\">#$tag&nbsp;</a></p>" > ../tmp/$session/tag &
 done
 
 # gen %%page_link contents
@@ -153,7 +154,7 @@ fi
 
 if [ "$line_num" = 0 ];then
   if [ "$err_chk" = "" -a "$filter_table" = "-" -a ! "$sort_col" ];then
-    echo "<h4><a href=\"./team.APP%%params&req=get&id=new\">+ ADD DATA</a></h4>" >> ../tmp/$session/table
+    echo "<h4><a href=\"./team?&%%params&req=get&id=new\">+ ADD DATA</a></h4>" >> ../tmp/$session/table
     view=tasks_table.html.def
   elif [ "$sort_col" ];then
     echo "<h4>sort option $sort_option seems wrong</h4>" >> ../tmp/$session/table
@@ -167,7 +168,7 @@ else
 fi
 
 cat ../descriptor/$view | sed "s/^ *</</g" \
-| sed "/%%common_menu/r ../descriptor/common_parts/tasks_common_menu" \
+| sed "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
 | sed "/%%common_menu/d"\
 | sed "/%%table/r ../tmp/$session/table" \
 | sed "s/%%table//g"\
@@ -192,6 +193,8 @@ cat ../descriptor/$view | sed "s/^ *</</g" \
 | sed "s/{%%%%%}/\//g"\
 | sed "s/{%%%%}/\&/g"\
 | sed "s/{%%%}/:/g"\
+| sed "s/.\/shell.app?/.\/team?/g"\
+| sed "s/%%session/session=$session\&pin=$pin/g" \
 | sed "s/%%params/subapp=tasks\&session=$session\&pin=$pin\&databox=$databox/g"
 
 

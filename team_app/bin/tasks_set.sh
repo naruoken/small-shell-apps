@@ -44,7 +44,7 @@ fi
 
 # BASE COMMAND
 META="sudo -u small-shell ${small_shell_path}/bin/meta"
-DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session pin:$pin app:team.APP"
+DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session pin:$pin app:team"
 
 
 # push datas to databox
@@ -54,14 +54,14 @@ error_chk=`grep "^error" ../tmp/$session/result`
 
 if [ "$error_chk" ];then
   cat ../descriptor/tasks_set.html.def | sed "s/^ *</</g" \
-  | sed "/%%common_menu/r ../descriptor/common_parts/tasks_common_menu" \
+  | sed "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
   | sed "s/%%common_menu//g"\
   | sed "/%%message/r ../tmp/$session/result" \
   | sed "/%%message/d"\
-  | sed "s/%%params/subapp=tasks\&session=$session\&pin=$pin/g"
+  | sed "s/%%session/session=$session\&pin=$pin/g"
 else
   # redirect to the table
-  echo "<meta http-equiv=\"refresh\" content=\"0; url=./team.APP?session=$session&pin=$pin&req=table\">"
+  echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?subapp=tasks&session=$session&pin=$pin&req=table\">"
 fi
 
 if [ "$session" ];then

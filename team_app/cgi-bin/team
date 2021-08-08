@@ -182,6 +182,13 @@ case "$req" in
   "drive.log_viewer") ../bin/drive_log_viewer.sh session:$session pin:$pin databox:$databox id:$id remote_addr:${REMOTE_ADDR};;
   "drive.file") ../bin/drive_dl.sh session:$session pin:$pin databox:$databox id:$id remote_addr:${REMOTE_ADDR};;
 
+  # tasks
+  "tasks.table") ../bin/tasks_table.sh session:$session pin:$pin user_name:$user_name remote_addr:${REMOTE_ADDR};;
+  "tasks.get") ../bin/tasks_get.sh session:$session pin:$pin user_name:$user_name id:$id databox:$databox remote_addr:${REMOTE_ADDR};;
+  "tasks.set") ../bin/tasks_set.sh session:$session pin:$pin user_name:$user_name id:$id databox:$databox remote_addr:${REMOTE_ADDR};;
+  "tasks.log_viewer") ../bin/tasks_log_viewer.sh session:$session pin:$pin databox:$databox id:$id remote_addr:${REMOTE_ADDR};;
+  "tasks.file") ../bin/tasks_dl.sh session:$session pin:$pin databox:$databox id:$id remote_addr:${REMOTE_ADDR};;
+
   *)
     echo "error: wrong request";;
 

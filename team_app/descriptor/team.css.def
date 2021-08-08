@@ -57,7 +57,7 @@ a {
 }
 
 .left-header a {
-  color: #6495ED;
+  color: #333;
 }
 
 .right-header {
@@ -499,6 +499,7 @@ a {
 
 .form-box ul {
   list-style: none;
+  align-items: flex-start;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -803,6 +804,13 @@ input[type="file"] {
 
 .main .description h1 {
   font-size: 400%;
+}
+
+.main .description ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  margin-bottom: 28px;
 }
 
 .main .calendar {

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Target databox and keys
-keys=%%keys
+keys=all
 
 # load query string param
 for param in `echo $@`
@@ -42,7 +42,7 @@ fi
 
 # SET BASE_COMMAND
 META="sudo -u small-shell ${small_shell_path}/bin/meta"
-DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session pin:$pin app:team.APP"
+DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session pin:$pin app:team"
 
 if [ $id = "new" ];then
 
@@ -82,16 +82,17 @@ fi
 # render HTML
 if [ "$id" = "new" ];then
   cat ../descriptor/tasks_new.html.def | sed "s/^ *</</g" \
-  | sed "/%%common_menu/r ../descriptor/common_parts/tasks_common_menu" \
+  | sed "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
   | sed "/%%common_menu/d" \
   | sed "/%%dataset/r ../tmp/$session/dataset" \
   | sed "s/%%dataset//g"\
   | sed "s/%%id/$id/g" \
   | sed "s/%%pdls/session=$session\&pin=$pin\&req=get/g" \
-  | sed "s/%%params/subapp=tasks\&session=$session\&pin=$pin\&databox=$databox/g"
+  | sed "s/%%session/session=$session\&pin=$pin/g" \
+  | sed "s/%%params/session=$session\&pin=$pin\&databox=$databox/g"
 else
   cat ../descriptor/tasks_get.html.def | sed "s/^ *</</g" \
-  | sed "/%%common_menu/r ../descriptor/common_parts/tasks_common_menu" \
+  | sed "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
   | sed "/%%common_menu/d" \
   | sed "/%%dataset/r ../tmp/$session/dataset" \
   | sed "s/%%dataset//g"\
@@ -99,7 +100,8 @@ else
   | sed "s/%%history//g"\
   | sed "s/%%id/$id/g" \
   | sed "s/%%pdls/session=$session\&pin=$pin\&req=get/g" \
-  | sed "s/%%params/subapp=tasks\&session=$session\&pin=$pin\&databox=$databox/g"
+  | sed "s/%%session/session=$session\&pin=$pin/g" \
+  | sed "s/%%params/session=$session\&pin=$pin\&databox=$databox/g"
 fi
 
 if [ "$session" ];then

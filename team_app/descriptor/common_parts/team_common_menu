@@ -1,6 +1,6 @@
 <li><a href="./team?%%session&&req=main">APP Portal</a></li>
 <li><a href="./team?%%session&req=table">Event table</a></li>
-<li><a href="./team?%%session&req=table">Task table</a></li>
+<li><a href="./team?%%session&subapp=tasks&req=table">Task table</a></li>
 <li><a href="./team?%%session&subapp=drive&req=table">Drive</a></li>
 <li><a href="./team?%%session&req=table">Requests</a></li>
 <li><a href="./team?%%session&subapp=bookmarks&req=table">Bookmarks</a></li>

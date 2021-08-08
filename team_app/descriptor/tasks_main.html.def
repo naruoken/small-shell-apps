@@ -3,7 +3,7 @@
         <meta charset="UTF-8" />
         <title>tasks portal</title>
         <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-        <link rel="stylesheet" href="./tasks_css">
+        <link rel="stylesheet" href="./team_css">
     </head>
     <body>
     <div class="container">
@@ -20,8 +20,10 @@
         </div>
       </div>
       <div class="main">
-        <h3>Hello Small Shell World, you must be %%user_name</h3>
-        <h3><a href="./team.APP?%%params&req=table">Go to databox table</a></h3>
+      <div class="descriptor">
+        <h1>Hello Small Shell World, you must be %%user_name</h1>
+        <h3><a href="./team?%%params&req=table">Go to databox table</a></h3>
+      </div>
       </div>
     </div>
     <script>
