@@ -48,10 +48,15 @@ DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$sess
 
 # push datas to databox
 
+$DATA_SHELL databox:$databox action:set id:$id keys:user_name,email,type,assignee,status input_dir:../tmp/$session  > ../tmp/$session/result
+
 if [ "$id" = "new" ];then
-  $DATA_SHELL databox:$databox action:set id:$id keys:$keys input_dir:../tmp/$session  > ../tmp/$session/result
-else
-  $DATA_SHELL databox:$databox action:set id:$id keys:user_name,email,type,assignee,status input_dir:../tmp/$session  > ../tmp/$session/result
+  # update id
+  id=`cat ../tmp/$session/result | awk '{print $3}' | uniq`
+fi
+
+inquiry_chk=`cat ../tmp/$session/inquiry | sed -z "s/\n//g" | sed "s/ //g"`
+if [ "$inquiry_chk" ];then
   $DATA_SHELL databox:$databox action:merge.set id:$id key:inquiry input_dir:../tmp/$session  >> ../tmp/$session/result
 fi
 
