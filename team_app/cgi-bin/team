@@ -188,6 +188,13 @@ case "$req" in
   "tasks.set") ../bin/tasks_set.sh session:$session pin:$pin user_name:$user_name id:$id databox:$databox remote_addr:${REMOTE_ADDR};;
   "tasks.log_viewer") ../bin/tasks_log_viewer.sh session:$session pin:$pin databox:$databox id:$id remote_addr:${REMOTE_ADDR};;
   "tasks.file") ../bin/tasks_dl.sh session:$session pin:$pin databox:$databox id:$id remote_addr:${REMOTE_ADDR};;
+  
+  # inquiries
+  "inquiries.table") ../bin/inquiries_table.sh session:$session pin:$pin user_name:$user_name remote_addr:${REMOTE_ADDR};;
+  "inquiries.get") ../bin/inquiries_get.sh session:$session pin:$pin user_name:$user_name id:$id databox:$databox remote_addr:${REMOTE_ADDR};;
+  "inquiries.set") ../bin/inquiries_set.sh session:$session pin:$pin user_name:$user_name id:$id databox:$databox remote_addr:${REMOTE_ADDR};;
+  "inquiries.log_viewer") ../bin/inquiries_log_viewer.sh session:$session pin:$pin databox:$databox id:$id remote_addr:${REMOTE_ADDR};;
+  "inquiries.file") ../bin/inquiries_dl.sh session:$session pin:$pin databox:$databox id:$id remote_addr:${REMOTE_ADDR};;
 
   *)
     echo "error: wrong request";;

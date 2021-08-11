@@ -22,7 +22,7 @@
 
       <div class="form-box">
        <div class="description">
-        <h1>#bookmarks.data</h1>
+        <h1>inquiries.data</h1>
         <p>id:%%id</p>
        </div>
        <form method="post" action="./team?%%params&req=set&id=%%id&post=yes" onclick="document.charset='utf-8';">
