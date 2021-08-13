@@ -13,15 +13,16 @@
        <h1>#inquiry</h1>
        <p>id:%%id</p>
       </div>
+      <div class="log">
+       <p>%%history</p>
+      </div>
+      <hr>
       <form method="post" action="./inquiry?req=set&id=%%id&post=yes">
       <ul>
        %%dataset
       </ul>
       <input name="user_name" type="hidden" value="%%user_name">
       <button class="button" type="submit">SUBMIT</button>
-      <div class="log">
-       <p>%%history</p>
-      </div>
      </div>
     </div>
     </body>
