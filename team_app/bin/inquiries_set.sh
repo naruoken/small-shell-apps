@@ -1,15 +1,14 @@
 #!/bin/bash
 
+# Target databox and keys
+databox=inquiries
+
 # load query string param
 for param in `echo $@`
 do
 
   if [[ $param == session:* ]]; then
     session=`echo $param | awk -F":" '{print $2}'`
-  fi
-
-  if [[ $param == databox:* ]]; then
-    databox=`echo $param | awk -F":" '{print $2}'`
   fi
 
   if [[ $param == pin:* ]]; then
@@ -46,8 +45,14 @@ fi
 META="sudo -u small-shell ${small_shell_path}/bin/meta"
 DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session pin:$pin app:team"
 
-# push datas to databox
+# form type check
+form_chk=`$META chk.form:$databox`
+if [ "$form_chk" = "multipart" ];then
+   file_key=`cat ../tmp/$session/binary_file/input_name`
+   cat ../tmp/$session/binary_file/file_name > ../tmp/$session/$file_key 2>/dev/null
+fi
 
+# push datas to databox
 $DATA_SHELL databox:$databox action:set id:$id keys:user_name,email,type,assignee,status input_dir:../tmp/$session  > ../tmp/$session/result
 
 if [ "$id" = "new" ];then

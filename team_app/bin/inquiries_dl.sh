@@ -1,12 +1,11 @@
 #!/bin/bash
 
+# Target databox
+databox=inquiries
+
 # load query string param
 for param in `echo $@`
 do
-
-  if [[ $param == databox:* ]]; then
-    databox=`echo $param | awk -F":" '{print $2}'`
-  fi
 
   if [[ $param == session:* ]]; then
     session=`echo $param | awk -F":" '{print $2}'`

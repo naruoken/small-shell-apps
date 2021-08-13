@@ -30,8 +30,9 @@
         %%dataset
        </ul>
        <button class="button" type="submit">SET</button>
-      <div class="action_links">
-       <span><p style="cursor: pointer" onclick="window.open('./team?%%params&req=log_viewer&id=%%id', 'log_viewer', 'width=820,height=280')">Show data updated history</p></span>
+       <div class="action_links">
+        <span><p style="cursor: pointer" onclick="window.open('./team?%%params&req=log_viewer&id=%%id', 'log_viewer', 'width=820,height=280')">Show data updated history</p></span>
+       </div>
       </div>
    </div>
    <script>

@@ -1,15 +1,14 @@
 #!/bin/bash
 
+# Target databox and keys
+databox=bookmarks
+
 # load query string param
 for param in `echo $@`
 do
 
   if [[ $param == session:* ]]; then
     session=`echo $param | awk -F":" '{print $2}'`
-  fi
-
-  if [[ $param == databox:* ]]; then
-    databox=`echo $param | awk -F":" '{print $2}'`
   fi
 
   if [[ $param == pin:* ]]; then
@@ -46,6 +45,12 @@ fi
 META="sudo -u small-shell ${small_shell_path}/bin/meta"
 DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session pin:$pin app:team"
 
+# form type check
+form_chk=`$META chk.form:$databox`
+if [ "$form_chk" = "multipart" ];then
+   file_key=`cat ../tmp/$session/binary_file/input_name`
+   cat ../tmp/$session/binary_file/file_name > ../tmp/$session/$file_key 2>/dev/null
+fi
 
 # push datas to databox
 $DATA_SHELL databox:$databox action:set id:$id keys:$keys input_dir:../tmp/$session  > ../tmp/$session/result
@@ -58,7 +63,7 @@ if [ "$error_chk" ];then
   | sed "s/%%common_menu//g"\
   | sed "/%%message/r ../tmp/$session/result" \
   | sed "/%%message/d"\
-  | sed "s/%%params/subapp=bookmarks\&session=$session\&pin=$pin/g"
+  | sed "s/%%session/session=$session\&pin=$pin/g"
 else
   # redirect to the table
   echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?subapp=bookmarks&session=$session&pin=$pin&req=table\">"

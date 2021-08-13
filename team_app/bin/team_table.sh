@@ -2,7 +2,7 @@
 
 # Target databox and keys
 databox=events
-keys=name,start,end,sync
+keys=%%keys
 
 # load query string param
 for param in `echo $@`
@@ -48,9 +48,10 @@ if [ -s ../tmp/$session/table_command ];then
 fi
 
 primary_key=`$META get.key:$databox{primary}`
-sort_chk=`echo $table_command | grep "^sort "`
+sort_chk_post=`echo $table_command | grep "^sort "`
+sort_chk_query_string=`echo $table_command | grep "^sort,"`
 
-if [ "$sort_chk" ];then
+if [ "$sort_chk_post" -o "$sort_chk_query_string" ];then
   table_command=`echo $table_command | sed "s/ /,/g"`
   sort_option=`echo $table_command | sed "s/sort,//g" | awk -F "," '{print $1}'`
   sort_col=`echo $table_command  | sed "s/sort,//g" | awk -F "," '{print $2}'`
@@ -129,7 +130,7 @@ err_chk=`grep "error: there is no databox" ../tmp/$session/table`
 
 if [ "$err_chk" ];then
 
-  echo "<h2>Oops please define Dawtabox and keys in team_table.sh for generating table</h2>"
+  echo "<h2>Oops something must be wrong, please check  team_table.sh</h2>"
   if [ "$session" ];then
     rm -rf ../tmp/$session
   fi
@@ -171,7 +172,7 @@ cat ../descriptor/$view | sed "s/^ *</</g" \
 | sed "/%%common_menu/d"\
 | sed "/%%table/r ../tmp/$session/table" \
 | sed "s/%%table//g"\
-| sed "s/%%databox/$databox/g"\
+| sed "s/events/$databox/g"\
 | sed "/%%page_link/r ../tmp/$session/page_link" \
 | sed "s/%%page_link//g"\
 | sed "/%%tag/r ../tmp/$session/tag" \
@@ -192,6 +193,7 @@ cat ../descriptor/$view | sed "s/^ *</</g" \
 | sed "s/{%%%%%}/\//g"\
 | sed "s/{%%%%}/\&/g"\
 | sed "s/{%%%}/:/g"\
+| sed "s/.\/shell.app?/.\/team?/g"\
 | sed "s/%%session/session=$session\&pin=$pin/g" \
 | sed "s/%%params/session=$session\&pin=$pin\&databox=$databox/g" 
 

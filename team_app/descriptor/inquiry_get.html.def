@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>%%id</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+        <link rel="stylesheet" href="./inquiry_css">
+    </head>
+    <body>
+    <div class="container">
+
+     <div class="form-box">
+      <div class="type2-description">
+       <h1>#inquiry</h1>
+       <p>id:%%id</p>
+      </div>
+      <form method="post" action="./inquiry?req=set&id=%%id&post=yes">
+      <ul>
+       %%dataset
+      </ul>
+      <input name="user_name" type="hidden" value="%%user_name">
+      <button class="button" type="submit">SUBMIT</button>
+      <div class="log">
+       <p>%%history</p>
+      </div>
+     </div>
+    </div>
+    </body>
+</html>

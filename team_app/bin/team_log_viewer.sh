@@ -1,15 +1,15 @@
 #!/bin/bash
 
+# Target databox and keys
+databox=events
+keys=all
+
 # load query string param
 for param in `echo $@`
 do
 
   if [[ $param == session:* ]]; then
     session=`echo $param | awk -F":" '{print $2}'`
-  fi
-
-  if [[ $param == databox:* ]]; then
-    databox=`echo $param | awk -F":" '{print $2}'`
   fi
 
   if [[ $param == pin:* ]]; then
@@ -38,8 +38,15 @@ DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$sess
 # -----------------
 
 # gen %%log contents
-$DATA_SHELL databox:$databox \
-action:get id:$id type:log format:html_tag > ../tmp/${session}_log/log
+
+if [ "$keys" = "all" ];then
+  $DATA_SHELL databox:$databox \
+  action:get id:$id type:log format:html_tag > ../tmp/${session}_log/log
+else
+  GREP=`echo $keys | sed "s/^/grep -e \"<pre>\" -e \"<\/pre>\" -e key:/g" | sed "s/,/ -e key:/g"`
+  LOG_GREP="$DATA_SHELL databox:$databox action:get id:$id type:log | $GREP"
+  eval $LOG_GREP > ../tmp/${session}_log/log
+fi
 
 # render HTML
 cat ../descriptor/team_log_viewer.html.def | sed "s/^ *</</g" \

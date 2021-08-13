@@ -2,7 +2,7 @@
 
 # Target databox and keys
 databox=tasks
-keys=all
+keys=%%keys
 
 # load query string param
 for param in `echo $@`
@@ -130,7 +130,7 @@ err_chk=`grep "error: there is no databox" ../tmp/$session/table`
 
 if [ "$err_chk" ];then
 
-  echo "<h2>Oops please define Dawtabox and keys in tasks_table.sh for generating table</h2>"
+  echo "<h2>Oops something must be wrong, please check tasks_table.sh</h2>"
   if [ "$session" ];then
     rm -rf ../tmp/$session
   fi
@@ -172,7 +172,7 @@ cat ../descriptor/$view | sed "s/^ *</</g" \
 | sed "/%%common_menu/d"\
 | sed "/%%table/r ../tmp/$session/table" \
 | sed "s/%%table//g"\
-| sed "s/%%databox/$databox/g"\
+| sed "s/tasks/$databox/g"\
 | sed "/%%page_link/r ../tmp/$session/page_link" \
 | sed "s/%%page_link//g"\
 | sed "/%%tag/r ../tmp/$session/tag" \

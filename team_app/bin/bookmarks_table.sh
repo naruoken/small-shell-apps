@@ -2,7 +2,7 @@
 
 # Target databox and keys
 databox=bookmarks
-keys=all
+keys=%%keys
 
 # load query string param
 for param in `echo $@`
@@ -130,7 +130,7 @@ err_chk=`grep "error: there is no databox" ../tmp/$session/table`
 
 if [ "$err_chk" ];then
 
-  echo "<h2>Oops please define Dawtabox and keys in bookmarks_table.sh for generating table</h2>"
+  echo "<h2>Oops something must be wrong, please check bookmarks_table.sh</h2>"
   if [ "$session" ];then
     rm -rf ../tmp/$session
   fi
@@ -154,7 +154,7 @@ fi
 
 if [ "$line_num" = 0 ];then
   if [ "$err_chk" = "" -a "$filter_table" = "-" -a ! "$sort_col" ];then
-    echo "<h4><a href=\"./team?%%params&req=get&id=new\">+ ADD DATA</a></h4>" >> ../tmp/$session/table
+    echo "<h4><a href=\"./team?&%%params&req=get&id=new\">+ ADD DATA</a></h4>" >> ../tmp/$session/table
     view=bookmarks_table.html.def
   elif [ "$sort_col" ];then
     echo "<h4>sort option $sort_option seems wrong</h4>" >> ../tmp/$session/table
@@ -172,7 +172,7 @@ cat ../descriptor/$view | sed "s/^ *</</g" \
 | sed "/%%common_menu/d"\
 | sed "/%%table/r ../tmp/$session/table" \
 | sed "s/%%table//g"\
-| sed "s/%%databox/$databox/g"\
+| sed "s/bookmarks/$databox/g"\
 | sed "/%%page_link/r ../tmp/$session/page_link" \
 | sed "s/%%page_link//g"\
 | sed "/%%tag/r ../tmp/$session/tag" \
@@ -193,6 +193,7 @@ cat ../descriptor/$view | sed "s/^ *</</g" \
 | sed "s/{%%%%%}/\//g"\
 | sed "s/{%%%%}/\&/g"\
 | sed "s/{%%%}/:/g"\
+| sed "s/.\/shell.app?/.\/team?/g"\
 | sed "s/%%session/session=$session\&pin=$pin/g" \
 | sed "s/%%params/subapp=bookmarks\&session=$session\&pin=$pin\&databox=$databox/g"
 

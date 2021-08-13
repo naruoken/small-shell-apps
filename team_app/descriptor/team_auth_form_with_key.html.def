@@ -18,7 +18,7 @@
       <form method="post" action="./auth.team">
       <h1>team</h1>
       <div class="wrapper">
-        <input type="text" name="team_key_25358" placeholder="please paste key" list="keylist">
+        <input type="text" name="team_key_13216" placeholder="please paste key" list="keylist">
         <datalist id="keylist">
         <option value="%%key_placeholder"></option>
         </datalist>
@@ -53,7 +53,7 @@
 
   // key push to localstorage  
   function setkey() {
-     localStorage.setItem("team_key_25358", "%%key_placeholder");
+     localStorage.setItem("team_key_13216", "%%key_placeholder");
   }
 
  </script>

@@ -22,7 +22,7 @@
 
       <div class="form-box">
        <div class="description">
-        <h1>inquiries.data</h1>
+        <h1>#inquiries.data</h1>
         <p>id:%%id</p>
        </div>
        <form method="post" action="./team?%%params&req=set&id=%%id&post=yes" onclick="document.charset='utf-8';">
@@ -48,13 +48,6 @@
        btn.innerHTML = '=';
      }
    })
-
-   function del_confirmation(){
-     ret = confirm("Are you OK to delete this data ?");
-     if (ret == true){
-       location.href = "./team?%%params&req=del&id=%%id";
-     }
-   }
 
    </script>
    </body>

@@ -9,7 +9,7 @@
     <div class="container">
       <div class="flex-header">
        <div class="left-header">
-       <h4><a href="./team?%%session&req=main">Team APP</a></h4>
+         <h4><a href="./team?%%session&req=main">Team APP</a></h4>
        </div>
        <div class="right-header">
         <button class="even-btn-menu">=</button>
@@ -22,7 +22,7 @@
       </div>
       <div class="table-box">
        <div class="description">
-         <h1>#Inquiries</h1>
+         <h1>#inquiries</h1>
        </div>
        <form method="post" action="./team?%%params&req=table&post=yes">
        <div class="wrapper">

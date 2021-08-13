@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Target databox
-databox=tasks
+databox=bookmarks
 
 # load query string param
 for param in `echo $@`

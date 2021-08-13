@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Target databox
-databox=tasks
+# Target databox 
+databox=events
 
 # load query string param
 for param in `echo $@`

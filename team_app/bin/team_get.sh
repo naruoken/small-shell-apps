@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Target databox and keys
+databox=events
 keys=all
 
 # load query string param
@@ -9,10 +10,6 @@ do
 
   if [[ $param == session:* ]]; then
     session=`echo $param | awk -F":" '{print $2}'`
-  fi
-
-  if [[ $param == databox:* ]]; then
-    databox=`echo $param | awk -F":" '{print $2}'`
   fi
 
   if [[ $param == pin:* ]]; then
@@ -61,48 +58,48 @@ else
   #---------------------------
   # gen read only datas
   #---------------------------
-  #$DATA_SHELL databox:%%databox action:get id:$id keys:%%keys format:none > ../tmp/$session/dataset.0.1
+  #$DATA_SHELL databox:events action:get id:$id keys:%%keys format:none > ../tmp/$session/dataset.0.1
   #cat ../tmp/$session/dataset.0.1 | sed "s/^/<li><label>/g" | sed "s/:/<\/label><p>/g" | sed "s/$/<\/p><\/li>/g" \
   #| sed "s/<p><\/p>/<p>-<\/p>/g" >> ../tmp/$session/dataset
 
 fi
 
 # error check
-err_chk=`grep "error: there is no key:%%keys" ../tmp/$session/dataset`
+error_chk=`cat ../tmp/$session/dataset | grep "^error: there is no primary_key:"`
 
-if [ "$err_chk" ];then
-  echo "<h2>Oops please define keys in team_get.sh for getting data</h2>"
-  if [ "$session" ];then
-    rm -rf ../tmp/$session
+# form type check
+form_chk=`$META chk.form:$databox`
+
+# set view
+if [ "$error_chk" ];then
+  echo "<h2>Oops please something must be wrong, please check  team_get.sh</h2>"
+
+elif [ "$form_chk" = "urlenc" ];then
+  if [ "$id" = "new" ];then
+    view="team_new.html.def"
+  else
+    view="team_get.html.def"
   fi
-  exit 1
+elif [ "$form_chk" = "multipart" ];then
+  if [ "$id" = "new" ];then
+    view="team_new_incf.html.def"
+  else
+    view="team_get_incf.html.def"
+  fi
 fi
-
 
 # render HTML
-if [ "$id" = "new" ];then
-  cat ../descriptor/team_new.html.def | sed "s/^ *</</g" \
-  | sed "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
-  | sed "/%%common_menu/d" \
-  | sed "/%%dataset/r ../tmp/$session/dataset" \
-  | sed "s/%%dataset//g"\
-  | sed "s/%%id/$id/g" \
-  | sed "s/%%pdls/session=$session\&pin=$pin\&req=get/g" \
-  | sed "s/%%session/session=$session\&pin=$pin/g" \
-  | sed "s/%%params/session=$session\&pin=$pin\&databox=$databox/g"
-else
-  cat ../descriptor/team_get.html.def | sed "s/^ *</</g" \
-  | sed "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
-  | sed "/%%common_menu/d" \
-  | sed "/%%dataset/r ../tmp/$session/dataset" \
-  | sed "s/%%dataset//g"\
-  | sed "/%%history/r ../tmp/$session/history" \
-  | sed "s/%%history//g"\
-  | sed "s/%%id/$id/g" \
-  | sed "s/%%pdls/session=$session\&pin=$pin\&req=get/g" \
-  | sed "s/%%session/session=$session\&pin=$pin/g" \
-  | sed "s/%%params/session=$session\&pin=$pin\&databox=$databox/g"
-fi
+cat ../descriptor/${view} | sed "s/^ *</</g" \
+| sed "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
+| sed "/%%common_menu/d" \
+| sed "/%%dataset/r ../tmp/$session/dataset" \
+| sed "s/%%dataset//g"\
+| sed "/%%history/r ../tmp/$session/history" \
+| sed "s/%%history//g"\
+| sed "s/%%id/$id/g" \
+| sed "s/%%pdls/session=$session\&pin=$pin\&req=get/g" \
+| sed "s/%%session/session=$session\&pin=$pin/g" \
+| sed "s/%%params/session=$session\&pin=$pin/g"
 
 if [ "$session" ];then
   rm -rf ../tmp/$session
