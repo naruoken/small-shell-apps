@@ -33,6 +33,10 @@
          <li><a href="./team?%%session&subapp=drive&req=table">Drive #object storage</a></li>
          <li><a href="./team?%%session&req=table">Events #table</a></li>
          </ul>
+         <ul>
+         <h2> Link for end user </h2>
+         <li><a href="./inquiry?id=new&req=get">Push inquiry to the team</a></li>
+         </ul>
         </div>
 
         <div class="calendar">

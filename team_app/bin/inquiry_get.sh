@@ -57,7 +57,7 @@ else
 
   # gen create history
   $DATA_SHELL databox:inquiries action:get type:log id:$id format:none | head -1  > ../tmp/$session/history
-  echo "$name" >> ../tmp/$session/history
+  echo "user:$name" >> ../tmp/$session/history
   echo "$email" >> ../tmp/$session/history
   echo "$type" >> ../tmp/$session/history
 
