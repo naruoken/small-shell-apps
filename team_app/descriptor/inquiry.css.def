@@ -446,8 +446,8 @@ a {
 }
 
 .form-box .description h1 {
-  font-size: 280%;
-  color: #444444;
+  font-size: 320%;
+  color: #20b2aa;
 }
 
 .form-box .description h2 {
@@ -471,8 +471,8 @@ a {
 }
 
 .form-box .type2-description h1 {
-  font-size: 280%;
-  color: #444444;
+  font-size: 320%;
+  color: #20b2aa;
 }
 
 .form-box .type2-description h2 {
@@ -488,7 +488,7 @@ a {
   line-height: 1.2em;
   margin-top: 4px;
   margin-bottom: 12px;
-  color: #008b8b;
+  color: #696969;
 }
 
 .form-box hr {
@@ -583,7 +583,7 @@ a {
   margin-bottom: 0px;
   border-radius: 12px;
   padding: 12px 12px;
-  background: #DDDFE3;
+  background: #e0ffff;
   min-width:100%;
 }
 
@@ -651,7 +651,7 @@ a {
   text-align: right;
   padding: 8px 16px;
   border-style: none;
-  background: #0C47C1;
+  background: #20b2aa;
   color: #f2f2f2;
   text-transform: uppercase;
   letter-spacing: .09em;

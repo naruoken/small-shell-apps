@@ -10,13 +10,12 @@
 
      <div class="form-box">
       <div class="description">
-       <h1>#inquiry</h1>
+       <h1>Your Ticket</h1>
        <p>id:%%id</p>
       </div>
       <div class="log">
        <p>%%history</p>
       </div>
-      <hr>
       <form method="post" action="./inquiry?req=set&id=%%id&post=yes">
       <ul>
        %%dataset
