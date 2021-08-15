@@ -21,7 +21,7 @@
       </div>
       <div class="main">
       <div class="descriptor">
-        <br></br><br></br>
+        <br></br>
         <h1>Hello Small Shell World, you must be %%user_name</h1>
         <h3><a href="./team?%%session&req=table">Go to databox table</a></h3>
       </div>

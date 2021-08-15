@@ -583,7 +583,7 @@ a {
   margin-bottom: 0px;
   border-radius: 12px;
   padding: 12px 12px;
-  background: #DDDFE3;
+  background: #e0ffff;
   min-width:100%;
 }
 
@@ -671,7 +671,7 @@ a {
   text-align: center;
   padding: 4px 8px;
   border-style: none;
-  background: #2f3333;
+  background: #20b2aa;
   color: #f2f2f2;
   text-transform: uppercase;
   letter-spacing: .09em;

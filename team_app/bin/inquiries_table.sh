@@ -2,7 +2,7 @@
 
 # Target databox and keys
 databox=inquiries
-keys=%%keys
+keys=all
 
 # load query string param
 for param in `echo $@`

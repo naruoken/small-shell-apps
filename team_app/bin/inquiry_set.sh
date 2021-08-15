@@ -49,6 +49,8 @@ DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$sess
 # push datas to databox
 
 if [ "$id" = "new" ];then
+  echo "open" > ../tmp/$session/status
+  keys="$keys,status"
   $DATA_SHELL databox:inquiries action:set id:$id keys:$keys input_dir:../tmp/$session  > ../tmp/$session/result
 else
   inquiry_chk=`cat ../tmp/$session/inquiry | sed -z "s/\n//g" | sed "s/ //g"`

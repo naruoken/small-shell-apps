@@ -10,7 +10,7 @@
 
      <div class="form-box">
       <div class="description">
-       <h1>Your Ticket</h1>
+       <h1>#ticket</h1>
        <p>id:%%id</p>
       </div>
       <div class="log">
