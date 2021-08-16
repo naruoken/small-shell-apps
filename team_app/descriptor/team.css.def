@@ -831,49 +831,83 @@ input[type="file"] {
  display: none;
 }
 
-.main {
- padding-top: 24px;
- height: 68%;
- display: flex;
- flex-wrap: wrap;
- justify-content: center;
- align-items: flex-start;
+@media screen and (min-width: 640px){
+
+  .main {
+   padding-top: 24px;
+   height: 68%;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   align-items: flex-start;
+  }
+
+  .main .description {
+    flex: none;
+    max-width: 480px;
+    text-align: left;
+  }
+
+  .main .description h1 {
+    font-size: 400%;
+  }
+
+  .main .description ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 28px;
+  }
+
+  .main .calendar {
+    flex: auto;
+    z-index: 1;
+    padding-top: 24px;
+    padding-left: 24px;
+    padding-right: 24px;
+    line-height: 0.8em;
+    letter-spacing: .09em;
+    text-align: center;
+   }
+
 }
 
-.main .description {
-  flex: none;
-  max-width: 480px;
-  text-align: left;
-}
+@media screen and (max-width: 640px){
 
-.main .description h1 {
-  font-size: 400%;
-}
+ .main {
+   padding-top: 24px;
+   max-width: 98%;
+   height: 68%;
+   font-size: 80%;
+  }
 
-.main .description ul {
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
-  margin-bottom: 28px;
-}
+  .main .description {
+    flex: none;
+    text-align: left;
+  }
 
-.main .calendar {
- flex: auto;
- z-index: 1;
- padding-top: 24px;
- padding-left: 24px;
- padding-right: 24px;
- line-height: 0.8em;
- letter-spacing: .09em;
- text-align: center;
+  .main .description h1 {
+    font-size: 320%;
+  }
+
+  .main .description ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 12px;
+  }
+
+  .main .calendar {
+    z-index: 1;
+    line-height: 0.8em;
+    letter-spacing: .09em;
+    text-align: center;
+   }
+
 }
 
 .main a {
  color: #000080;
-}
-
-.main a {
- color: #000080; 
 }
 
 .footer {
