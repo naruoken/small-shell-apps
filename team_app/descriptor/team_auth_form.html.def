@@ -19,7 +19,7 @@
       %%message
       <h1>team</h1>
       <div class="wrapper">
-        <input type="text" id="team_key_13216" name="team_key_13216" placeholder="please paste key" list="keylist">
+        <input type="text" id="team_key_13216" name="team_key_13216" placeholder="please paste key" list="keylist" >
         <datalist id="keylist">
         </datalist>
         <button class="button" type="submit" onclick="setkey()">SUBMIT</button>
@@ -58,7 +58,7 @@
 
   function setkey() {
      var newkey = document.getElementById("team_key_13216").value;
-     localStorage.setItem("team_13216", newkey);
+     localStorage.setItem("team_key_13216", newkey);
   }
 
   </script>
