@@ -440,6 +440,7 @@ a {
 }
 
 .form-box .description {
+  padding-top: 28px;
   text-align: left;
   line-height: 0.8em;
   margin-bottom: -10px;
@@ -454,32 +455,7 @@ a {
   color: #444444;
 }
 
-.form-box .description h3 {
-  color: #444444;
-}
-
 .form-box .description p {
-  font-size: 80%;
-  color: #c0c0c0;
-}
-
-.form-box .type2-description {
-  padding-top: 28px;
-  text-align: left;
-  line-height: 0.8em;
-  margin-bottom: -10px;
-}
-
-.form-box .type2-description h1 {
-  font-size: 320%;
-  color: #20b2aa;
-}
-
-.form-box .type2-description h2 {
-  color: #444444;
-}
-
-.form-box .type2-description p {
   color: #696969;
 }
 
@@ -570,12 +546,44 @@ a {
   flex: auto;
 }
 
-.form-box li select {
-  letter-spacing: .09em;
-  font-size: 12px;
-  padding: 6px 6px;
-  border: 2px solid #d3d3d3;
-  flex: auto;
+@media screen and (min-width: 640px){
+  .form-box li select {
+    letter-spacing: .09em;
+    font-size: 12px;
+    padding: 6px 6px;
+    border: 2px solid #d3d3d3;
+    flex: auto;
+  }
+
+  .form-box input[type="date"],
+  .form-box input[type="datetime-local"] {
+    letter-spacing: .09em;
+    font-size: 12px;
+    padding: 4px 6px;
+    border: 2px solid #d3d3d3;
+    flex: auto;
+  }
+}
+
+@media screen and (max-width: 640px){
+  .form-box li select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    letter-spacing: .09em;
+    font-size: 12px;
+    padding: 6px 6px;
+    border: 2px solid #d3d3d3;
+    flex: auto;
+  }
+
+  .form-box input[type="date"],
+  .form-box input[type="datetime-local"] {
+    letter-spacing: .09em;
+    font-size: 12px;
+    border: 4px solid #d3d3d3;
+    flex: auto;
+  }
 }
 
 .form-box li pre {
@@ -585,15 +593,6 @@ a {
   padding: 12px 12px;
   background: #e0ffff;
   min-width:100%;
-}
-
-.form-box input[type="date"], 
-.form-box input[type="datetime-local"] {
-  letter-spacing: .09em;
-  font-size: 12px;
-  padding: 4px 6px;
-  border: 2px solid #d3d3d3;
-  flex: auto;
 }
 
 .form-box input[type="radio"],
