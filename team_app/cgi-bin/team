@@ -196,11 +196,6 @@ case "$req" in
   "inquiries.log_viewer") ../bin/inquiries_log_viewer.sh session:$session pin:$pin id:$id ;;
   "inquiries.file") ../bin/inquiries_dl.sh session:$session pin:$pin id:$id ;;
 
-"test1234.table") ../bin/test1234_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command;;
-"test1234.get") ../bin/test1234_get.sh session:$session pin:$pin user_name:$user_name id:$id;;
-"test1234.set") ../bin/test1234_set.sh session:$session pin:$pin user_name:$user_name id:$id;;
-"test1234.log_viewer") ../bin/test1234_log_viewer.sh session:$session pin:$pin id:$id;;
-"test1234.file") ../bin/test1234_dl.sh session:$session pin:$pin id:$id;;
 
   *)
     echo "error: wrong request";;

@@ -48,7 +48,7 @@ $DATA_SHELL databox:events command:show_all[keys=name,start,end,color][filter=sy
 | sed "s/{%%%}/:/g"  > ../tmp/$session/events
 
 # gen tasks json
-$DATA_SHELL databox:tasks command:show_all[keys=name,start,end,color][filter=sync{yes}] format:json \
+$DATA_SHELL databox:tasks command:show_all[keys=name,start,end,status][filter=sync{yes}] format:json \
 | sed "s/{%%%%%%%%%%%%%}/#/g"\
 | sed "s/{%%%%%%%%%%%%}/|/g"\
 | sed "s/{%%%%%%%%%%%}/\]/g"\

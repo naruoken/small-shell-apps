@@ -41,6 +41,13 @@
 
         <div class="calendar">
           <div id="app">
+            <div id="modal-background" v-show="showContent">
+              <div id="modal-content">
+                <a v-bind:href="eventurl"><p v-text="content"></p></a>
+                <br></br>
+                <button v-on:click="closeModal">Close</button>
+              </div>
+            </div>
           <v-app>
           <v-main>
             <v-container>
@@ -159,7 +166,10 @@
              selectedEvent: {},
              selectedElement: null,
              selectedOpen: false,
-             events: []
+             events: [],
+             showContent: false,
+             content: null,
+             eventurl: null
            }),
            mounted () {
              this.$refs.calendar.checkChange()
@@ -182,7 +192,21 @@
                this.$refs.calendar.next()
              },
              showEvent({ event }) {
-               alert(`clicked ${event.name}`);
+               var url = './team?%%session&req=get&id=';
+               var id = `${event.id}`
+               this.eventurl = url + id
+               this.content = `${event.name}`
+               this.showContent = true
+               var status = `${event.status}`
+               console.log(status)
+
+               if (status  == "undefined" ) {
+                 this.eventurl = url + id
+               } else {
+                 var subapp = '&subapp=tasks'
+                 this.eventurl = url + id + subapp
+               }
+
              },
 
              updateRange ({ start, end }) {
@@ -190,6 +214,15 @@
                %%json
                this.events = events
              },
+
+             openModal: function(){
+               this.showContent = true
+             },
+
+             closeModal: function(){
+               this.showContent = false
+             }
+
            }
 
         })
