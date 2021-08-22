@@ -66,7 +66,7 @@ if [ "$error_chk" ];then
   | sed "s/%%session/session=$session\&pin=$pin/g"
 else
   # redirect to the table
-  echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?session=$session&pin=$pin&req=table\">"
+  echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?session=$session&pin=$pin&req=main\">"
 fi
 
 if [ "$session" ];then
