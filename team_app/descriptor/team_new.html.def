@@ -9,6 +9,7 @@
     <div class="container">
       <div class="flex-header">
        <div class="left-header">
+         <h4><a href="./team?%%session&req=main">Team APP</a></h4>
        </div>
        <div class="right-header">
         <button class="even-btn-menu">=</button>
@@ -22,8 +23,7 @@
 
       <div class="form-box">
        <div class="description">
-        <h1>#team.data</h1>
-        <p>id:%%id</p>
+        <h1>#Event.new</h1>
        </div>
        <form method="post" action="./team?%%params&req=set&id=%%id&post=yes" onclick="document.charset='utf-8';">
        <ul>

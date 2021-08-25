@@ -421,7 +421,7 @@ a {
 @media screen and (min-width: 640px){ 
   .form-box {
     max-width: 94%;
-    padding: 24px 2px;
+    padding: 42px 2px;
     text-align: left;
     line-height: 0.8em;
     margin: auto;
