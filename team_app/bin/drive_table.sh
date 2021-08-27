@@ -83,6 +83,7 @@ fi
 #  Preprocedure
 # -----------------
 if [ "$filter_table" ];then
+  filter_table=`echo $filter_table | php -r "echo preg_quote(file_get_contents('php://stdin'));"`
   line_num=`$DATA_SHELL databox:$databox command:show_all[filter=${filter_table}][keys=$keys] format:none | wc -l`
 
 elif [ "$sort_col" ];then
