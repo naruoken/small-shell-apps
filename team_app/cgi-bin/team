@@ -99,6 +99,7 @@ if [ "$auth" = "required" ];then
         echo "<meta http-equiv=\"refresh\" content=\"0; url=./auth.team?req=$req&databox=$databox&id=$id&message=!%20Session%20Expired\">"
         exit 1
       else
+        req=main
         echo "<meta http-equiv=\"refresh\" content=\"0; url=./auth.team?req=$req&message=!%20Session%20Expired\">"
         exit 1
       fi
