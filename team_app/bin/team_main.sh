@@ -35,7 +35,11 @@ DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$sess
 
 # gen event json
 $DATA_SHELL databox:events command:show_all[keys=name,start,end,color][filter=sync{yes}] format:json \
-| sed "s/{%%%%%%%%%%%%%}/#/g"\
+| sed "s/{%%%%%%%%%%%%%%%%%}/'/g"\
+| sed "s/{%%%%%%%%%%%%%%%%}/%/g"\
+| sed "s/{%%%%%%%%%%%%%%%}/*/g"\
+| sed "s/{%%%%%%%%%%%%%%}/$/g"\
+| sed "s/{%%%%%%%%%%%%%}/\#/g"\
 | sed "s/{%%%%%%%%%%%%}/|/g"\
 | sed "s/{%%%%%%%%%%%}/\]/g"\
 | sed "s/{%%%%%%%%%%}/\[/g"\
@@ -49,7 +53,11 @@ $DATA_SHELL databox:events command:show_all[keys=name,start,end,color][filter=sy
 
 # gen tasks json
 $DATA_SHELL databox:tasks command:show_all[keys=name,start,end,status][filter=sync{yes}] format:json \
-| sed "s/{%%%%%%%%%%%%%}/#/g"\
+| sed "s/{%%%%%%%%%%%%%%%%%}/'/g"\
+| sed "s/{%%%%%%%%%%%%%%%%}/%/g"\
+| sed "s/{%%%%%%%%%%%%%%%}/*/g"\
+| sed "s/{%%%%%%%%%%%%%%}/$/g"\
+| sed "s/{%%%%%%%%%%%%%}/\#/g"\
 | sed "s/{%%%%%%%%%%%%}/|/g"\
 | sed "s/{%%%%%%%%%%%}/\]/g"\
 | sed "s/{%%%%%%%%%%}/\[/g"\
