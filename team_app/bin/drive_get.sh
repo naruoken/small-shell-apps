@@ -76,13 +76,13 @@ if [ "$error_chk" ];then
 
 elif [ "$form_chk" = "urlenc" ];then
   if [ "$id" = "new" ];then
-    view="drive_new.html.def"
+    view="drive_get_new.html.def"
   else
     view="drive_get.html.def"
   fi
 elif [ "$form_chk" = "multipart" ];then
   if [ "$id" = "new" ];then
-    view="drive_new_incf.html.def"
+    view="drive_get_new_incf.html.def"
   else
     view="drive_get_incf.html.def"
   fi

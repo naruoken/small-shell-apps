@@ -22,7 +22,7 @@
 
       <div class="form-box">
        <div class="description">
-        <h1>#drive.data</h1>
+        <h1>#tasks.data</h1>
         <p>id:%%id</p>
        </div>
        <form method="post" action="./team?%%params&req=set&id=%%id&post=yes&multipart=yes" enctype="multipart/form-data" onclick="document.charset='utf-8';">
@@ -30,10 +30,6 @@
         %%dataset
        </ul>
        <button class="button" type="submit">SET</button>
-       <div class="action_links">
-        <span><p style="cursor: pointer" onclick="window.open('./team?%%params&req=log_viewer&id=%%id', 'log_viewer', 'width=820,height=280')">Show data updated history</p></span>
-       </div>
-      </div>
    </div>
    <script>
    const btn = document.querySelector('.even-btn-menu');
@@ -52,13 +48,6 @@
        btn.innerHTML = '=';
      }
    })
-
-   function del_confirmation(){
-     ret = confirm("Are you OK to delete this data ?");
-     if (ret == true){
-       location.href = "./team?%%params&req=del&id=%%id";
-     }
-   }
 
    const formInputs = document.getElementsByClassName("file");
    const length = formInputs.length;

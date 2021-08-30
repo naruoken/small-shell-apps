@@ -9,6 +9,7 @@
     <div class="container">
       <div class="flex-header">
        <div class="left-header">
+         <h4><a href="./team?%%session&req=main">Team APP</a></h4>
        </div>
        <div class="right-header">
         <button class="even-btn-menu">=</button>
@@ -30,10 +31,6 @@
         %%dataset
        </ul>
        <button class="button" type="submit">SET</button>
-       <div class="action_links">
-        <span><p style="cursor: pointer" onclick="window.open('./team?%%params&req=log_viewer&id=%%id', 'log_viewer', 'width=820,height=280')">Show data updated history</p></span>
-       </div>
-      </div>
    </div>
    <script>
    const btn = document.querySelector('.even-btn-menu');
@@ -52,13 +49,6 @@
        btn.innerHTML = '=';
      }
    })
-
-   function del_confirmation(){
-     ret = confirm("Are you OK to delete this data ?");
-     if (ret == true){
-       location.href = "./team?%%params&req=del&id=%%id";
-     }
-   }
 
    const formInputs = document.getElementsByClassName("file");
    const length = formInputs.length;

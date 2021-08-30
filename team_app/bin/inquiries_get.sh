@@ -78,13 +78,13 @@ if [ "$error_chk" ];then
 
 elif [ "$form_chk" = "urlenc" ];then
   if [ "$id" = "new" ];then
-    view="inquiries_new.html.def"
+    view="inquiries_get_new.html.def"
   else
     view="inquiries_get.html.def"
   fi
 elif [ "$form_chk" = "multipart" ];then
   if [ "$id" = "new" ];then
-    view="inquiries_new_incf.html.def"
+    view="inquiries_get_new_incf.html.def"
   else
     view="inquiries_get_incf.html.def"
   fi

@@ -76,13 +76,13 @@ if [ "$error_chk" ];then
 
 elif [ "$form_chk" = "urlenc" ];then
   if [ "$id" = "new" ];then
-    view="bookmarks_new.html.def"
+    view="bookmarks_get_new.html.def"
   else
     view="bookmarks_get.html.def"
   fi
 elif [ "$form_chk" = "multipart" ];then
   if [ "$id" = "new" ];then
-    view="bookmarks_new_incf.html.def"
+    view="bookmarks_get_new_incf.html.def"
   else
     view="bookmarks_get_incf.html.def"
   fi
