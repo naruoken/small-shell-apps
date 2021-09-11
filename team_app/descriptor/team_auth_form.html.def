@@ -19,7 +19,7 @@
       %%message
       <h1>team</h1>
       <div class="wrapper">
-        <input type="text" id="team_key_13216" name="team_key_13216" placeholder="please paste key" list="keylist" >
+        <input type="text" id="team_key_%%rand" name="team_key_%%rand" placeholder="please paste key" list="keylist" >
         <datalist id="keylist">
         </datalist>
         <button class="button" type="submit" onclick="setkey()">SUBMIT</button>
@@ -53,12 +53,12 @@
   // key management that is stored on localstorage
   var keylist = document.getElementById("keylist");
   key=document.createElement("option");
-  key.text=localStorage.getItem("team_key_13216");
+  key.text=localStorage.getItem("team_key_%%rand");
   keylist.appendChild(key);
 
   function setkey() {
-     var newkey = document.getElementById("team_key_13216").value;
-     localStorage.setItem("team_key_13216", newkey);
+     var newkey = document.getElementById("team_key_%%rand").value;
+     localStorage.setItem("team_key_%%rand", newkey);
   }
 
   </script>
