@@ -53,7 +53,7 @@ echo $QUERY_STRING | php -r "echo urldecode(file_get_contents('php://stdin'));" 
 # parse POST param
 echo $input | sed "s/\`//g" | sed "s/&/\n/g"  | sed -r "s/team_key(.*)=/team_key=/g" \
 | php -r "echo urldecode(file_get_contents('php://stdin'));"  >> ../tmp/${param}
-cat ../tmp/${param} | sed -e "s/=/=\"/1" | sed "s/$/\"/g" | sed "s/^\"//g" > ../tmp/${param}.load
+cat ../tmp/${param} | sed -e "s/=/=\"/1" | sed "s/$/\"/g" | sed "s/^\"//g" | tr -d \$ | tr -d \` > ../tmp/${param}.load
 
 chmod 755 ../tmp/${param}.load
 
