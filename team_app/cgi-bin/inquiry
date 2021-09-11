@@ -53,7 +53,7 @@ done
 
 
 # parse QUERY_STRING
-echo $QUERY_STRING | php -r "echo urldecode(file_get_contents('php://stdin'));" | sed "s/\`//g" | sed "s/\&/\n/g" > ../tmp/${param}
+echo $QUERY_STRING | php -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | sed "s/\&/\n/g" > ../tmp/${param}
 cat ../tmp/${param} | sed -e "s/=/=\"/1" | sed "s/$/\"/g" | sed "s/^\"//g" > ../tmp/${param}.load
 chmod 755 ../tmp/${param}.load
 

@@ -48,7 +48,7 @@ do
 done
 
 # parse QUERY STRING
-echo $QUERY_STRING | php -r "echo urldecode(file_get_contents('php://stdin'));" | sed "s/\`//g" | sed "s/\&/\n/g" > ../tmp/${param}
+echo $QUERY_STRING | php -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | sed "s/\&/\n/g" > ../tmp/${param}
 
 # parse POST param
 echo $input | sed "s/\`//g" | sed "s/&/\n/g"  | sed -r "s/team_key(.*)=/team_key=/g" \
