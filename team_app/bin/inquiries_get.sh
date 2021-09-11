@@ -53,7 +53,7 @@ else
   #---------------------------
   # gen reqd/write form #update
   #---------------------------
-  $DATA_SHELL databox:$databox action:get id:$id keys:hashid,user_name,email,type,assignee,status format:html_tag > ../tmp/$session/dataset
+  $DATA_SHELL databox:$databox action:get id:$id keys:hashid,user_name,email,type,assign,status format:html_tag > ../tmp/$session/dataset
   $DATA_SHELL databox:$databox action:merge.get id:$id key:inquiry >> ../tmp/$session/dataset
 
 
