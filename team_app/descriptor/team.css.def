@@ -902,8 +902,8 @@ input[type="file"] {
   .main #modal-content{
     z-index:4;
     width:50%;
-    font-size: 112%;
     border-radius: 8px;
+    font-size: 120%;
     padding: 1em;
     background:#fff;
   }
@@ -958,9 +958,9 @@ input[type="file"] {
   .main #modal-content{
     z-index:4;
     width:80%;
-    font-size: 120%;
     border-radius: 8px;
     padding: 1em;
+    font-size: 160%;
     background:#fff;
   }
 
