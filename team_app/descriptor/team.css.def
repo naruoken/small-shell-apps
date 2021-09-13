@@ -855,12 +855,12 @@ input[type="file"] {
   }
 
   .portal h1 {
-   font-size: 380%;
-   padding-right: 48px;
+   font-size: 420%;
+   padding-right: 42px;
   }
 
   .portal h2 {
-   padding-right: 24px;
+   padding-right: 42px;
   }
 
   .portal ul {
