@@ -855,8 +855,8 @@ input[type="file"] {
   }
 
   .portal h1 {
-   font-size: 420%;
-   padding-right: 42px;
+   font-size: 520%;
+   padding-right: 64px;
   }
 
   .portal h2 {
