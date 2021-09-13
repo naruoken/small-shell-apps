@@ -24,36 +24,26 @@
         </nav>
         </div>
       </div>
-      <div class="main">
-        <div class="description">
-         <h1>#PORTAL</h1>
-         <h3> Hello %%user_name, welcome to the Team</h3>
-         <h2> Favorite links </h2>
-         <ul>
-         <li><a href="./team?%%session&subapp=drive&req=table">Drive #object storage</a></li>
-         <li><a href="./team?%%session&req=table">Events #table</a></li>
-         <li><a href="./team?%%session&req=get&id=new">+ADD</a></li>
-         </ul>
-         <ul>
-         <h2> Link for end user </h2>
-         <li><a href="./inquiry?id=new&req=get">Inquiry Form</a></li>
-         </ul>
-        </div>
-
-        <div class="calendar">
+      <div class="portal">
           <div id="app">
           <v-app>
           <v-main>
             <v-container>
-
-              <div id="modal-background" v-show="showContent">
-                <div id="modal-content">
-                  <a v-bind:href="eventurl"><p v-text="content"></p></a>
-                  <div align="right"><v-btn small v-on:click="closeModal">close</v-btn></div>
-                </div>
-              </div>
-
               <v-row class="fill-height">
+              <div class="float-md-left">
+                 <h1>#PORTAL</h1>
+                 <p> Hello %%user_name, welcome to the Team</p>
+                 <h2> Favorite links </h2>
+                 <ul>
+                 <li><a href="./team?%%session&subapp=drive&req=table">Drive #object storage</a></li>
+                 <li><a href="./team?%%session&req=table">Events #table</a></li>
+                 <li><a href="./team?%%session&req=get&id=new">+ADD</a></li>
+                 </ul>
+                 <h2> Link for end user </h2>
+                 <ul>
+                 <li><a href="./inquiry?id=new&req=get">Inquiry Form</a></li>
+                 </ul>
+              </div>
                 <v-col>
                   <v-sheet height="64">
                     <v-toolbar
@@ -139,6 +129,41 @@
                       @click:date="viewDay"
                       @change="updateRange"
                     ></v-calendar>
+                    <v-menu
+                      v-model="selectedOpen"
+                      :close-on-content-click="false"
+                      :activator="selectedElement"
+                      offset-x
+                    >
+                      <v-card
+                        color="grey lighten-4"
+                        flat
+                        min-width="320px"
+                      >
+                        <v-toolbar
+                          :color="selectedEvent.color"
+                          dark
+                        >
+                          <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
+                          <v-spacer></v-spacer>
+                        </v-toolbar>
+                        <v-card-text>
+                          <div align="left">
+                          <p v-text="eventstart"></p>
+                          <a v-bind:href="eventurl">LINK</p></a>
+                          </div>
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-btn
+                            text
+                            color="secondary"
+                            @click="selectedOpen = false"
+                          >
+                            Close
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-menu>
                   </v-sheet>
                 </v-col>
               </v-row>
@@ -168,8 +193,7 @@
              selectedElement: null,
              selectedOpen: false,
              events: [],
-             showContent: false,
-             content: null,
+             eventstart: null,
              eventurl: null
            }),
            mounted () {
@@ -192,14 +216,12 @@
              next () {
                this.$refs.calendar.next()
              },
-             showEvent({ event }) {
+             showEvent({ nativeEvent, event }) {
                var url = './team?%%session&req=get&id=';
                var id = `${event.id}`
+               this.eventstart = `start:${event.start}`
                this.eventurl = url + id
-               this.content = `${event.start} ${event.name}`
-               this.showContent = true
                var status = `${event.status}`
-               console.log(status)
 
                if (status  == "undefined" ) {
                  this.eventurl = url + id
@@ -207,6 +229,19 @@
                  var subapp = '&subapp=tasks'
                  this.eventurl = url + id + subapp
                }
+               const open = () => {
+               this.selectedEvent = event
+               this.selectedElement = nativeEvent.target
+               requestAnimationFrame(() => requestAnimationFrame(() => this.selectedOpen = true))
+               }
+
+               if (this.selectedOpen) {
+                 this.selectedOpen = false
+                 requestAnimationFrame(() => requestAnimationFrame(() => open()))
+               } else {
+                open()
+               }
+
 
              },
 
@@ -214,14 +249,6 @@
                const events =
                %%json
                this.events = events
-             },
-
-             openModal: function(){
-               this.showContent = true
-             },
-
-             closeModal: function(){
-               this.showContent = false
              }
 
            }
