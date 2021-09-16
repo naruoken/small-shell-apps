@@ -24,6 +24,9 @@
         </nav>
         </div>
       </div>
+      <div id="loading">
+        <div class="spinner"></div>
+      </div>
       <div class="portal">
           <div id="app">
           <v-app>
@@ -259,6 +262,14 @@
       </div>
     </div>
     <script>
+
+    window.onload = function() {
+      const spinner = document.getElementById('loading');
+ 
+      // Add .loaded to .loading
+      spinner.classList.add('loaded');
+   }
+
     const btn = document.querySelector('.even-btn-menu');
     const nav = document.querySelector('nav');
 
