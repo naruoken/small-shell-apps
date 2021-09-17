@@ -353,7 +353,7 @@ a {
 }
 
 .table-box .description h1 {
-  font-size: 280%;
+  font-size: 180%;
 }
 
 .table-box .wrapper {
