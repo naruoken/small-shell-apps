@@ -50,18 +50,6 @@ chmod 755 ../tmp/${param}.load
 .  ../tmp/${param}.load
 rm  ../tmp/${param}*
 
-# load headers
-content_type=$CONTENT_TYPE
-method=$REQUEST_METHOD
-
-if [ "$method" = "POST" ];then
-  post=yes
-fi
-
-if [ "$method" = "GET" ];then
-  get=yes
-fi
-
 if [ ! "$req" ];then
   req=main
 fi
@@ -140,35 +128,23 @@ fi
 
 
 # parse POST data
-if [ "$post" = "yes" ];then
+if [ "$REQUEST_METHOD" = "POST" ];then
 
-  if [ "`echo $content_type | grep "application/json"`" ];then
-    json=yes
-  fi
-
-  if [ "`echo $content_type | grep "multipart/form-data"`" ];then
-    multipart=yes
-  fi
-
-  if [ "`echo $content_type | grep "application/octet-stream"`" ];then
-    databinary=yes
+  if [ "`echo $CONTENT_TYPE | grep "application/json"`" ];then
+    method=json
+  elif [ "`echo $CONTENT_TYPE | grep "multipart/form-data"`" ];then
+    method=multipart
+  elif [ "`echo $CONTENT_TYPE | grep "application/octet-stream"`" ];then
+    method=data-binary
+  else
+    method=urlenc
   fi
 
   mkdir ../tmp/$session
   # dump posted data
   dd bs=${CONTENT_LENGTH} of=../tmp/$session/input 2>/dev/null
+  ../bin/parse.sh $session $method
 
-  if [ ! "$multipart" -a ! "$databinary" -a ! "$json" ];then
-    ../bin/parse.sh $session urlenc
-  else
-    if [ "$multipart" = "yes" ];then
-      ../bin/parse.sh $session multipart
-    elif [ "$databinary" = "yes" ];then
-      ../bin/parse.sh $session data-binary
-    elif [ "$json" = "yes" ];then
-      ../bin/parse.sh $session json
-    fi
-  fi
 fi
 
 #----------------------------
