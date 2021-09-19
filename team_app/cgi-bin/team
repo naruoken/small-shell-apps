@@ -1,8 +1,6 @@
 #!/bin/bash
 
 # preprocedure
-param=`date +%s`
-param="$param:$RANDOM"
 session_update="required"
 
 # load small-shell params
@@ -29,6 +27,19 @@ if [ "$IP_whitelisting" = "yes" ];then
     fi
   fi
 fi
+
+param=`date +%s`
+param="$param:$RANDOM"
+count=1
+while [ -f ../tmp/${param} ]
+do
+ sleep 0.01
+ count=`expr $count + 1`
+ if [ $count -eq 100 ];then
+   echo "error: please contact to adimin"
+   exit 1
+ fi
+done
 
 # parse QUERY_STRING
 echo $QUERY_STRING | php -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | sed "s/\&/\n/g" > ../tmp/${param}
@@ -127,17 +138,6 @@ else
   pin=`echo $auth_req | awk -F "," '{print $3}' | awk -F ":" '{print $2}'`
 fi
 
-# create session folder
-count=1
-while [ -f ../tmp/${param} ]
-do
- sleep 0.01
- count=`expr $count + 1`
- if [ $count -eq 100 ];then
-   echo "error: please contact to adimin"
-   exit 1
- fi
-done
 
 # parse POST data
 if [ "$post" = "yes" ];then
