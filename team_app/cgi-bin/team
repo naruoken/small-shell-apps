@@ -128,7 +128,7 @@ fi
 
 
 # parse POST data
-if [ "$REQUEST_METHOD" = "POST" ];then
+if [ "`echo $REQUEST_METHOD | grep -i "POST"`" ];then
 
   if [ "`echo $CONTENT_TYPE | grep "application/json"`" ];then
     method=json
