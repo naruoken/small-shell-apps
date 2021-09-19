@@ -24,7 +24,7 @@
        <div class="description">
          <h1>#inquiries</h1>
        </div>
-       <form method="post" action="./team?%%params&req=table&post=yes">
+       <form method="post" action="./team?%%params&req=table">
        <div class="wrapper">
         <input type="search" name="table_command" placeholder="Hi %%user, please input filter words or input unix sort command with key name of column e.g.[sort -r %%key]">
        </div>

@@ -16,7 +16,7 @@
       <div class="log">
        <p>%%history</p>
       </div>
-      <form method="post" action="./inquiry?req=set&id=%%id&post=yes">
+      <form method="post" action="./inquiry?req=set&id=%%id">
       <ul>
        %%dataset
       </ul>

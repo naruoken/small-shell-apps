@@ -14,7 +14,7 @@
       <p>inquiry form to the team</p>
       <hr>
       </div>
-      <form method="post" action="./inquiry?req=set&id=%%id&post=yes">
+      <form method="post" action="./inquiry?req=set&id=%%id">
       <ul>
        %%dataset
       </ul>
