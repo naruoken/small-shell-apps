@@ -39,6 +39,18 @@ chmod 755 ../tmp/${param}.load
 .  ../tmp/${param}.load
 rm  ../tmp/${param}*
 
+# load headers
+content_type=$CONTENT_TYPE
+method=$REQUEST_METHOD
+
+if [ "$method" = "POST" ];then
+  post=yes
+fi
+
+if [ "$method" = "GET" ];then
+  get=yes
+fi
+
 if [ ! "$req" ];then
   req=main
 fi
@@ -115,8 +127,7 @@ else
   pin=`echo $auth_req | awk -F "," '{print $3}' | awk -F ":" '{print $2}'`
 fi
 
-
-# parse POST data
+# create session folder
 count=1
 while [ -f ../tmp/${param} ]
 do
@@ -128,7 +139,21 @@ do
  fi
 done
 
+# parse POST data
 if [ "$post" = "yes" ];then
+
+  if [ "`echo $content_type | grep "application/json"`" ];then
+    json=yes
+  fi
+
+  if [ "`echo $content_type | grep "multipart/form-data"`" ];then
+    multipart=yes
+  fi
+
+  if [ "`echo $content_type | grep "application/octet-stream"`" ];then
+    databinary=yes
+  fi
+
   mkdir ../tmp/$session
   # dump posted data
   dd bs=${CONTENT_LENGTH} of=../tmp/$session/input 2>/dev/null
