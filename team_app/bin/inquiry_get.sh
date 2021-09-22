@@ -65,7 +65,7 @@ fi
 
 # render HTML
 if [ "$id" = "new" ];then
-  cat ../descriptor/inquiry_new.html.def | sed "s/^ *</</g" \
+  cat ../descriptor/inquiry_get_new.html.def | sed "s/^ *</</g" \
   | sed "/%%dataset/r ../tmp/$session/dataset" \
   | sed "s/%%dataset//g"\
   | sed "s/%%id/$id/g" \

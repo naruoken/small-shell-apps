@@ -62,24 +62,25 @@ chmod 755 ../tmp/${param}.load
 rm  ../tmp/${param}*
 
 # parse POST data
-if [ "$post" = "yes" ];then
+# parse POST data
+if [ "`echo $REQUEST_METHOD | grep -i "POST"`" ];then
+
+  if [ "`echo $CONTENT_TYPE | grep "application/json"`" ];then
+    method=json
+  elif [ "`echo $CONTENT_TYPE | grep "multipart/form-data"`" ];then
+    method=multipart
+  elif [ "`echo $CONTENT_TYPE | grep "application/octet-stream"`" ];then
+    method=data-binary
+  else
+    method=urlenc
+  fi
+
   mkdir ../tmp/$session
   # dump posted data
   dd bs=${CONTENT_LENGTH} of=../tmp/$session/input 2>/dev/null
+  ../bin/parse.sh $session $method
 
-  if [ ! "$multipart" -a ! "$databinary" -a ! "$json" ];then
-    ../bin/parse.sh $session urlenc
-  else
-    if [ "$multipart" = "yes" ];then
-      ../bin/parse.sh $session multipart
-    elif [ "$databinary" = "yes" ];then
-      ../bin/parse.sh $session data-binary
-    elif [ "$json" = "yes" ];then
-      ../bin/parse.sh $session json
-    fi
-  fi
 fi
-
 #----------------------------
 # routing to action scripts
 #----------------------------
