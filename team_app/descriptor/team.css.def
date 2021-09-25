@@ -899,16 +899,17 @@ input[type="file"] {
   }
 
   .portal p {
+   padding-right: 64px;
    font-size: 120%;
   }
 
   .portal h1 {
-   font-size: 520%;
+   font-size: 240%;
    padding-right: 64px;
   }
 
   .portal h2 {
-   padding-right: 42px;
+   padding-right: 64px;
   }
 
   .portal ul {
