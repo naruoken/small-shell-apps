@@ -418,7 +418,7 @@ a {
 @media screen and (min-width: 640px){ 
   .form-box {
     max-width: 94%;
-    padding: 32px 2px;
+    padding: 12px 2px;
     text-align: left;
     line-height: 0.8em;
     margin: auto;
@@ -428,7 +428,7 @@ a {
 @media screen and (max-width: 640px){ 
   .form-box {
     max-width: 100%;
-    padding: 24px 2px;
+    padding: 12px 2px;
     text-align: left;
     line-height: 0.8em;
     margin: auto;
@@ -587,8 +587,8 @@ a {
 }
 
 .form-box li pre {
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin-top: 4px;
+  margin-bottom: 4px;
   border-radius: 12px;
   padding: 12px 12px;
   background: #e0ffff;

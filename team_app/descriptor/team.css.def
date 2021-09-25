@@ -639,8 +639,8 @@ a {
 }
 
 .form-box li pre {
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin-top: 4px;
+  margin-bottom: 4px;
   border-radius: 12px;
   padding: 12px 12px;
   background: #e0ffff;

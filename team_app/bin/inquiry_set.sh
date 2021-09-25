@@ -60,7 +60,7 @@ else
 fi
 
 # result check
-updated_id=`cat ../tmp/$session/result | grep "^successfully set" | awk '{print $3}' | uniq`
+updated_id=`cat ../tmp/$session/result | grep "^successfully set" | awk -F "id:" '{print $2}' | uniq`
 
 # set message
 if [ "$updated_id" ];then

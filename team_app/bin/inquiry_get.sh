@@ -78,6 +78,7 @@ else
   | sed "s/%%history//g"\
   | sed "s/%%user_name/$name/g"\
   | sed "s/%%id/$id/g" \
+  | sed "s/+MERGE /<\/pre><pre>/g" \
   | sed "s/%%params/session=$session\&pin=$pin/g"
 fi
 
