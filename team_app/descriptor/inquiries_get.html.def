@@ -67,6 +67,15 @@
    var bottom = element.scrollHeight - element.clientHeight;
    window.scrollTo({top: bottom, left: 0, behavior: 'smooth'});
 
+   const comments = document.querySelectorAll('pre');
+   comments.forEach((comment) => {
+     var str = comment.innerHTML;
+     if (str.includes('inquiry.app')) {
+       comment.classList.add('user');
+       console.log(str);
+     }
+   });
+
    </script>
    </body>
 </html>

@@ -586,12 +586,21 @@ a {
   }
 }
 
-.form-box li pre {
+.form-box .init {
   margin-top: 4px;
   margin-bottom: 4px;
   border-radius: 12px;
   padding: 12px 12px;
   background: #e0ffff;
+  min-width:100%;
+}
+
+.form-box .user {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border-radius: 12px;
+  padding: 12px 12px;
+  background: #EAF2A4;
   min-width:100%;
 }
 
