@@ -32,7 +32,7 @@ col2_required="yes"
 # col3
 #-------------------------------------------
 col3_key_name="email"
-col3_key_label="Your mail addr"
+col3_key_label="Mail addr"
 col3_type="email"
 
 # only for select, checkbox

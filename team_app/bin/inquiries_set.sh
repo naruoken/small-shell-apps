@@ -57,7 +57,7 @@ $DATA_SHELL databox:$databox action:set id:$id keys:user_name,email,type,assigne
 
 if [ "$id" = "new" ];then
   # update id
-  id=`cat ../tmp/$session/result | awk '{print $3}' | uniq`
+  id=`cat ../tmp/$session/result | awk -F "id:" '{print $2}' | sed '/^$/d' | sort | uniq`
 fi
 
 inquiry_chk=`cat ../tmp/$session/inquiry | sed -z "s/\n//g" | sed "s/ //g"`
@@ -76,7 +76,7 @@ if [ "$error_chk" ];then
   | sed "s/%%session/session=$session\&pin=$pin/g"
 else
   # redirect to the table
-  echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?subapp=inquiries&session=$session&pin=$pin&req=table\">"
+  echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?subapp=inquiries&session=$session&pin=$pin&req=get&id=$id\">"
 fi
 
 if [ "$session" ];then

@@ -36,7 +36,6 @@ fi
 
 # insert user_name to inquiry
 user_name=`cat ../tmp/$session/user_name`
-sed -i "1s/^/#${user_name}\n/" ../tmp/$session/inquiry
 
 # -----------------
 # Exec command
@@ -51,8 +50,10 @@ DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$sess
 if [ "$id" = "new" ];then
   echo "opened" > ../tmp/$session/status
   keys="$keys,status"
+  sed -i "1s/^/#${user_name} from inquiry.app\n/" ../tmp/$session/inquiry
   $DATA_SHELL databox:inquiries action:set id:$id keys:$keys input_dir:../tmp/$session  > ../tmp/$session/result
 else
+  sed -i "1s/^/#${user_name}\n/" ../tmp/$session/inquiry
   inquiry_chk=`cat ../tmp/$session/inquiry | sed -z "s/\n//g" | sed "s/ //g"`
   if [ "$inquiry_chk" ];then
     $DATA_SHELL databox:inquiries action:merge.set id:$id key:inquiry input_dir:../tmp/$session  >> ../tmp/$session/result
@@ -60,7 +61,7 @@ else
 fi
 
 # result check
-updated_id=`cat ../tmp/$session/result | grep "^successfully set" | awk -F "id:" '{print $2}' | uniq`
+updated_id=`cat ../tmp/$session/result | grep "^successfully set" | awk -F "id:" '{print $2}' | sed '/^$/d' | sort | uniq`
 
 # set message
 if [ "$updated_id" ];then
