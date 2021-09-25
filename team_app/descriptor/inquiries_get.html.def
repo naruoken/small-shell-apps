@@ -63,6 +63,10 @@
      }
    }
 
+   var element = document.documentElement;
+   var bottom = element.scrollHeight - element.clientHeight;
+   window.scrollTo({top: bottom, left: 0, behavior: 'smooth'});
+
    </script>
    </body>
 </html>
