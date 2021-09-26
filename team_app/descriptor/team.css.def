@@ -354,6 +354,7 @@ a {
 
 .table-box .description h1 {
   font-size: 180%;
+  font-style : italic;
 }
 
 .table-box .wrapper {
@@ -907,7 +908,8 @@ input[type="file"] {
   }
 
   .portal h1 {
-   font-size: 320%;
+   font-size: 420%;
+   font-style : italic;
    padding-right: 64px;
   }
 
@@ -935,6 +937,7 @@ input[type="file"] {
 
   .portal h1 {
    font-size: 240%;
+   font-style : italic;
   }
 
   .portal h2 {
