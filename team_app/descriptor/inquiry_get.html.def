@@ -35,7 +35,6 @@
         var str = comment.innerHTML; 
         if (str.includes('inquiry.app')) {
           comment.classList.add('user');
-          console.log(str);
         }
       });
 
