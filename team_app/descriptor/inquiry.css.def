@@ -586,6 +586,7 @@ a {
   }
 }
 
+/* pre init */
 .form-box .init {
   margin-top: 4px;
   margin-bottom: 4px;
@@ -593,8 +594,10 @@ a {
   padding: 12px 12px;
   background: #e0ffff;
   min-width:100%;
+  overflow:auto;
 }
 
+/* pre for comment from user */
 .form-box .user {
   margin-top: 4px;
   margin-bottom: 4px;
@@ -602,6 +605,7 @@ a {
   padding: 12px 12px;
   background: #EAF2A4;
   min-width:100%;
+  overflow:auto;
 }
 
 .form-box input[type="radio"],
