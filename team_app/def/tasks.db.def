@@ -65,9 +65,9 @@ col4_required="no"
 +addcol
 # col5
 #-------------------------------------------
-col5_key_name="detail"
-col5_key_label="Detail"
-col5_type="textarea"
+col5_key_name="assign"
+col5_key_label="Assignee"
+col5_type="mls"
 
 # only for select, checkbox
 col5_key_params=""
@@ -82,12 +82,12 @@ col5_required="no"
 +addcol
 # col6
 #-------------------------------------------
-col6_key_name="assign"
-col6_key_label="Assignee"
-col6_type="mls"
+col6_key_name="status"
+col6_key_label="Status"
+col6_type="select"
 
 # only for select, checkbox
-col6_key_params=""
+col6_key_params="open on-going pending closed"
 
 # only for pdls
 col6_primary_databox=""
@@ -99,12 +99,12 @@ col6_required="no"
 +addcol
 # col7
 #-------------------------------------------
-col7_key_name="status"
-col7_key_label="Status"
-col7_type="select"
+col7_key_name="sync"
+col7_key_label="Sync to Calendar"
+col7_type="checkbox"
 
 # only for select, checkbox
-col7_key_params="open on-going pending closed"
+col7_key_params="yes"
 
 # only for pdls
 col7_primary_databox=""
@@ -116,16 +116,33 @@ col7_required="no"
 +addcol
 # col8
 #-------------------------------------------
-col8_key_name="sync"
-col8_key_label="Sync to Calendar"
-col8_type="checkbox"
+col8_key_name="description"
+col8_key_label="Description"
+col8_type="textarea"
 
 # only for select, checkbox
-col8_key_params="yes"
+col8_key_params=""
 
 # only for pdls
 col8_primary_databox=""
 
 # required option
 col8_required="no"
+#-------------------------------------------
+
++addcol
+# col9
+#-------------------------------------------
+col9_key_name="update"
+col9_key_label="Update"
+col9_type="textarea"
+
+# only for select, checkbox
+col9_key_params=""
+
+# only for pdls
+col9_primary_databox=""
+
+# required option
+col9_required="no"
 #-------------------------------------------

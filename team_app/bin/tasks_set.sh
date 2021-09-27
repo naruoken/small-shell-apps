@@ -53,7 +53,18 @@ if [ "$form_chk" = "multipart" ];then
 fi
 
 # push datas to databox
-$DATA_SHELL databox:$databox action:set id:$id keys:$keys input_dir:../tmp/$session  > ../tmp/$session/result
+$DATA_SHELL databox:$databox action:set id:$id keys:hashid,name,start,end,assign,status,sync,description \
+input_dir:../tmp/$session  > ../tmp/$session/result
+
+if [ "$id" = "new" ];then
+  # update id
+  id=`cat ../tmp/$session/result | awk -F "id:" '{print $2}' | sed '/^$/d' | sort | uniq`
+fi
+
+inquiry_chk=`cat ../tmp/$session/update | sed -z "s/\n//g" | sed "s/ //g"`
+if [ "$inquiry_chk" ];then
+  $DATA_SHELL databox:$databox action:merge.set id:$id key:update input_dir:../tmp/$session  >> ../tmp/$session/result
+fi
 
 error_chk=`grep "^error" ../tmp/$session/result`
 
@@ -66,7 +77,7 @@ if [ "$error_chk" ];then
   | sed "s/%%session/session=$session\&pin=$pin/g"
 else
   # redirect to the table
-  echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?subapp=tasks&session=$session&pin=$pin&req=table\">"
+  echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?subapp=tasks&session=$session&pin=$pin&req=get&id=$id\">"
 fi
 
 if [ "$session" ];then

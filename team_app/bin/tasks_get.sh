@@ -2,7 +2,7 @@
 
 # Target databox and keys
 databox=tasks
-keys=all
+#keys=all
 
 # load query string param
 for param in `echo $@`
@@ -46,14 +46,16 @@ if [ $id = "new" ];then
   #----------------------------
   # gen reqd/write form #new
   #----------------------------
-  $DATA_SHELL databox:$databox action:get id:$id keys:$keys format:html_tag > ../tmp/$session/dataset
+  $DATA_SHELL databox:$databox action:get id:$id keys:all format:html_tag > ../tmp/$session/dataset
 
 else
 
   #---------------------------
   # gen reqd/write form #update
   #---------------------------
-  $DATA_SHELL databox:$databox action:get id:$id keys:$keys format:html_tag > ../tmp/$session/dataset
+  $DATA_SHELL databox:$databox action:get id:$id keys:hashid,name,start,end,assign,status,sync,description format:html_tag > ../tmp/$session/dataset
+  $DATA_SHELL databox:$databox action:merge.get id:$id key:update >> ../tmp/$session/dataset
+
 
   #---------------------------
   # gen read only datas
@@ -97,6 +99,7 @@ cat ../descriptor/${view} | sed "s/^ *</</g" \
 | sed "/%%history/r ../tmp/$session/history" \
 | sed "s/%%history//g"\
 | sed "s/%%id/$id/g" \
+| sed "s/+MERGE /<\/pre><pre class=\"init\">/g" \
 | sed "s/%%pdls/session=$session\&pin=$pin\&req=get/g" \
 | sed "s/%%session/session=$session\&pin=$pin/g" \
 | sed "s/%%params/subapp=tasks\&session=$session\&pin=$pin/g"

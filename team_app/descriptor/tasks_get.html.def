@@ -30,7 +30,9 @@
        <ul>
         %%dataset
        </ul>
-       <button class="button" type="submit">SET</button>
+       <div class="flex-button">
+         <button class="button" type="submit">SET</button>
+       </div>
        <div class="action_links">
         <span><p style="cursor: pointer" onclick="window.open('./team?%%params&req=log_viewer&id=%%id', 'log_viewer', 'width=820,height=280')">Show data updated history</p></span>
        </div>
@@ -60,6 +62,10 @@
        location.href = "./team?%%params&req=del&id=%%id";
      }
    }
+
+   var element = document.documentElement;
+   var bottom = element.scrollHeight - element.clientHeight;
+   window.scrollTo({top: bottom, left: 0, behavior: 'smooth'});
 
    </script>
    </body>
