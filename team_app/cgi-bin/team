@@ -198,6 +198,12 @@ case "$req" in
   "inquiries.log_viewer") ../bin/inquiries_log_viewer.sh session:$session pin:$pin id:$id ;;
   "inquiries.file") ../bin/inquiries_dl.sh session:$session pin:$pin id:$id ;;
 
+  # announcements
+  "announcements.table") ../bin/announcements_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command;;
+  "announcements.get") ../bin/announcements_get.sh session:$session pin:$pin user_name:$user_name id:$id;;
+  "announcements.set") ../bin/announcements_set.sh session:$session pin:$pin user_name:$user_name id:$id;;
+  "announcements.log_viewer") ../bin/announcements_log_viewer.sh session:$session pin:$pin id:$id;;
+  "announcements.file") ../bin/announcements_dl.sh session:$session pin:$pin id:$id;;
 
   *)
     echo "error: wrong request";;

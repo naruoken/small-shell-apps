@@ -15,7 +15,7 @@ primary_key_label="hashid"
 # col2
 #-------------------------------------------
 col2_key_name="name"
-col2_key_label="Tvent Name"
+col2_key_label="Task Name"
 col2_type="text"
 
 # only for select, checkbox
