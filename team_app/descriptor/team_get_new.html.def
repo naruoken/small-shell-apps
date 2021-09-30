@@ -23,7 +23,7 @@
 
       <div class="form-box">
        <div class="description">
-        <h1>#Event.new</h1>
+        <h1>#events.new</h1>
        </div>
        <form method="post" action="./team?%%params&req=set&id=%%id" onclick="document.charset='utf-8';">
        <ul>
