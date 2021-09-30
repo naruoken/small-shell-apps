@@ -25,6 +25,7 @@
        <div class="description">
         <h1>#events.data</h1>
         <p>id:%%id</p>
+        <br>
        </div>
        <form method="post" action="./team?%%params&req=set&id=%%id" onclick="document.charset='utf-8';">
        <ul>
