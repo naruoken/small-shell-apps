@@ -71,7 +71,7 @@ $DATA_SHELL databox:tasks command:show_all[keys=name,start,end,status][filter=sy
 
 # gen announcement
 top_news=`$DATA_SHELL databox:announcements command:head_-1 format:none`
-top_news="`echo $top_news | awk -F "," '{print $4}' | head -c 20`.."
+top_news="`echo $top_news | awk -F "," '{print $3}' | head -c 10`.."
 
 
 # merge events and tasks to 1 array
