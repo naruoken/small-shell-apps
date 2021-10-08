@@ -34,6 +34,7 @@
             <v-container>
               <v-row class="fill-height">
               <div class="float-md-left">
+                 <div class="main-left-menue">
                  <h1>#PORTAL</h1>
                  <p> Hello %%user_name, welcome to the Team</p>
                  <h2> Favorite links </h2>
@@ -50,6 +51,7 @@
                  <ul>
                  <li><v-icon>mdi-forum</v-icon> <a href="./inquiry?id=new&req=get">Inquiry Form</a></li>
                  </ul>
+                 </div>
               </div>
                 <v-col>
                   <v-sheet height="64">
