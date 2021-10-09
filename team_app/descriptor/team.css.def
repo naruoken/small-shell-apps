@@ -1044,6 +1044,7 @@ input[type="file"] {
   }
 
   .main-left-menue {
+    padding-top: 8px;
     max-width: 380px;
     padding-right: 20px;
   }
@@ -1079,6 +1080,16 @@ input[type="file"] {
 
   .portal li {
     margin-left: -16px;
+  }
+
+  .main-left-menue {
+    max-width: 70%;
+  }
+
+  .main-left-menue li {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
 }
