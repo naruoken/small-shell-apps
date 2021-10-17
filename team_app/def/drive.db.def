@@ -8,7 +8,7 @@ databox="drive"
 # col1
 #-------------------------------------------
 primary_key="hashid"
-primary_key_label="hashid"
+primary_key_label=""
 #-------------------------------------------
 
 +addcol
