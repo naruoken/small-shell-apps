@@ -66,7 +66,7 @@ if [[ ! "$req" == *stats && ! "$req" == *file ]];then
   echo ""
 fi
 
-# Session verification
+# session verification
 
 if [ "$auth" = "required" ];then
 
@@ -89,7 +89,7 @@ if [ "$auth" = "required" ];then
 
   if [ "$req" = "logout" ]; then
     sudo -u small-shell ${small_shell_path}/bin/extension_auth app:team pin:${pin} remote_addr:${REMOTE_ADDR} logout:${session}
-    echo "<meta http-equiv=\"refresh\" content=\"0; url=./auth.team?&req=main\">"
+    echo "<meta http-equiv=\"refresh\" content=\"0; url=./auth.team?req=main\">"
     exit 0
   fi
 
@@ -107,7 +107,7 @@ if [ "$auth" = "required" ];then
         echo "<meta http-equiv=\"refresh\" content=\"0; url=./auth.team?req=$req&page=$page&message=!%20Session%20Expired\">"
         exit 1
       elif [[ $req == *get ]];then
-        echo "<meta http-equiv=\"refresh\" content=\"0; url=./auth.team?req=$req&databox=$databox&id=$id&message=!%20Session%20Expired\">"
+        echo "<meta http-equiv=\"refresh\" content=\"0; url=./auth.team?req=$req&id=$id&message=!%20Session%20Expired\">"
         exit 1
       else
         req=main
@@ -116,14 +116,6 @@ if [ "$auth" = "required" ];then
       fi
     fi
   fi
-
-else
-  # else means not use authentication method but use system key for databox connection
-  authkey=""
-  auth_req=`sudo -u small-shell ${small_shell_path}/bin/extension_auth key_auth:${authkey} remote_addr:${REMOTE_ADDR} app:team`
-  user_name=`echo $auth_req | awk -F "," '{print $1}' | awk -F ":" '{print $2}'`
-  session=`echo $auth_req | awk -F "," '{print $2}' | awk -F ":" '{print $2}'`
-  pin=`echo $auth_req | awk -F "," '{print $3}' | awk -F ":" '{print $2}'`
 fi
 
 

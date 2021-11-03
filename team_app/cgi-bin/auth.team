@@ -64,26 +64,26 @@ rm  ../tmp/${param}*
 
 # For the access with initialize hashkey which contain in query string and create new user_key
 if [ "$initialize" ];then
-    user_id=`echo $initialize | awk -F "," '{print $1}'`
-    initialize_hash_key=`echo $initialize |  awk -F "," '{print $2}'`
-    key_gen=`sudo -u small-shell ${small_shell_path}/bin/extension_auth app:team initialize:${user_id}{${initialize_hash_key}} \
-             remote_addr:${REMOTE_ADDR}`
-    user_name=`echo $key_gen | awk -F "," '{print $1}' | awk -F ":" '{print $2}'`
-    user_key=`echo $key_gen | awk -F "," '{print $2}' | awk -F ":" '{print $2}'`
-    server=`sudo -u small-shell ${small_shell_path}/bin/meta get.server`
+  user_id=`echo $initialize | awk -F "," '{print $1}'`
+  initialize_hash_key=`echo $initialize |  awk -F "," '{print $2}'`
+  key_gen=`sudo -u small-shell ${small_shell_path}/bin/extension_auth app:team initialize:${user_id}{${initialize_hash_key}} \
+           remote_addr:${REMOTE_ADDR}`
+  user_name=`echo $key_gen | awk -F "," '{print $1}' | awk -F ":" '{print $2}'`
+  user_key=`echo $key_gen | awk -F "," '{print $2}' | awk -F ":" '{print $2}'`
+  server=`sudo -u small-shell ${small_shell_path}/bin/meta get.server`
 
-    # render initialize button HTML
-    if [ "$user_name" -a "$user_key" ];then
-      cat ../descriptor/team_auth_initialize.html.def | sed "s/^ *</</g"\
-      | sed "s/%%IP/$REMOTE_ADDR/g" \
-      | sed "s/%%user_name/$user_name/g" \
-      | sed "s/%%user_key/$user_key/g" \
-      | sed "s/%%server/$server/g"
-      exit 0
-    else
-      echo "error: Your initialize URL should be wrong, please contact to your web admin"
-      exit 1
-    fi
+  # render initialize button HTML
+  if [ "$user_name" -a "$user_key" ];then
+    cat ../descriptor/team_auth_initialize.html.def | sed "s/^ *</</g"\
+    | sed "s/%%IP/$REMOTE_ADDR/g" \
+    | sed "s/%%user_name/$user_name/g" \
+    | sed "s/%%user_key/$user_key/g" \
+    | sed "s/%%server/$server/g"
+    exit 0
+  else
+    echo "error: Your initialize URL should be wrong, please contact to your web admin"
+    exit 1
+  fi
 fi
 
 # Render auth form html
@@ -102,16 +102,8 @@ if [ ! "$team_key" ];then
   else
 
     # regenerate  query string
-    if [ "$databox" ];then
-      databox="databox=`echo $databox`"
-    fi
-
     if [ "$req" ];then
-      req="\&req=`echo $req`"
-    fi
-
-    if [ "$page" ];then
-      page="\&page=`echo $page`"
+      req="?req=`echo $req`"
     fi
 
     if [ "$id" ];then
@@ -129,7 +121,7 @@ if [ ! "$team_key" ];then
     | sed "/%%footer/r ../descriptor/common_parts/team_footer" \
     | sed "/%%footer/d"\
     | sed "s/%%message/${message}/g" \
-    | sed "s/%%params/${databox}${req}${page}${id}/g"
+    | sed "s/?%%params/${req}${page}${id}/g"
     exit 0
   fi
 
@@ -155,12 +147,13 @@ if [ "$team_key" ];then
 
     # redirect to APP if key auth is OK
     if [[ $req == *table ]];then
-      echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?session=$session&req=$req&pin=$pin&id=$id\">"
+      echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?session=$session&pin=$pin&req=$req\">"
     elif [[ $req == *get ]];then
-      echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?session=$session&pin=$pin&databox=$databox&id=$id&req=$req&page=$page\">"
+      echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?session=$session&pin=$pin&req=$req&id=$id\">"
     else
       echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?session=$session&pin=$pin&req=$req\">"
     fi
+
   else
     # render standard login form with error message
     cat ../descriptor/team_auth_form.html.def | sed "s/^ *</</g"\
@@ -169,7 +162,7 @@ if [ "$team_key" ];then
     | sed "s/%%auth_form_menu//g"\
     | sed "/%%footer/r ../descriptor/common_parts/footer" \
     | sed "/%%footer/d"\
-    | sed "s/%%params//g"
+    | sed "s/?%%params//g"
     exit 1
   fi
 
