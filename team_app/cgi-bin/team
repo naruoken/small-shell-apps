@@ -104,7 +104,7 @@ if [ "$auth" = "required" ];then
 
     if [ ! "$user_name" -o ! "$session" -o ! "${pin}" ];then
       if [[ $req == *table ]];then
-        echo "<meta http-equiv=\"refresh\" content=\"0; url=./auth.team?req=$req&page=$page&message=!%20Session%20Expired\">"
+        echo "<meta http-equiv=\"refresh\" content=\"0; url=./auth.team?req=$req&message=!%20Session%20Expired\">"
         exit 1
       elif [[ $req == *get ]];then
         echo "<meta http-equiv=\"refresh\" content=\"0; url=./auth.team?req=$req&id=$id&message=!%20Session%20Expired\">"
