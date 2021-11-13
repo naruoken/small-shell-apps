@@ -1,0 +1,133 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>auth</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+        <link rel="stylesheet" href="./oauth_test_css">
+    </head>
+    <body>
+    <div class="container">
+      <div class="flex-header">
+        <div class="left-header">
+        </div>
+        <div class="right-header">
+        </div>
+      </div>
+      <div class="auth-container">
+      <div class="auth-form">
+      <h1>Oauth_test</h1>
+      <div class="wrapper">
+        <p>Please step in to the APP through Enter button</p>
+        <button onclick="tryRequest();">Enter</button>
+      </div>
+      </div>
+     </div>
+   </div>
+
+<script>
+  var CLIENT_ID = '%%client_id';
+  var REDIRECT_URI = '%%redirect_url';
+  var OAUTH_END_POINT = '%%oauth_endpoint';
+  var SCOPE = '%%scope';
+  var GET_REQUEST_URI = '%%get_request_url';
+  var STATE = '%%state';
+  var fragmentString = location.hash.substring(1);
+  var user = '';
+  var mailres = {};
+
+  // Parse query string to see if page request is coming from OAuth 2.0 server.
+  var params = {};
+  var regex = /([^&=]+)=([^&]*)/g, m;
+  while (m = regex.exec(fragmentString)) {
+    params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+  }
+  if (Object.keys(params).length > 0) {
+    localStorage.setItem('oauth2-params', JSON.stringify(params) );
+    if (params['state'] && params['state'] == STATE) {
+      tryRequest();
+    }
+  }
+
+  // If there's an access token, try an API request.
+  // Otherwise, start OAuth 2.0 flow.
+  function tryRequest() {
+    var params = JSON.parse(localStorage.getItem('oauth2-params'));
+    if (params && params['access_token']) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET',
+          GET_REQUEST_URI +
+          'access_token=' + params['access_token']);
+      xhr.onreadystatechange = function (e) {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var mailres = JSON.parse(xhr.response);
+          var user = mailres.email;
+          console.log(user);
+          appLogin(user, params['access_token']);
+        } else if (xhr.readyState === 4 && xhr.status === 401) {
+          // Token invalid, so prompt for user permission.
+          oauth2SignIn();
+        }
+      };
+      xhr.send(null);
+    } else {
+      oauth2SignIn();
+    }
+  }
+
+  // Create form to request access token to Oauth2.0 server
+  function oauth2SignIn() {
+    // OAuth 2.0 endpoint for requesting an access token
+
+    // Create element to open OAuth 2.0 endpoint in new window.
+    var form = document.createElement('form');
+    form.setAttribute('method', 'GET'); // Send as a GET request.
+    form.setAttribute('action', OAUTH_END_POINT);
+
+    // Parameters to pass to OAuth 2.0 endpoint.
+    var params = {'client_id': CLIENT_ID,
+                  'redirect_uri': REDIRECT_URI,
+                  'scope': SCOPE,
+                  'state': STATE,
+                  'include_granted_scopes': 'true',
+                  'response_type': 'token'};
+
+    // Add form parameters as hidden input values.
+    for (var p in params) {
+      var input = document.createElement('input');
+      input.setAttribute('type', 'hidden');
+      input.setAttribute('name', p);
+      input.setAttribute('value', params[p]);
+      form.appendChild(input);
+    }
+
+    // Add form to page and submit it to open the OAuth 2.0 endpoint.
+    document.body.appendChild(form);
+    form.submit();
+  }
+
+  // Create form to request access to the small-shell APP server
+  function appLogin(user, access_token) {
+    var Endpoint = './auth.%%app';
+
+    var form = document.createElement('form');
+    form.setAttribute('method', 'POST'); 
+    form.setAttribute('action', Endpoint);
+
+    // Parameters to pass to OAuth 2.0 endpoint.
+    var params = {'access_token': access_token,
+                  'user': user };
+
+    // Add form parameters as hidden input values.
+    for (var p in params) {
+      var input = document.createElement('input');
+      input.setAttribute('type', 'hidden');
+      input.setAttribute('name', p);
+      input.setAttribute('value', params[p]);
+      form.appendChild(input);
+    }
+    document.body.appendChild(form);
+    form.submit();
+  }
+</script>
+
+</body></html>
