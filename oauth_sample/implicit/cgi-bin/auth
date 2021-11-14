@@ -116,7 +116,6 @@ if [ "$access_token" -a "$user" ];then
     fi
   else
     echo "authentication faied"
-    echo "$access_token $user $user_chk"
   fi
 fi
 
