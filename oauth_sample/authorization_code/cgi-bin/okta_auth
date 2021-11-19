@@ -2,7 +2,14 @@
 
 #read posted param 
 input=`dd bs=${CONTENT_LENGTH} 2>/dev/null | cat -`
+
 authkey="%%authkey"
+exchange_token_uri="https://${yourOktaDomain}/oauth2/default/v1/token"
+user_info_req_uri="https://${yourOktaDomain}/oauth2/default/v1/userinfo"
+redirect_uri=""
+client_id=""
+client_secret=""
+target_claim="userinfo"
 
 echo "Content-Type: text/html"
 echo ""
@@ -64,7 +71,7 @@ rm  ../tmp/${param}*
 
 
 # render login button if thre is no step in log for audit matter
-if [ ! "$access_token" -o ! "$user" ];then
+if [ ! "$code" ];then
 
   # regenerate  query string
   if [ "$req" ];then
@@ -90,11 +97,25 @@ if [ ! "$access_token" -o ! "$user" ];then
   exit 0
 fi
 
-
 # Oauth user check & login to the APP
-if [ "$access_token" -a "$user" ];then
-  user_chk=`curl "%%auth_get_uri?=$access_token" | jq .email | sed "s/\"//g"`
-  if [ "$user" = "$user_chk" ];then
+if [ "$code" ];then
+  urlencoded_redirect_uri=`echo -n "$redirect_uri" | php -r "echo urlencode(file_get_contents('php://stdin'));"`
+  base64key=`echo -n "$client_id:$client_secret" | base64 -w 0`
+
+  res=`curl --request POST \
+  --url $exchange_token_uri \
+  --header "Authorization: Basic $base64key" \
+  --header "Accept: application/json" \
+  --header "Content-type: application/x-www-form-urlencoded" \
+  --data "grant_type=authorization_code&redirect_uri=${urlencoded_redirect_uri}&code=${code}"`
+  access_token=`echo "$res" | jq .access_token | sed "s/\"//g"`
+
+  res=`curl -X GET \
+  -H "Authorization: Bearer ${access_token}" \
+  "$user_info_req_uri"`
+  user=`echo "$res" | jq .${target_claim} | sed "s/\"//g"`
+
+  if [ "$access_token" -a "$user" -a ! "$user" = "null" ];then
     user=`echo $user | awk -F"@" '{print $1}'`
     auth_req=`sudo -u small-shell ${small_shell_path}/bin/extension_auth app:oauth_test key_auth:${authkey} force_user:${user} remote_addr:${REMOTE_ADDR}`
     session=`echo $auth_req | awk -F "," '{print $2}' | awk -F ":" '{print $2}'`
@@ -116,6 +137,7 @@ if [ "$access_token" -a "$user" ];then
     fi
   else
     echo "authentication faied"
+    echo "$access_token:$user"
   fi
 fi
 
