@@ -39,9 +39,9 @@
                  <p> Hello %%user_name, welcome to the Team</p>
                  <h2> Favorite links </h2>
                  <ul>
-                 <li><v-icon>mdi-database</v-icon> <a href="./team?%%session&subapp=drive&req=table">Drive #object storage</a></li>
-                 <li><v-icon>mdi-table</v-icon> <a href="./team?%%session&req=table">Events #table</a></li>
-                 <li><v-icon>mdi-calendar-plus</v-icon> <a href="./team?%%session&req=get&id=new">+ADD</a></li>
+                 <li><v-icon>mdi-database</v-icon> <a href="./team?%%session&subapp=drive&req=table">Drive</a></li>
+                 <li><v-icon>mdi-table</v-icon> <a href="./team?%%session&req=table">Events</a></li>
+                 <li><v-icon>mdi-calendar-plus</v-icon> <a href="./team?%%session&req=get&id=new">ADD</a></li>
                  <li><v-icon>mdi-bullhorn</v-icon> <a href="./team?%%session&subapp=announcements&req=table">Announcement</a></li>
                  <li><v-icon>mdi-chevron-double-right</v-icon> top: %%top</li>
                  
