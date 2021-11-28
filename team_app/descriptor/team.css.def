@@ -1083,7 +1083,7 @@ input[type="file"] {
   }
 
   .main-left-menue {
-    max-width: 70%;
+    max-width: 100%;
   }
 
   .main-left-menue li {
