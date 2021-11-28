@@ -1022,7 +1022,7 @@ input[type="file"] {
 
   .portal h1 {
    font-style : italic;
-   font-size: 180%;
+   font-size: 240%;
   }
 
   .portal ul {
