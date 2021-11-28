@@ -1024,7 +1024,6 @@ input[type="file"] {
   .portal h1 {
    font-style : italic;
    font-size: 240%;
-   padding-right: 64px;
   }
 
   .portal ul {
@@ -1055,6 +1054,10 @@ input[type="file"] {
    padding-top: 24px;
    max-width: 98%;
    height: 68%;
+  }
+
+  .portal h1 {
+   font-style : italic;
   }
 
   .portal ul {
