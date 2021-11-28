@@ -1017,7 +1017,7 @@ input[type="file"] {
 @media screen and (min-width: 640px){
 
   .portal {
-   padding-top: 4px;
+   padding-top: 24px;
    height: 68%;
   }
 
