@@ -1017,21 +1017,13 @@ input[type="file"] {
 @media screen and (min-width: 640px){
 
   .portal {
-   padding-top: 24px;
+   padding-top: 4px;
    height: 68%;
-  }
-
-  .portal p {
-   padding-right: 64px;
   }
 
   .portal h1 {
    font-style : italic;
    font-size: 240%;
-   padding-right: 64px;
-  }
-
-  .portal h2 {
    padding-right: 64px;
   }
 
@@ -1045,8 +1037,8 @@ input[type="file"] {
 
   .main-left-menue {
     padding-top: 8px;
-    max-width: 320px;
-    padding-right: 20px;
+    max-width: 280px;
+    padding-right: 8px;
   }
 
   .main-left-menue li {
@@ -1063,15 +1055,6 @@ input[type="file"] {
    padding-top: 24px;
    max-width: 98%;
    height: 68%;
-  }
-
-  .portal h1 {
-   font-size: 240%;
-   font-style : italic;
-  }
-
-  .portal h2 {
-   font-size: 120%;
   }
 
   .portal ul {
