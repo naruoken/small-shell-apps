@@ -13,7 +13,7 @@
     <div class="container">
       <div class="flex-header">
         <div class="left-header">
-        <h2><a href="./team?%%session&req=main">Team APP</a></h2>
+        <h3><a href="./team?%%session&req=main">Team APP</a></h3>
         </div>
         <div class="right-header">
         <button class="even-btn-menu">=</button>
@@ -37,7 +37,7 @@
                  <div class="main-left-menue">
                  <h1>#PORTAL</h1>
                  <p> Hello %%user_name, welcome to the Team</p>
-                 <h2> Favorite links </h2>
+                 <h3> Favorite links </h3>
                  <ul>
                  <li><v-icon>mdi-database</v-icon> <a href="./team?%%session&subapp=drive&req=table">Drive</a></li>
                  <li><v-icon>mdi-table</v-icon> <a href="./team?%%session&req=table">Events</a></li>
@@ -47,7 +47,7 @@
                  
                  </ul>
                  <br>
-                 <h2> Link for end user </h2>
+                 <h3> Link for end user </h3>
                  <ul>
                  <li><v-icon>mdi-forum</v-icon> <a href="./inquiry?id=new&req=get">Inquiry Form</a></li>
                  </ul>

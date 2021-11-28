@@ -1018,12 +1018,11 @@ input[type="file"] {
 
   .portal {
    padding-top: 8px;
-   height: 68%;
   }
 
   .portal h1 {
    font-style : italic;
-   font-size: 240%;
+   font-size: 180%;
   }
 
   .portal ul {
