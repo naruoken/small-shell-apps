@@ -1017,12 +1017,22 @@ input[type="file"] {
 @media screen and (min-width: 640px){
 
   .portal {
-   padding-top: 8px;
+   padding-top: 24px;
+   height: 68%;
+  }
+
+  .portal p {
+   padding-right: 64px;
   }
 
   .portal h1 {
    font-style : italic;
-   font-size: 240%;
+   font-size: 320%;
+   padding-right: 64px;
+  }
+
+  .portal h2 {
+   padding-right: 64px;
   }
 
   .portal ul {
@@ -1035,8 +1045,8 @@ input[type="file"] {
 
   .main-left-menue {
     padding-top: 8px;
-    max-width: 280px;
-    padding-right: 8px;
+    max-width: 320px;
+    padding-right: 20px;
   }
 
   .main-left-menue li {
@@ -1056,7 +1066,12 @@ input[type="file"] {
   }
 
   .portal h1 {
+   font-size: 240%;
    font-style : italic;
+  }
+
+  .portal h2 {
+   font-size: 120%;
   }
 
   .portal ul {
@@ -1068,7 +1083,7 @@ input[type="file"] {
   }
 
   .main-left-menue {
-    max-width: 100%;
+    max-width: 70%;
   }
 
   .main-left-menue li {
