@@ -69,11 +69,6 @@ $DATA_SHELL databox:tasks command:show_all[keys=name,start,end,status][filter=sy
 | sed "s/{%%%%}/\&/g"\
 | sed "s/{%%%}/:/g"  > ../tmp/$session/tasks
 
-# gen announcement
-top_news=`$DATA_SHELL databox:announcements command:head_-1 format:none`
-top_news="`echo $top_news | awk -F "," '{print $3}'`"
-
-
 # merge events and tasks to 1 array
 jq -s add ../tmp/$session/events ../tmp/$session/tasks > ../tmp/$session/merged_events
 
@@ -87,7 +82,6 @@ cat ../descriptor/team_main.html.def | sed "s/^ *</</g" \
 | sed "s/%%user_name/$user_name/g" \
 | sed "/%%json/r ../tmp/$session/merged_events"\
 | sed "s/%%json//g"\
-| sed "s/%%top/$top_news/g"\
 | sed "s/%%common_menu//g"\
 | sed "s/%%session/session=$session\&pin=$pin/g" 
 
