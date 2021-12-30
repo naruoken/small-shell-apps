@@ -104,7 +104,7 @@ if [ "$auth" = "required" ];then
 
     if [ ! "$user_name" -o ! "$session" -o ! "${pin}" ];then
       if [[ $req == *table ]];then
-        echo "<meta http-equiv=\"refresh\" content=\"0; url=./auth.team?req=$req&message=!%20Session%20Expired\">"
+        echo "<meta http-equiv=\"refresh\" content=\"0; url=./auth.team?req=$req&page=$page&message=!%20Session%20Expired\">"
         exit 1
       elif [[ $req == *get ]];then
         echo "<meta http-equiv=\"refresh\" content=\"0; url=./auth.team?req=$req&id=$id&message=!%20Session%20Expired\">"
@@ -163,16 +163,22 @@ case "$req" in
   "file")
     ../bin/team_dl.sh session:$session pin:$pin id:$id databox:$databox ;;
 
+  "del")
+    ../bin/team_del.sh session:$session pin:$pin user_name:$user_name id:$id ;;
+
+
   # bookmark
   "bookmarks.table") ../bin/bookmarks_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command;;
   "bookmarks.get") ../bin/bookmarks_get.sh session:$session pin:$pin user_name:$user_name id:$id ;;
   "bookmarks.set") ../bin/bookmarks_set.sh session:$session pin:$pin user_name:$user_name id:$id ;;
+  "bookmarks.del") ../bin/bookmarks_del.sh session:$session pin:$pin user_name:$user_name id:$id ;;
   "bookmarks.log_viewer") ../bin/bookmarks_log_viewer.sh session:$session pin:$pin id:$id ;;
  
   # drive
   "drive.table") ../bin/drive_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command;;
   "drive.get") ../bin/drive_get.sh session:$session pin:$pin user_name:$user_name id:$id ;;
   "drive.set") ../bin/drive_set.sh session:$session pin:$pin user_name:$user_name id:$id ;;
+  "drive.del") ../bin/drive_del.sh session:$session pin:$pin user_name:$user_name id:$id ;;
   "drive.log_viewer") ../bin/drive_log_viewer.sh session:$session pin:$pin id:$id ;;
   "drive.file") ../bin/drive_dl.sh session:$session pin:$pin id:$id ;;
 
