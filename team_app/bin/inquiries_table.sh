@@ -164,8 +164,14 @@ fi
 
 if [ "$line_num" = 0 ];then
   if [ "$err_chk" = "" -a "$filter_table" = "-" -a ! "$sort_col" ];then
-    echo "<h4><a href=\"./team?&%%params&req=get&id=new\">+ ADD DATA</a></h4>" >> ../tmp/$session/table
+
     view=inquiries_table.html.def
+    if [ ! "$permission" = "ro" ];then
+      echo "<h4><a href=\"./team?&%%params&req=get&id=new\">+ ADD DATA</a></h4>" >> ../tmp/$session/table
+    else
+      echo "<h4>NO DATA</h4>" >> ../tmp/$session/table
+    fi
+
   elif [ "$sort_col" ];then
     echo "<h4>sort option $sort_option seems wrong</h4>" >> ../tmp/$session/table
     view=inquiries_table.html.def
