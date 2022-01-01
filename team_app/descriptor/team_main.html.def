@@ -33,7 +33,7 @@
           <v-main>
             <v-container>
               <v-row class="fill-height">
-                <a href="./team?%%session&req=get&id=new"><v-icon>mdi-calendar-plus</v-icon></a></li>
+                %%team_main_menu
                 <v-col>
                   <v-sheet height="64">
                     <v-toolbar

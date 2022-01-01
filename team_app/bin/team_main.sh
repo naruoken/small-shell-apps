@@ -33,6 +33,9 @@ fi
 META="sudo -u small-shell ${small_shell_path}/bin/meta"
 DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session pin:$pin app:team"
 
+# load permission
+permission=`$META get.attr:team/$user_name{permission}`
+
 # gen event json
 $DATA_SHELL databox:events command:show_all[keys=name,start,end,color][filter=sync{yes}] format:json \
 | sed "s/{%%%%%%%%%%%%%%%%%}/'/g"\
@@ -79,6 +82,8 @@ jq -s add ../tmp/$session/events ../tmp/$session/tasks > ../tmp/$session/merged_
 cat ../descriptor/team_main.html.def | sed "s/^ *</</g" \
 | sed "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
 | sed "s/%%common_menu//g"\
+| sed "/%%team_main_menu/r ../descriptor/common_parts/team_main_menu_${permission}" \
+| sed "s/%%team_main_menu//g"\
 | sed "s/%%user_name/$user_name/g" \
 | sed "/%%json/r ../tmp/$session/merged_events"\
 | sed "s/%%json//g"\
