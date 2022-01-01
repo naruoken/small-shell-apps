@@ -31,8 +31,7 @@
        </form>
        <div class="tags">
         <p>FILTER:%%filter&nbsp;&nbsp;[%%sort] data.num:%%num</p>
-        <a href="./team?%%params&req=get&id=new"><p>+ADD</p></a>
-        <a href="./team?%%params&req=table"><p>-CLR</p></a>
+        %%table_menu
         %%tag
        </div>
        %%table

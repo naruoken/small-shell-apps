@@ -2,7 +2,7 @@
 
 # Target databox and keys
 databox=events
-keys=%%keys
+keys=all
 
 # load query string param
 for param in `echo $@`
@@ -127,6 +127,10 @@ do
  echo "<p><a href=\"./team?%%params&req=table&table_command=$tag\">#$tag&nbsp;</a></p>" > ../tmp/$session/tag &
 done
 
+# load permission
+permission=`$META get.attr:team/$user_name{permission}`
+
+
 # gen %%page_link contents
 ../bin/team_page_links.sh $page $pages $table_command > ../tmp/$session/page_link &
 wait
@@ -177,6 +181,8 @@ cat ../descriptor/$view | sed "s/^ *</</g" \
 | sed "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
 | sed "/%%common_menu/d"\
 | sed "/%%table/r ../tmp/$session/table" \
+| sed "/%%table_menu/r ../descriptor/common_parts/table_menu_${permission}" \
+| sed "/%%table_menu/d"\
 | sed "s/%%table//g"\
 | sed "s/events/$databox/g"\
 | sed "/%%page_link/r ../tmp/$session/page_link" \
