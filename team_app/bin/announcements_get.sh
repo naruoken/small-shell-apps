@@ -41,6 +41,9 @@ fi
 META="sudo -u small-shell ${small_shell_path}/bin/meta"
 DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session pin:$pin app:team"
 
+# load permission
+permission=`$META get.attr:team/$user_name{permission}`
+
 if [ $id = "new" ];then
 
   #----------------------------
@@ -74,17 +77,20 @@ form_chk=`$META chk.form:$databox`
 if [ "$error_chk" ];then
   echo "<h2>Oops please something must be wrong, please check  announcements_get.sh</h2>"
 
+elif [ "$permission"  = "ro" ];then
+  view="annoucements_get_ro.html.def"
+
 elif [ "$form_chk" = "urlenc" ];then
   if [ "$id" = "new" ];then
     view="announcements_get_new.html.def"
   else
-    view="announcements_get.html.def"
+    view="announcements_get_rw.html.def"
   fi
 elif [ "$form_chk" = "multipart" ];then
   if [ "$id" = "new" ];then
     view="announcements_get_new_incf.html.def"
   else
-    view="announcements_get_incf.html.def"
+    view="announcements_get_rw_incf.html.def"
   fi
 fi
 

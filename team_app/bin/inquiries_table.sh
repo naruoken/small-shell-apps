@@ -127,6 +127,10 @@ do
  echo "<p><a href=\"./team?%%params&req=table&table_command=$tag\">#$tag&nbsp;</a></p>" > ../tmp/$session/tag &
 done
 
+# load permission
+permission=`$META get.attr:team/$user_name{permission}`
+
+
 # gen %%page_link contents
 ../bin/inquiries_page_links.sh $page $pages $table_command > ../tmp/$session/page_link &
 wait
@@ -176,6 +180,8 @@ fi
 cat ../descriptor/$view | sed "s/^ *</</g" \
 | sed "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
 | sed "/%%common_menu/d"\
+| sed "/%%table_menu/r ../descriptor/common_parts/table_menu_${permission}" \
+| sed "/%%table_menu/d"\
 | sed "/%%table/r ../tmp/$session/table" \
 | sed "s/%%table//g"\
 | sed "s/inquiries/$databox/g"\

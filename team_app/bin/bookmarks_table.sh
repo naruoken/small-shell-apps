@@ -127,6 +127,9 @@ do
  echo "<p><a href=\"./team?%%params&req=table&table_command=$tag\">#$tag&nbsp;</a></p>" > ../tmp/$session/tag &
 done
 
+# load permission
+permission=`$META get.attr:team/$user_name{permission}`
+
 # gen %%page_link contents
 ../bin/bookmarks_page_links.sh $page $pages $table_command > ../tmp/$session/page_link &
 wait
@@ -160,8 +163,14 @@ fi
 
 if [ "$line_num" = 0 ];then
   if [ "$err_chk" = "" -a "$filter_table" = "-" -a ! "$sort_col" ];then
-    echo "<h4><a href=\"./team?&%%params&req=get&id=new\">+ ADD DATA</a></h4>" >> ../tmp/$session/table
+
     view=bookmarks_table.html.def
+    if [ ! "$permission" = "ro" ];then
+      echo "<h4><a href=\"./team?&%%params&req=get&id=new\">+ ADD DATA</a></h4>" >> ../tmp/$session/table
+    else
+      echo "<h4>NO DATA</h4>" >> ../tmp/$session/table
+    fi
+
   elif [ "$sort_col" ];then
     echo "<h4>sort option $sort_option seems wrong</h4>" >> ../tmp/$session/table
     view=bookmarks_table.html.def
@@ -176,6 +185,8 @@ fi
 cat ../descriptor/$view | sed "s/^ *</</g" \
 | sed "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
 | sed "/%%common_menu/d"\
+| sed "/%%table_menu/r ../descriptor/common_parts/table_menu_${permission}" \
+| sed "/%%table_menu/d"\
 | sed "/%%table/r ../tmp/$session/table" \
 | sed "s/%%table//g"\
 | sed "s/bookmarks/$databox/g"\
