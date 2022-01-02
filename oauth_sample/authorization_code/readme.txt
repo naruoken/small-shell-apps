@@ -2,12 +2,11 @@
 # This sample is made for okta or google Oauth 2.0
 # -----------------------------------------------
 
-# input small-shell app name
-app=""
+# please input small-shell app name
+app="XXX"
 echo $app
 
 cd $HOME
-git clone
 
 # select provider
 provider="gcp"
@@ -36,7 +35,6 @@ vi ./descriptor/${provider}_auth_form.html.def
 #-------------------------------------------------
 
 # DEPLOY TO APP
-app=app_name
 authkey=`grep authkey /usr/lib/cgi-bin/auth.$app`
 cat ./cgi-bin/${provider}_auth | sed "s/%%authkey/$authkey/g" > /usr/lib/cgi-bin/auth.$app
 cat ./descriptor/${provier}_auth_form.html.def > /var/www/descriptor/${app}_auth_form.html.def
