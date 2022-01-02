@@ -61,18 +61,42 @@ if [ "$sort_chk_post" -o "$sort_chk_query_string" ];then
 else
   if [[ $table_command == *{*} ]]; then
     filter_key=`echo $table_command | awk -F "{" '{print $1}'`
-    filter_word=`echo $table_command | awk -F "{" '{print $2}' | sed "s/}//g" | sed "s/%/{%%%%%%%%%%%%%%%%}/g"\
-    | sed "s/_/{%%%%%%%}/g" | sed "s/\//{%%%%%}/g"  \
-    | sed "s/(/{%%%%%%%%}/g" | sed "s/)/{%%%%%%%%%}/g" | sed "s/\[/{%%%%%%%%%%}/g" | sed "s/\]/{%%%%%%%%%%%}/g" \
-    | sed "s/'/{%%%%%%%%%%%%%%%%%}/g" | sed "s/*/{%%%%%%%%%%%%%%%}/g" | sed "s/\\\\$/{%%%%%%%%%%%%%%}/g" \
-    | sed "s/,/{%%%%%%}/g"  | sed "s/#/{%%%%%%%%%%%%%}/g" |  sed "s/\&/{%%%%}/g" | sed "s/:/{%%%}/g" | sed "s/　/ /g" | sed "s/ /,/g" \
-    |  php -r "echo preg_quote(file_get_contents('php://stdin'));"`
+    filter_word=`echo $table_command | awk -F "{" '{print $2}' | sed "s/}//g" \
+    | sed "s/%/{%%%%%%%%%%%%%%%%}/g"\
+    | sed "s/'/{%%%%%%%%%%%%%%%%%}/g" \
+    | sed "s/*/{%%%%%%%%%%%%%%%}/g" \
+    | sed "s/\\\\$/{%%%%%%%%%%%%%%}/g" \
+    | sed "s/#/{%%%%%%%%%%%%%}/g" \
+    | sed "s/|/{%%%%%%%%%%%%}/g" \
+    | sed "s/\]/{%%%%%%%%%%%}/g" \
+    | sed "s/\[/{%%%%%%%%%%}/g" \
+    | sed "s/)/{%%%%%%%%%}/g" \
+    | sed "s/(/{%%%%%%%%}/g" \
+    | sed "s/_/{%%%%%%%}/g" \
+    | sed "s/\//{%%%%%}/g"  \
+    | sed "s/,/{%%%%%%}/g"  \
+    | sed "s/\&/{%%%%}/g" \
+    | sed "s/:/{%%%}/g" \
+    | sed "s/　/ /g" | sed "s/ /,/g" \
+    | php -r "echo preg_quote(file_get_contents('php://stdin'));"`
     filter_table="$filter_key{$filter_word}"
   else
-    filter_table=`echo $table_command  | sed "s/%/{%%%%%%%%%%%%%%%%}/g" | sed "s/_/{%%%%%%%}/g" | sed "s/\//{%%%%%}/g" | sed "s/,/{%%%%%%}/g" \
-    | sed "s/\[/{%%%%%%%%%%}/g" | sed "s/\]/{%%%%%%%%%%%}/g"| sed "s/(/{%%%%%%%%}/g" | sed "s/)/{%%%%%%%%%}/g" | sed "s/|/{%%%%%%%%%%%%}/g" \
-    | sed "s/'/{%%%%%%%%%%%%%%%%%}/g" | sed "s/*/{%%%%%%%%%%%%%%%}/g" | sed "s/\\\\$/{%%%%%%%%%%%%%%}/g" \
-    | sed "s/#/{%%%%%%%%%%%%%}/g" |  sed "s/\&/{%%%%}/g" | sed "s/:/{%%%}/g" | sed "s/　/ /g" | sed "s/ /,/g" \
+    filter_table=`echo $table_command  \
+    | sed "s/%/{%%%%%%%%%%%%%%%%}/g"\
+    | sed "s/'/{%%%%%%%%%%%%%%%%%}/g" \
+    | sed "s/*/{%%%%%%%%%%%%%%%}/g" \
+    | sed "s/\\\\$/{%%%%%%%%%%%%%%}/g" \
+    | sed "s/#/{%%%%%%%%%%%%%}/g" \
+    | sed "s/|/{%%%%%%%%%%%%}/g" \
+    | sed "s/\[/{%%%%%%%%%%}/g" \
+    | sed "s/)/{%%%%%%%%%}/g" \
+    | sed "s/(/{%%%%%%%%}/g" \
+    | sed "s/_/{%%%%%%%}/g" \
+    | sed "s/\//{%%%%%}/g"  \
+    | sed "s/,/{%%%%%%}/g"  \
+    | sed "s/\&/{%%%%}/g" \
+    | sed "s/:/{%%%}/g" \
+    | sed "s/　/ /g" | sed "s/ /,/g" \
     | php -r "echo preg_quote(file_get_contents('php://stdin'));"`
   fi
 fi
