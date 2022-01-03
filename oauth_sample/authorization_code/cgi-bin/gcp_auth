@@ -58,7 +58,7 @@ done
 echo $QUERY_STRING | php -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | sed "s/\&/\n/g" > ../tmp/${param}
 
 # parse POST param
-echo $input | sed "s/\`//g" | sed "s/&/\n/g"  | sed -r "s/oauth_test_user(.*)=/oauth_test_user=/g" \
+echo $input | sed "s/\`//g" | sed "s/&/\n/g" \
 | php -r "echo urldecode(file_get_contents('php://stdin'));"  >> ../tmp/${param}
 cat ../tmp/${param} | sed -e "s/=/=\"/1" | sed "s/$/\"/g" | sed "s/^\"//g" | tr -d \$ | tr -d \` > ../tmp/${param}.load
 
@@ -99,7 +99,6 @@ fi
 # Oauth user check & login to the APP
 if [ "$code" ];then
   urlencoded_redirect_uri=`echo -n "$redirect_uri" | php -r "echo urlencode(file_get_contents('php://stdin'));"`
-  base64key=`echo -n "$client_id:$client_secret" | base64 -w 0`
 
   res=`curl --request POST \
   --url $exchange_token_uri \
