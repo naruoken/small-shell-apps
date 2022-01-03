@@ -2,7 +2,7 @@
 
 #read posted param 
 input=`dd bs=${CONTENT_LENGTH} 2>/dev/null | cat -`
-authkey="%authkey"
+authkey="%%authkey"
 exchange_token_uri="https://oauth2.googleapis.com/token"
 user_info_req_uri="https://www.googleapis.com/oauth2/v1/userinfo?"
 redirect_uri=""
