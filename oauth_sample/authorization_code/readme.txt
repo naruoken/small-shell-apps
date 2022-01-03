@@ -26,14 +26,6 @@ client_id=""
 client_secret=""
 target_claim=""
 #-------------------------------------------------
-# sample input
-#------------------------------------------------
-#exchange_token_uri="https://oauth2.googleapis.com/token"
-#user_info_req_uri="https://www.googleapis.com/oauth2/v1/userinfo?"
-#redirect_uri="http://XXX/cgi-bin/auth.oauth_test"
-#client_id="XXX.apps.googleusercontent.com"
-#client_secret="XXXX"
-#target_claim="email"
 
 vi ./descriptor/${provider}_oauth_form.html.def
 #------------------------------------------------
@@ -44,15 +36,6 @@ vi ./descriptor/${provider}_oauth_form.html.def
   var SCOPE = '';
   var STATE = '';
 #-------------------------------------------------
-# sample input
-#------------------------------------------------
-#  var CLIENT_ID = 'XXXX.apps.googleusercontent.com';
-#  var REDIRECT_URI = 'http://XXXX/cgi-bin/auth.oauth_test';
-#  var OAUTH_END_POINT = 'https://accounts.google.com/o/oauth2/v2/auth';
-#  var SCOPE = 'https://www.googleapis.com/auth/userinfo.email';
-#  var STATE = 'statee';
-#------------------------------------------------ 
-
 
 # DEPLOY
 authkey=`grep authkey= /usr/lib/cgi-bin/auth.$app | sed "s/authkey=\"//g" | sed "s/\"//g"`
