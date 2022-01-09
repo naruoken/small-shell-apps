@@ -985,6 +985,7 @@ a {
 .log_viewer {
   padding-left: 12px;
   padding-top: 2px;
+  padding-bottom: 12px;
 }
 
 .log_viewer pre {
