@@ -139,6 +139,9 @@ if [ "`echo $REQUEST_METHOD | grep -i "POST"`" ];then
 
 fi
 
+# put space to table_command
+table_command="`echo $table_command | sed "s/ /{%%space}/g"`"
+
 #----------------------------
 # routing to action scripts
 #----------------------------

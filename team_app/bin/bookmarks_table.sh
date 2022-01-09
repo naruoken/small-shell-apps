@@ -26,7 +26,7 @@ do
 
   # filter can be input both query string and post
   if [[ $param == table_command:* ]]; then
-    table_command=`echo $param | awk -F":" '{print $2}'`
+    table_command="`echo $table_command | sed "s/ /{%%space}/g"`"
   fi
 
 done
@@ -155,7 +155,7 @@ done
 permission=`$META get.attr:team/$user_name{permission}`
 
 # gen %%page_link contents
-../bin/bookmarks_page_links.sh $page $pages $table_command > ../tmp/$session/page_link &
+../bin/bookmarks_page_links.sh $page $pages "$table_command" > ../tmp/$session/page_link &
 wait
 
 # error check
