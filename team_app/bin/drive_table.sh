@@ -26,7 +26,7 @@ do
 
   # filter can be input both query string and post
   if [[ $param == table_command:* ]]; then
-    table_command="`echo $table_command | sed "s/ /{%%space}/g"`"
+    table_command=`echo $param | awk -F":" '{print $2}' | sed "s/{%%space}/ /g"`
   fi
 
 done
