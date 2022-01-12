@@ -3,6 +3,9 @@
 # preprocedure
 session_update="required"
 
+# load remote addr
+remote_addr=`echo $REMOTE_ADDR | sed "s/:/-/g"`
+
 # load small-shell params
 . ../descriptor/.small_shell_path
 IP_whitelisting=%%IP_whitelisting
@@ -15,7 +18,7 @@ if [ "$IP_whitelisting" = "yes" ];then
     for IP in $whitelist_chk
     do
       IP=`echo $IP | sed "s/*//g"`
-      if [[ ${REMOTE_ADDR} == ${IP}* ]];then
+      if [[ ${remote_addr} == ${IP}* ]];then
         IP_chk_flag=yes
         break
       fi
@@ -74,10 +77,10 @@ if [ "$auth" = "required" ];then
     session_update=no
 
     # session check
-    session_chk=`sudo -u small-shell ${small_shell_path}/bin/extension_auth app:team session_chk:${session} pin:${pin} remote_addr:${REMOTE_ADDR}`
+    session_chk=`sudo -u small-shell ${small_shell_path}/bin/extension_auth app:team session_chk:${session} pin:${pin} remote_addr:${remote_addr}`
     session_ip=`echo $session_chk | awk -F ":" '{print $2}'`
 
-    if [ ! "${session_ip}" = ${REMOTE_ADDR} ];then
+    if [ ! "${session_ip}" = ${remote_addr} ];then
       if [[ ! "$req" == *stats && ! "$req" == *file ]];then
         echo "Content-Type: text/html"
         echo ""
@@ -88,7 +91,7 @@ if [ "$auth" = "required" ];then
   fi
 
   if [ "$req" = "logout" ]; then
-    sudo -u small-shell ${small_shell_path}/bin/extension_auth app:team pin:${pin} remote_addr:${REMOTE_ADDR} logout:${session}
+    sudo -u small-shell ${small_shell_path}/bin/extension_auth app:team pin:${pin} remote_addr:${remote_addr} logout:${session}
     echo "<meta http-equiv=\"refresh\" content=\"0; url=./auth.team?req=main\">"
     exit 0
   fi
@@ -96,7 +99,7 @@ if [ "$auth" = "required" ];then
   # session update
   if [ "$session_update" = "required" ];then
     get_session=`sudo -u small-shell ${small_shell_path}/bin/extension_auth session_persist:${session} \
-    pin:${pin} remote_addr:${REMOTE_ADDR} app:team`
+    pin:${pin} remote_addr:${remote_addr} app:team`
 
     user_name=`echo $get_session | awk -F "," '{print $1}' | awk -F ":" '{print $2}'`
     session=`echo $get_session | awk -F "," '{print $2}' | awk -F ":" '{print $2}'`
@@ -149,7 +152,7 @@ table_command="`echo $table_command | sed "s/ /{%%space}/g"`"
 case "$req" in
   
   "main")
-    ../bin/team_main.sh session:$session pin:$pin user_name:$user_name remote_addr:${REMOTE_ADDR};;
+    ../bin/team_main.sh session:$session pin:$pin user_name:$user_name remote_addr:${remote_addr};;
 
   "get")
     ../bin/team_get.sh session:$session pin:$pin user_name:$user_name databox:$databox id:$id ;;

@@ -3,6 +3,9 @@
 #read posted param
 input=`dd bs=${CONTENT_LENGTH} 2>/dev/null | cat -`
 
+# load remote addr
+remote_addr=`echo $REMOTE_ADDR | sed "s/:/-/g"`
+
 echo "Content-Type: text/html"
 echo ""
 
@@ -20,14 +23,14 @@ if [ "$IP_whitelisting" = "yes" ];then
     for IP in $whitelist_chk
     do
       IP=`echo $IP | sed "s/*//g"`
-      if [[ ${REMOTE_ADDR} == ${IP}* ]];then
+      if [[ ${remote_addr} == ${IP}* ]];then
         IP_chk_flag=yes
         break
       fi
     done
 
     if [ ! "$IP_chk_flag" = "yes" ];then
-      echo "error: your IP{$REMOTE_ADDR} is not allowed to access"
+      echo "error: your IP{$remote_addr} is not allowed to access"
       exit 1
     fi
   fi
@@ -67,7 +70,7 @@ if [ "$initialize" ];then
   user_id=`echo $initialize | awk -F "," '{print $1}'`
   initialize_hash_key=`echo $initialize |  awk -F "," '{print $2}'`
   key_gen=`sudo -u small-shell ${small_shell_path}/bin/extension_auth app:team initialize:${user_id}{${initialize_hash_key}} \
-           remote_addr:${REMOTE_ADDR}`
+           remote_addr:${remote_addr}`
   user_name=`echo $key_gen | awk -F "," '{print $1}' | awk -F ":" '{print $2}'`
   user_key=`echo $key_gen | awk -F "," '{print $2}' | awk -F ":" '{print $2}'`
   server=`sudo -u small-shell ${small_shell_path}/bin/meta get.server`
@@ -75,7 +78,7 @@ if [ "$initialize" ];then
   # render initialize button HTML
   if [ "$user_name" -a "$user_key" ];then
     cat ../descriptor/team_auth_initialize.html.def | sed "s/^ *</</g"\
-    | sed "s/%%IP/$REMOTE_ADDR/g" \
+    | sed "s/%%IP/$remote_addr/g" \
     | sed "s/%%user_name/$user_name/g" \
     | sed "s/%%user_key/$user_key/g" \
     | sed "s/%%server/$server/g"
@@ -134,7 +137,7 @@ if [ "$team_key" ];then
   else
     authkey="$team_key"
   fi
-  auth_req=`sudo -u small-shell ${small_shell_path}/bin/extension_auth app:team key_auth:${authkey} remote_addr:${REMOTE_ADDR}`
+  auth_req=`sudo -u small-shell ${small_shell_path}/bin/extension_auth app:team key_auth:${authkey} remote_addr:${remote_addr}`
   user_name=`echo $auth_req | awk -F "," '{print $1}' | awk -F ":" '{print $2}'`
   session=`echo $auth_req | awk -F "," '{print $2}' | awk -F ":" '{print $2}'`
   pin=`echo $auth_req | awk -F "," '{print $3}' | awk -F ":" '{print $2}'`
