@@ -16,6 +16,9 @@ echo ""
 # load small-shell path
 . ../descriptor/.small_shell_path
 
+# load remote addr
+remote_addr=`echo $REMOTE_ADDR | sed "s/:/-/g"`
+
 # required
 IP_whitelisting=%%IP_whitelisting
 
@@ -27,14 +30,14 @@ if [ "$IP_whitelisting" = "yes" ];then
     for IP in $whitelist_chk
     do
       IP=`echo $IP | sed "s/*//g"`
-      if [[ ${REMOTE_ADDR} == ${IP}* ]];then
+      if [[ ${remote_addr} == ${IP}* ]];then
         IP_chk_flag=yes
         break
       fi
     done
 
     if [ ! "$IP_chk_flag" = "yes" ];then
-      echo "error: your IP{$REMOTE_ADDR} is not allowed to access"
+      echo "error: your IP{$remote_addr} is not allowed to access"
       exit 1
     fi
   fi
@@ -113,7 +116,7 @@ if [ "$code" ];then
 
   if [ "$access_token" -a "$user" -a ! "$user" = "null" ];then
     user=`echo $user | awk -F"@" '{print $1}'`
-    auth_req=`sudo -u small-shell ${small_shell_path}/bin/extension_auth app:oauth_test key_auth:${authkey} force_user:${user} remote_addr:${REMOTE_ADDR}`
+    auth_req=`sudo -u small-shell ${small_shell_path}/bin/extension_auth app:oauth_test key_auth:${authkey} force_user:${user} remote_addr:${remote_addr}`
     session=`echo $auth_req | awk -F "," '{print $2}' | awk -F ":" '{print $2}'`
     pin=`echo $auth_req | awk -F "," '{print $3}' | awk -F ":" '{print $2}'`
    
