@@ -3,20 +3,20 @@
         <meta charset="UTF-8" />
         <title>team portal</title>
         <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-        <link rel="stylesheet" href="./team_css">
         <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./team_css">
 
     </head>
     <body>
     <div class="container">
-      <div class="flex-header">
+      <div class="portal-flex-header">
         <div class="left-header">
-        <h2><a href="./team?%%session&req=main">Team APP</a></h2>
+        <a href="./team?%%session&req=main"><h3>Team APP</h3></a>
         </div>
         <div class="right-header">
-        <button class="even-btn-menu">=</button>
+        <button class="portal-even-btn-menu">=</button>
         <nav>
          <ul>
          %%common_menu
@@ -27,7 +27,7 @@
       <div id="loading">
         <div class="spinner"></div>
       </div>
-      <div class="portal">
+      <div class="calendar">
           <div id="app">
           <v-app>
           <v-main>
@@ -257,11 +257,11 @@
       spinner.classList.add('loaded');
     }
 
-    const btn = document.querySelector('.even-btn-menu');
+    const btn = document.querySelector('.portal-even-btn-menu');
     const nav = document.querySelector('nav');
 
     document.addEventListener('click', (e) => {
-      if(e.target.closest('.even-btn-menu')) {
+      if(e.target.closest('.portal-even-btn-menu')) {
         nav.classList.toggle('open-menu')
         if (btn.innerHTML === '=') {
           btn.innerHTML = '-';
