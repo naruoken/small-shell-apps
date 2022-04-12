@@ -24,9 +24,16 @@ done
 # load small-shell path
 . ../descriptor/.small_shell_path
 
+if [ -f ../tmp/$session/inquiry ];then
+  null_chk=`cat ../tmp/$session/inquiry | sed "s/ //g"`
+  if [ ! "$null_chk" ];then
+    rm ../tmp/$session/inquiry
+  fi
+fi
+
 # check posted param
 if [ -d ../tmp/$session ];then
-  keys=`ls ../tmp/$session | sed -z "s/\n/,/g" | sed "s/,$//g"`
+  keys=`ls ../tmp/$session | sed -z "s/\n/,/g" | sed "s/,$//g" | sed "s/inquiry//g"`
 else
   echo "error: No param posted"
   exit 1
@@ -53,7 +60,7 @@ if [ "$form_chk" = "multipart" ];then
 fi
 
 # push datas to databox
-$DATA_SHELL databox:$databox action:set id:$id keys:user_name,email,type,assignee,status input_dir:../tmp/$session  > ../tmp/$session/result
+$DATA_SHELL databox:$databox action:set id:$id keys:$keys input_dir:../tmp/$session  > ../tmp/$session/result
 
 if [ "$id" = "new" ];then
   # update id
@@ -79,8 +86,8 @@ else
   echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?subapp=inquiries&session=$session&pin=$pin&req=get&id=$id\">"
 fi
 
-if [ "$session" ];then
-  rm -rf ../tmp/$session
-fi
+#if [ "$session" ];then
+#  rm -rf ../tmp/$session
+#fi
 
 exit 0

@@ -105,8 +105,8 @@ cat ../descriptor/${view} | sed "s/^ *</</g" \
 | sed "/%%history/r ../tmp/$session/history" \
 | sed "s/%%history//g"\
 | sed "s/%%id/$id/g" \
-| sed "s/+MERGE /<\/pre><pre class=\"init\">/g" \
-| sed -z "s/<pre>\n<\/pre>/<pre>-<\/pre>/g" \
+| sed "s/+MERGE /<\/pre><pre class=\"adm\">/g" \
+| sed "s/<pre><\/pre>//g" \
 | sed "s/%%pdls/session=$session\&pin=$pin\&req=get/g" \
 | sed "s/%%session/session=$session\&pin=$pin/g" \
 | sed "s/%%params/subapp=inquiries\&session=$session\&pin=$pin/g"

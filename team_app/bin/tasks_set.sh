@@ -26,7 +26,7 @@ done
 
 # check posted param
 if [ -d ../tmp/$session ];then
-  keys=`ls ../tmp/$session | sed -z "s/\n/,/g" | sed "s/,$//g"`
+  keys=`ls ../tmp/$session | sed -z "s/\n/,/g" | sed "s/,$//g" | sed "s/update//g"`
 else
   echo "error: No param posted"
   exit 1
@@ -35,6 +35,13 @@ fi
 if [ "$id" = "" ];then
   echo "error: please set correct id"
   exit 1
+fi
+
+if [ -f ../tmp/$session/update ];then
+  null_chk=`cat ../tmp/$session/update | sed "s/ //g"`
+  if [ ! "$null_chk" ];then
+    rm ../tmp/$session/update
+  fi
 fi
 
 # -----------------
@@ -53,7 +60,7 @@ if [ "$form_chk" = "multipart" ];then
 fi
 
 # push datas to databox
-$DATA_SHELL databox:$databox action:set id:$id keys:hashid,name,start,end,assign,status,sync,description \
+$DATA_SHELL databox:$databox action:set id:$id keys:$keys \
 input_dir:../tmp/$session  > ../tmp/$session/result
 
 if [ "$id" = "new" ];then

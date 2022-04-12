@@ -66,6 +66,28 @@ a {
   box-sizing: border-box;
 }
 
+@media screen and (min-width: 641px) {
+  .portal-flex-header {
+    margin-right: calc(50% - 50vw);
+    margin-left: calc(50% - 50vw);
+    padding-left: 48px;
+    padding-right: 48px;
+    display:flex;
+    flex-wrap:wrap;
+    margin-top: -12px;
+    margin-bottom: -4px;
+    color: #01386E;
+  }
+}
+
+@media screen and (max-width: 641px) {
+  .portal-flex-header {
+    display:flex;
+    flex-wrap:wrap;
+    margin-bottom: -16px;
+    color: #dcdcdc;
+  }
+}
 
 @media screen and (min-width: 641px) {
   .flex-header {
@@ -79,32 +101,6 @@ a {
     margin-bottom: 18px;
     background: #434246;
     color: #dcdcdc;
-    align-items: baseline;
-  }
-
-  .portal-flex-header {
-    margin-right: calc(50% - 50vw);
-    margin-left: calc(50% - 50vw);
-    padding-left: 48px;
-    padding-right: 48px;
-    display:flex;
-    flex-wrap:wrap;
-    margin-top: -14px;
-    margin-bottom: 18px;
-    background: #434246;
-    color: #dcdcdc;
-    align-items: baseline;
-  }
-
-
-  .left-header {
-    font-weight: 300;
-    line-height: 0.8em;
-    font-size: 80%;
-    flex: auto;
-    margin: auto;
-    color: #00bfff;
-    padding-top: 4px;
   }
 }
 
@@ -114,27 +110,16 @@ a {
     flex-wrap:wrap;
     margin-bottom: -16px;
     color: #dcdcdc;
-    padding-right: 3px;
-  }
-
-  .portal-flex-header {
-    display:flex;
-    margin-top: -3px;
-    flex-wrap:wrap;
-    color: #333;
-  }
-
-  .left-header {
-    font-weight: 300;
-    line-height: 0.8em;
-    font-size: 80%;
-    flex: auto;
-    margin: auto;
-    color: #333;
-    padding-top: 12px;
   }
 }
 
+.left-header {
+  font-weight: 300;
+  line-height: 0.8em;
+  font-size: 80%;
+  flex: auto;
+  margin: auto;
+}
 
 .left-header p {
   font-weight: bold;
@@ -199,8 +184,6 @@ a {
     padding: .5rem;
     cursor: pointer;
     line-height: 1;
-    font-weight: initial;
-    font-family: 'Hiragino Kaku Gothic Pro',sans-serif;
 }
 
 .right-header .portal-even-btn-menu {
@@ -208,7 +191,7 @@ a {
     border-style: none;
     background: transparent;
     outline:0;
-    color: #dcdcdc;
+    color: #01386E;
     font-size: 240%;
     cursor: pointer;
     letter-spacing: .01em;
@@ -216,8 +199,6 @@ a {
     padding: .5rem;
     cursor: pointer;
     line-height: 1;
-    font-weight: initial;
-    font-family: 'Hiragino Kaku Gothic Pro',sans-serif;
 }
 }
 
@@ -235,25 +216,6 @@ a {
     padding: .5rem;
     cursor: pointer;
     line-height: 1;
-    font-weight: initial;
-    font-family: 'Hiragino Kaku Gothic Pro',sans-serif;
-}
-
-  .right-header .portal-even-btn-menu {
-    border-color: #000033;
-    border-style: none;
-    background: transparent;
-    outline:0;
-    color: #01386E;
-    font-size: 240%;
-    cursor: pointer;
-    letter-spacing: .01em;
-    border-radius: 8px;
-    padding: .5rem;
-    cursor: pointer;
-    line-height: 1;
-    font-weight: initial;
-    font-family: 'Hiragino Kaku Gothic Pro',sans-serif;
 }
 }
 
@@ -680,7 +642,7 @@ a {
 }
 
 /* pre init */
-.form-box .adm {
+.form-box .init {
   margin-top: 4px;
   margin-bottom: 4px;
   border-radius: 12px;
@@ -990,20 +952,6 @@ a {
   }
 }
 
-.announcement-form-box button {
-  font-weight: bold;
-  padding: 14px 20px;
-  border-style: none;
-  background: #07ADAF;
-  color: #f8f8f8;
-  text-transform: uppercase;
-  letter-spacing: .09em;
-  border-radius: 2px;
-  cursor: pointer;
-  cursor: hand;
-  font-size: 80%;
-}
-
 .result-box {
   padding-top: 60px;
   padding-bottom: 40px;
@@ -1056,19 +1004,168 @@ input[type="file"] {
  display: none;
 }
 
-@media screen and (min-width: 641px) {
-.calendar {
-  margin-right: calc(50% - 50vw);
-  margin-left: calc(50% - 50vw);
-  font-size: 80%;
-}
+@media screen and (min-width: 640px){
+
+  .main {
+   padding-top: 24px;
+   height: 68%;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   align-items: flex-start;
+  }
+
+  .main .description {
+    flex: none;
+    max-width: 780px;
+    text-align: left;
+    padding-top: 24px;
+  }
+
+  .main .description h1 {
+    font-size: 180%;
+    color: #5A595E;
+  }
+
+  .main .description ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 28px;
+  }
+
+  .main .description pre {
+    border-radius: 4px;
+    line-height: 1.4em;
+    margin: 0px;
+    margin-top: -12px;
+    padding: 8px 12px;
+    overflow:auto;
+  }
+
+
+  .main .calendar {
+    flex: auto;
+    z-index: 1;
+    padding-top: 24px;
+    padding-left: 24px;
+    padding-right: 24px;
+    line-height: 0.8em;
+    letter-spacing: .09em;
+    text-align: center;
+   }
+
+ .main  #modal-background {
+    z-index:3;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .main #modal-content{
+    z-index:4;
+    width:50%;
+    border-radius: 8px;
+    padding: 1em;
+    background:#fff;
+  }
+
 }
 
-@media screen and (max-width: 641px) {
-.calendar {
+@media screen and (max-width: 640px){
+
+ .main {
+   padding-top: 24px;
+   max-width: 98%;
+   height: 68%;
+  }
+
+  .main .description {
+    flex: none;
+    text-align: left;
+  }
+
+  .main .description h1 {
+    font-size: 180%;
+  }
+
+  .main .description ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 12px;
+  }
+
+  .main .description pre {
+    margin: 0px;
+    overflow:auto;
+  }
+
+
+  .main .calendar {
+    z-index: 1;
+    line-height: 0.8em;
+    letter-spacing: .09em;
+    text-align: center;
+   }
+
+  .main  #modal-background {
+    z-index:3;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .main #modal-content{
+    z-index:4;
+    width:80%;
+    border-radius: 8px;
+    padding: 1em;
+    background:#fff;
+  }
+
+}
+
+.main a {
+ color: #000080;
+}
+
+.main button {
+  font-weight: bold;
+  padding: 14px 20px;
+  border-style: none;
+  background: #07ADAF;
+  color: #f8f8f8;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  border-radius: 2px;
+  cursor: pointer;
+  cursor: hand;
   font-size: 80%;
 }
+
+.main button a {
+  color:inherit;
+  text-decoration: none;
 }
+
+.calendar {
+  padding-top: 4px;
+  font-size: 80%;
+}
+
 
 .footer {
   color: #696969;
