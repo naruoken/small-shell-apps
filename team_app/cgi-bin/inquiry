@@ -11,6 +11,9 @@ echo ""
 # load small-shell path
 . ../descriptor/.small_shell_path
 
+# load remote addr
+remote_addr=`echo $REMOTE_ADDR | sed "s/:/-/g"`
+
 IP_whitelisting=no
 
 # IP restriction check
@@ -35,7 +38,7 @@ fi
 
 # auth for small-shell databox
 authkey="%%authkey"
-auth_req=`sudo -u small-shell ${small_shell_path}/bin/extension_auth key_auth:${authkey} remote_addr:${REMOTE_ADDR} app:inquiry`
+auth_req=`sudo -u small-shell ${small_shell_path}/bin/extension_auth key_auth:${authkey} remote_addr:${remote_addr} app:inquiry`
 user_name=`echo $auth_req | awk -F "," '{print $1}' | awk -F ":" '{print $2}'`
 session=`echo $auth_req | awk -F "," '{print $2}' | awk -F ":" '{print $2}'`
 pin=`echo $auth_req | awk -F "," '{print $3}' | awk -F ":" '{print $2}'`
