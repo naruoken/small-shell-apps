@@ -8,20 +8,18 @@
     <body>
     <div class="container">
 
-     <div class="form-box">
-      <div class="description">
+      <div class="chat">
+      <div class="form-box">
        <h1>#ticket</h1>
        <p>id:%%id</p>
-      </div>
-      <div class="log">
        <p>%%history</p>
-      </div>
       <form method="post" action="./inquiry?req=set&id=%%id">
       <ul>
        %%dataset
       </ul>
       <input name="user_name" type="hidden" value="%%user_name">
       <button class="button" type="submit">SUBMIT</button>
+     </div>
      </div>
     </div>
     <script>

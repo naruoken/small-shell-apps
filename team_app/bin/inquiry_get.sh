@@ -54,12 +54,13 @@ else
   name=`$DATA_SHELL databox:inquiries action:get id:$id key:user_name format:none | awk -F ":" '{print $2}'`
   email=`$DATA_SHELL databox:inquiries action:get id:$id key:email format:none`
   type=`$DATA_SHELL databox:inquiries action:get id:$id key:type format:none`
+  log=`$DATA_SHELL databox:inquiries action:get type:log id:$id format:none | head -1`
 
   # gen create history
-  $DATA_SHELL databox:inquiries action:get type:log id:$id format:none | head -1  > ../tmp/$session/history
-  echo "user:$name" >> ../tmp/$session/history
-  echo "$email" >> ../tmp/$session/history
-  echo "$type" >> ../tmp/$session/history
+  echo "<p>$log</p>" > ../tmp/$session/history
+  echo "<p>user:$name</p>" >> ../tmp/$session/history
+  echo "<p>$email</p>" >> ../tmp/$session/history
+  echo "<p>$type</p>" >> ../tmp/$session/history
 
 fi
 
@@ -78,7 +79,7 @@ else
   | sed "s/%%history//g"\
   | sed "s/%%user_name/$name/g"\
   | sed "s/%%id/$id/g" \
-  | sed "s/+MERGE /<\/pre><pre class=\"init\">/g" \
+  | sed "s/+MERGE /<\/pre><pre class=\"adm\">/g" \
   | sed "s/%%params/session=$session\&pin=$pin/g"
 fi
 

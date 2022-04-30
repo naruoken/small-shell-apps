@@ -391,7 +391,6 @@ a {
   letter-spacing: .09em;
   padding: 8px 16px;
   border: 2px solid #E6E6FA;
-  background: white;
   border-radius: 3px;
   font-size: 80%;
 }
@@ -680,7 +679,7 @@ a {
   }
 }
 
-/* pre init */
+/* pre for admin */
 .form-box .adm {
   margin-top: 4px;
   margin-bottom: 4px;
