@@ -33,7 +33,7 @@ for src in `ls ./cgi-bin | xargs basename -a`
 do
   cp ./cgi-bin/$src $cgidir/$src
   chown $cgiusr:$cgiusr $cgidir/$src
-  chmod 755 $cgidir/$src
+  chmod 700 $cgidir/$src
 done
 
 for src in `ls ./bin | xargs basename -a`
