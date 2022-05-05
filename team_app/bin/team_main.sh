@@ -79,7 +79,7 @@ jq -s add ../tmp/$session/events ../tmp/$session/tasks > ../tmp/$session/merged_
 # render HTML
 # -----------------
 
-cat ../descriptor/team_main.html.def | sed "s/^ *</</g" \
+cat ../descriptor/team_main.html.def | sed -r "s/^( *)</</1" \
 | sed "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
 | sed "s/%%common_menu//g"\
 | sed "/%%team_main_menu/r ../descriptor/common_parts/team_main_menu_${permission}" \

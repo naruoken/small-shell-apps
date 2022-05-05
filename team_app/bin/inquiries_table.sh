@@ -210,7 +210,7 @@ else
   view=inquiries_table.html.def
 fi
 
-cat ../descriptor/$view | sed "s/^ *</</g" \
+cat ../descriptor/$view | sed -r "s/^( *)</</1" \
 | sed "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
 | sed "/%%common_menu/d"\
 | sed "/%%table_menu/r ../descriptor/common_parts/table_menu_${permission}" \

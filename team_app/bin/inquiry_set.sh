@@ -81,7 +81,7 @@ fi
 # render HTML
 # -----------------
 
-cat ../descriptor/inquiry_set.html.def | sed "s/^ *</</g" \
+cat ../descriptor/inquiry_set.html.def | sed -r "s/^( *)</</1" \
 | sed "/%%message/r ../tmp/$session/message" \
 | sed "s/%%message/$message/g"\
 | sed "s/%%id/$id/g"
