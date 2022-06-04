@@ -25,11 +25,8 @@
        <br>
        <div class="description">
         <h1>404 not found</h1>
-        <br>
+        <p>id:%%id</p>
        </div>
-       <pre>
-        %%dataset
-       </pre>
        <div class="action_links">
        </div>
       </div>
