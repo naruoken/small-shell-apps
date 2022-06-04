@@ -68,14 +68,14 @@ else
 fi
 
 # error check
-error_chk=`cat ../tmp/$session/dataset | grep "^error: there is no primary_key:"`
+error_chk=`cat ../tmp/$session/dataset | grep "^error:"`
 
 # form type check
 form_chk=`$META chk.form:$databox`
 
 # set view
 if [ "$error_chk" ];then
-  echo "<h2>Oops please something must be wrong, please check  bookmarks_get.sh</h2>"
+  view="bookmarks_get_err.html.def"
 
 elif [ "$permission"  = "ro" ];then
   view="bookmarks_get_ro.html.def"

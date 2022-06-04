@@ -76,7 +76,7 @@ fi
 error_chk=`grep "^error" ../tmp/$session/result`
 
 if [ "$error_chk" ];then
-  cat ../descriptor/tasks_set.html.def | sed -r "s/^( *)</</1" \
+  cat ../descriptor/tasks_set_err.html.def | sed -r "s/^( *)</</1" \
   | sed "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
   | sed "s/%%common_menu//g"\
   | sed "/%%message/r ../tmp/$session/result" \
