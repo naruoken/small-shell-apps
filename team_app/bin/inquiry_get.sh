@@ -64,8 +64,15 @@ else
 
 fi
 
+# error check
+error_chk=`cat ../tmp/$session/dataset | grep "^error:"`
+
 # render HTML
-if [ "$id" = "new" ];then
+if [ "$error_chk" ];then
+  cat ../descriptor/inquiry_get_err.html.def | sed -r "s/^( *)</</1" \
+  | sed "s/%%id/$id/g" \
+  | sed "s/%%params/session=$session\&pin=$pin/g"
+elif [ "$id" = "new" ];then
   cat ../descriptor/inquiry_get_new.html.def | sed -r "s/^( *)</</1" \
   | sed "/%%dataset/r ../tmp/$session/dataset" \
   | sed "s/%%dataset//g"\

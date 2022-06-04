@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>DATA:%%id</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+        <link rel="stylesheet" href="./inquiry_css">
+    </head>
+    <body>
+    <div class="container">
+
+      <div class="chat">
+      <div class="form-box">
+       <h1>404 not found</h1>
+     </div>
+     </div>
+    </div>
+    <script>
+
+      var element = document.documentElement;
+      var bottom = element.scrollHeight - element.clientHeight;
+      window.scrollTo({top: bottom, left: 0, behavior: 'smooth'});
+
+      const comments = document.querySelectorAll('pre');
+      comments.forEach((comment) => {
+        var str = comment.innerHTML; 
+        if (str.includes('inquiry.app')) {
+          comment.classList.add('user');
+        }
+      });
+
+    </script>
+
+    </body>
+</html>

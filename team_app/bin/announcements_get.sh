@@ -68,7 +68,7 @@ else
 fi
 
 # error check
-error_chk=`cat ../tmp/$session/dataset | grep "^error:"`
+error_chk=`cat ../tmp/$session/dataset | grep "^error:" | uniq`
 
 # form type check
 form_chk=`$META chk.form:$databox`

@@ -86,8 +86,8 @@ else
   echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?subapp=inquiries&session=$session&pin=$pin&req=get&id=$id\">"
 fi
 
-#if [ "$session" ];then
-#  rm -rf ../tmp/$session
-#fi
+if [ "$session" ];then
+  rm -rf ../tmp/$session
+fi
 
 exit 0
