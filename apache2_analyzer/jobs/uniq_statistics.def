@@ -1,0 +1,6 @@
+SCHEDULE:10 1 * * *
+exec_command="/usr/local/small-shell/util/scripts/sumup.sh type:line sumup_key:uniq_access frequency:daily title:pv set_time:\"`date +%Y-%m-%d --date '1 day ago'`\" global_filter:\"`date +%Y-%m-%d --date '1 day ago'`\" databox:apache2_analyzer"
+input_message=""
+output_message=""
+hubapi=""
+api_authkey=""
