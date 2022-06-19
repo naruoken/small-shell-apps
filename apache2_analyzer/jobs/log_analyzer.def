@@ -1,6 +1,6 @@
 SCHEDULE:1 0 * * *
 exec_command="/usr/local/small-shell/util/scripts/apache2_log_analyzer.sh %%domain"
 input_message=""
-output_message=""
+output_message="analyzer.done"
 hubapi=""
 api_authkey=""
