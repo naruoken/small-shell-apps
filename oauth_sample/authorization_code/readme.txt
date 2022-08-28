@@ -5,6 +5,12 @@
 # input small-shell app name
 app="XXXX"
 echo $app
+SED=sed
+AWK=awk
+
+# if you are mac user, please set gnu command
+#SED=gsed
+#AWK=gawk
 
 cd $HOME
 git clone https://github.com/naruoken/small-shell-apps
@@ -38,9 +44,9 @@ vi ./descriptor/${provider}_oauth_form.html.def
 #-------------------------------------------------
 
 # DEPLOY
-authkey=`grep authkey= /usr/lib/cgi-bin/auth.$app | sed "s/authkey=\"//g" | sed "s/\"//g"`
+authkey=`grep authkey= /usr/lib/cgi-bin/auth.$app | $SED "s/authkey=\"//g" | $SED "s/\"//g"`
 echo $authkey
-cat ./cgi-bin/${provider}_auth | sed "s/%%authkey/$authkey/g" > /usr/lib/cgi-bin/auth.$app
+cat ./cgi-bin/${provider}_auth | $SED "s/%%authkey/$authkey/g" > /usr/lib/cgi-bin/auth.$app
 cat ./descriptor/${provider}_oauth_form.html.def > /var/www/descriptor/${app}_auth_form.html.def
 
 Then you can try to connect the APP.

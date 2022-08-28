@@ -3,29 +3,29 @@
 # Target databox and keys
 databox=inquiries
 
+# load small-shell conf
+. ../descriptor/.small_shell_conf
+
 # load query string param
 for param in `echo $@`
 do
 
   if [[ $param == session:* ]]; then
-    session=`echo $param | awk -F":" '{print $2}'`
+    session=`echo $param | $AWK -F":" '{print $2}'`
   fi
 
   if [[ $param == pin:* ]]; then
-    pin=`echo $param | awk -F":" '{print $2}'`
+    pin=`echo $param | $AWK -F":" '{print $2}'`
   fi
 
   if [[ $param == id:* ]]; then
-    id=`echo $param | awk -F":" '{print $2}'`
+    id=`echo $param | $AWK -F":" '{print $2}'`
   fi
 
 done
 
-# load small-shell path
-. ../descriptor/.small_shell_path
-
 if [ -f ../tmp/$session/inquiry ];then
-  null_chk=`cat ../tmp/$session/inquiry | sed "s/ //g"`
+  null_chk=`cat ../tmp/$session/inquiry | $SED "s/ //g"`
   if [ ! "$null_chk" ];then
     rm ../tmp/$session/inquiry
   fi
@@ -33,7 +33,7 @@ fi
 
 # check posted param
 if [ -d ../tmp/$session ];then
-  keys=`ls ../tmp/$session | sed -z "s/\n/,/g" | sed "s/,$//g" | sed "s/inquiry//g"`
+  keys=`ls ../tmp/$session | $SED -z "s/\n/,/g" | $SED "s/,$//g" | $SED "s/inquiry//g"`
 else
   echo "error: No param posted"
   exit 1
@@ -64,10 +64,10 @@ $DATA_SHELL databox:$databox action:set id:$id keys:$keys input_dir:../tmp/$sess
 
 if [ "$id" = "new" ];then
   # update id
-  id=`cat ../tmp/$session/result | awk -F "id:" '{print $2}' | sed '/^$/d' | sort | uniq`
+  id=`cat ../tmp/$session/result | $AWK -F "id:" '{print $2}' | $SED '/^$/d' | sort | uniq`
 fi
 
-inquiry_chk=`cat ../tmp/$session/inquiry | sed -z "s/\n//g" | sed "s/ //g"`
+inquiry_chk=`cat ../tmp/$session/inquiry | $SED -z "s/\n//g" | $SED "s/ //g"`
 if [ "$inquiry_chk" ];then
   $DATA_SHELL databox:$databox action:merge.set id:$id key:inquiry input_dir:../tmp/$session  >> ../tmp/$session/result
 fi
@@ -75,12 +75,12 @@ fi
 error_chk=`grep "^error" ../tmp/$session/result`
 
 if [ "$error_chk" ];then
-  cat ../descriptor/inquiries_set_err.html.def | sed -r "s/^( *)</</1" \
-  | sed "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
-  | sed "s/%%common_menu//g"\
-  | sed "/%%message/r ../tmp/$session/result" \
-  | sed "/%%message/d"\
-  | sed "s/%%session/session=$session\&pin=$pin/g"
+  cat ../descriptor/inquiries_set_err.html.def | $SED -r "s/^( *)</</1" \
+  | $SED "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
+  | $SED "s/%%common_menu//g"\
+  | $SED "/%%message/r ../tmp/$session/result" \
+  | $SED "/%%message/d"\
+  | $SED "s/%%session/session=$session\&pin=$pin/g"
 else
   # redirect to the table
   echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?subapp=inquiries&session=$session&pin=$pin&req=get&id=$id\">"

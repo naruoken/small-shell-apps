@@ -13,11 +13,11 @@ target_claim="email"
 echo "Content-Type: text/html"
 echo ""
 
-# load small-shell path
-. ../descriptor/.small_shell_path
+# load small-shell conf
+. ../descriptor/.small_shell_conf
 
 # load remote addr
-remote_addr=`echo $REMOTE_ADDR | sed "s/:/-/g"`
+remote_addr=`echo $REMOTE_ADDR | $SED "s/:/-/g"`
 
 # required
 IP_whitelisting=%%IP_whitelisting
@@ -29,7 +29,7 @@ if [ "$IP_whitelisting" = "yes" ];then
   if [ "$whitelist_chk" ];then
     for IP in $whitelist_chk
     do
-      IP=`echo $IP | sed "s/*//g"`
+      IP=`echo $IP | $SED "s/*//g"`
       if [[ ${remote_addr} == ${IP}* ]];then
         IP_chk_flag=yes
         break
@@ -58,12 +58,12 @@ do
 done
 
 # parse QUERY STRING
-echo $QUERY_STRING | php -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | sed "s/\&/\n/g" > ../tmp/${param}
+echo $QUERY_STRING | $PHP -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | $SED "s/\&/\n/g" > ../tmp/${param}
 
 # parse POST param
-echo $input | sed "s/\`//g" | sed "s/&/\n/g" \
-| php -r "echo urldecode(file_get_contents('php://stdin'));"  >> ../tmp/${param}
-cat ../tmp/${param} | sed -e "s/=/=\"/1" | sed "s/$/\"/g" | sed "s/^\"//g" | tr -d \$ | tr -d \` > ../tmp/${param}.load
+echo $input | $SED "s/\`//g" | $SED "s/&/\n/g" \
+| $PHP -r "echo urldecode(file_get_contents('php://stdin'));"  >> ../tmp/${param}
+cat ../tmp/${param} | $SED -e "s/=/=\"/1" | $SED "s/$/\"/g" | $SED "s/^\"//g" | tr -d \$ | tr -d \` > ../tmp/${param}.load
 
 chmod 755 ../tmp/${param}.load
 
@@ -89,36 +89,36 @@ if [ ! "$code" ];then
   fi
 
   # render standard login form with queyr string and messge
-  cat ../descriptor/oauth_test_auth_form.html.def | sed "s/^ *</</g"\
-  | sed "/%%auth_form_menu/r ../descriptor/common_parts/oauth_test_auth_form_menu" \
-  | sed "s/%%auth_form_menu//g"\
-  | sed "/%%footer/r ../descriptor/common_parts/oauth_test_footer" \
-  | sed "/%%footer/d"\
-  | sed "s/%%message/${message}/g" \
-  | sed "s/?%%params/${req}${id}/g"
+  cat ../descriptor/oauth_test_auth_form.html.def | $SED "s/^ *</</g"\
+  | $SED "/%%auth_form_menu/r ../descriptor/common_parts/oauth_test_auth_form_menu" \
+  | $SED "s/%%auth_form_menu//g"\
+  | $SED "/%%footer/r ../descriptor/common_parts/oauth_test_footer" \
+  | $SED "/%%footer/d"\
+  | $SED "s/%%message/${message}/g" \
+  | $SED "s/?%%params/${req}${id}/g"
   exit 0
 fi
 
 # Oauth user check & login to the APP
 if [ "$code" ];then
-  urlencoded_redirect_uri=`echo -n "$redirect_uri" | php -r "echo urlencode(file_get_contents('php://stdin'));"`
+  urlencoded_redirect_uri=`echo -n "$redirect_uri" | $PHP -r "echo urlencode(file_get_contents('php://stdin'));"`
 
-  res=`curl --request POST \
+  res=`$CURL --request POST \
   --url $exchange_token_uri \
   --header "Content-type: application/x-www-form-urlencoded" \
   --data "grant_type=authorization_code&redirect_uri=${urlencoded_redirect_uri}&code=${code}&client_id=${client_id}&client_secret=${client_secret}"`
-  access_token=`echo "$res" | jq .access_token | sed "s/\"//g"`
+  access_token=`echo "$res" | jq .access_token | $SED "s/\"//g"`
 
-  res=`curl -X GET \
+  res=`$CURL -X GET \
   -H "Authorization: Bearer ${access_token}" \
   "$user_info_req_uri"`
-  user=`echo "$res" | jq .${target_claim} | sed "s/\"//g"`
+  user=`echo "$res" | jq .${target_claim} | $SED "s/\"//g"`
 
   if [ "$access_token" -a "$user" -a ! "$user" = "null" ];then
-    user=`echo $user | awk -F"@" '{print $1}'`
+    user=`echo $user | $AWK -F"@" '{print $1}'`
     auth_req=`sudo -u small-shell ${small_shell_path}/bin/extension_auth app:oauth_test key_auth:${authkey} force_user:${user} remote_addr:${remote_addr}`
-    session=`echo $auth_req | awk -F "," '{print $2}' | awk -F ":" '{print $2}'`
-    pin=`echo $auth_req | awk -F "," '{print $3}' | awk -F ":" '{print $2}'`
+    session=`echo $auth_req | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}'`
+    pin=`echo $auth_req | $AWK -F "," '{print $3}' | $AWK -F ":" '{print $2}'`
    
     if [ "$session" -a "$pin" ];then
       if [ ! "$req" ];then

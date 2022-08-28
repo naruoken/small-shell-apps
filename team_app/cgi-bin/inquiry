@@ -8,11 +8,11 @@ count=1
 echo "Content-Type: text/html"
 echo ""
 
-# load small-shell path
-. ../descriptor/.small_shell_path
+# load small-shell conf
+. ../descriptor/.small_shell_conf
 
 # load remote addr
-remote_addr=`echo $REMOTE_ADDR | sed "s/:/-/g"`
+remote_addr=`echo $REMOTE_ADDR | $SED "s/:/-/g"`
 
 IP_whitelisting=no
 
@@ -22,7 +22,7 @@ if [ "$IP_whitelisting" = "yes" ];then
   if [ "$whitelist_chk" ];then
     for IP in $whitelist_chk
     do
-      IP=`echo $IP | sed "s/*//g"`
+      IP=`echo $IP | $SED "s/*//g"`
       if [[ ${REMOTE_ADDR} == ${IP}* ]];then
         IP_chk_flag=yes
         break
@@ -39,9 +39,9 @@ fi
 # auth for small-shell databox
 authkey="%%authkey"
 auth_req=`sudo -u small-shell ${small_shell_path}/bin/extension_auth key_auth:${authkey} remote_addr:${remote_addr} app:inquiry`
-user_name=`echo $auth_req | awk -F "," '{print $1}' | awk -F ":" '{print $2}'`
-session=`echo $auth_req | awk -F "," '{print $2}' | awk -F ":" '{print $2}'`
-pin=`echo $auth_req | awk -F "," '{print $3}' | awk -F ":" '{print $2}'`
+user_name=`echo $auth_req | $AWK -F "," '{print $1}' | $AWK -F ":" '{print $2}'`
+session=`echo $auth_req | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}'`
+pin=`echo $auth_req | $AWK -F "," '{print $3}' | $AWK -F ":" '{print $2}'`
 
 
 while [ -f ../tmp/${param} ]
@@ -56,15 +56,14 @@ done
 
 
 # parse QUERY_STRING
-echo $QUERY_STRING | php -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | sed "s/\&/\n/g" > ../tmp/${param}
-cat ../tmp/${param} | sed -e "s/=/=\"/1" | sed "s/$/\"/g" | sed "s/^\"//g" > ../tmp/${param}.load
+echo $QUERY_STRING | $PHP -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | $SED "s/\&/\n/g" > ../tmp/${param}
+cat ../tmp/${param} | $SED -e "s/=/=\"/1" | $SED "s/$/\"/g" | $SED "s/^\"//g" > ../tmp/${param}.load
 chmod 755 ../tmp/${param}.load
 
 # load query string
 .  ../tmp/${param}.load
 rm  ../tmp/${param}*
 
-# parse POST data
 # parse POST data
 if [ "`echo $REQUEST_METHOD | grep -i "POST"`" ];then
 

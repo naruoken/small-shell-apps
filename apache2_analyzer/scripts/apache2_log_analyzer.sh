@@ -29,9 +29,9 @@ if [  ! $? -eq 0 ];then
 fi
 
 # analytics
-total_access_num=`cat $log | grep $domain | wc -l`
-cat $log | grep $domain | awk '{print $1}' | sort | uniq > ${tmp}/uniq_access.tmp
-uniq_access_num=`cat ${tmp}/uniq_access.tmp | wc -l`
+total_access_num=`cat $log | grep $domain | wc -l | tr -d " "`
+cat $log | grep $domain | $AWK '{print $1}' | sort | uniq > ${tmp}/uniq_access.tmp
+uniq_access_num=`cat ${tmp}/uniq_access.tmp | wc -l | tr -d " "`
 
 echo "#guess country code" >  ${tmp}/whois_dump
 echo "target:$log"
@@ -42,8 +42,8 @@ echo "--------------------------------------------------------------------------
 while read client
 do
 
-  country_code=`whois $client | grep -i country | awk -F ":" '{print $2}' | sort | uniq \
-  | sed "s/ //g" | sed -z "s/\n/,/g" | sed "s/,$//g"`
+  country_code=`whois $client | grep -i country | $AWK -F ":" '{print $2}' | sort | uniq \
+  | $SED "s/ //g" | $SED -z "s/\n/,/g" | $SED "s/,$//g"`
   echo "$client:$country_code"
   echo "$client:$country_code" >> ${tmp}/whois_dump
 

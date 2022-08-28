@@ -1,0 +1,6 @@
+job_name: uniq_statistics
+min: 10
+hour: 1
+date: any
+month: any
+week: any

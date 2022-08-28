@@ -21,6 +21,9 @@ if [ ! "$ROOT" ];then
   ROOT=/usr/local/small-shell
 fi
 
+# loal global conf
+. $ROOT/global.conf
+
 # log access permission check
 echo -n "apache2 log dir (/var/log/apache2): "
 read log_dir
@@ -78,13 +81,14 @@ fi
 $ROOT/util/scripts/bat_gen.sh ./db.def
 
 # deploy analyzer to util/scripts
-cat ./scripts/apache2_log_analyzer.sh  | sed "s#%%log_dir#$log_dir#g" > $ROOT/util/scripts/apache2_log_analyzer.sh
+cat ./scripts/apache2_log_analyzer.sh  | $SED "s#%%log_dir#$log_dir#g" > $ROOT/util/scripts/apache2_log_analyzer.sh
 chmod 755 $ROOT/util/scripts/apache2_log_analyzer.sh
 
 # job copy and enable 
-for job in `ls ./jobs`
+for job in pv_statistics.def log_analyzer.def uniq_statistics.def .pv_statistics.dump .log_analyzer.dump .uniq_statistics.dump
+ 
 do
-  cat ./jobs/$job | sed "s/%%domain/$domain/g" > $ROOT/util/e-cron/def/$job
+  cat ./jobs/$job | $SED "s/%%domain/$domain/g" > $ROOT/util/e-cron/def/$job
 done
 
 chmod 755 $ROOT/util/e-cron/def/log_analyzer.def
@@ -92,22 +96,8 @@ chmod 755 $ROOT/util/e-cron/def/pv_statistics.def
 chmod 755 $ROOT/util/e-cron/def/uniq_statistics.def
 
 sudo -u small-shell $ROOT/bin/e-cron enable.log_analyzer
-if [ ! $? -eq 0 ];then
-  echo "error: something is wrong.failed to enable log_analyzer job"
-  exit 1
-fi
-
 sudo -u small-shell $ROOT/bin/e-cron enable.pv_statistics
-if [ ! $? -eq 0 ];then
-  echo "error: something is wrong.failed to enable pv_statistics job"
-  exit 1
-fi
-
 sudo -u small-shell $ROOT/bin/e-cron enable.uniq_statistics
-if [ ! $? -eq 0 ];then
-  echo "error: something is wrong.failed to enable uniq_statistics job"
-  exit 1
-fi
 
 # Note
 echo "--------------------------------------------------------------------------"

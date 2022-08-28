@@ -1,0 +1,6 @@
+job_name: log_analyzer
+min: 1
+hour: 0 
+date: any
+month: any
+week: any

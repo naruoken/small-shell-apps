@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Target databox and keys
-databox=tasks
-key=all
+databox=announcements
 
 # load small-shell conf
 . ../descriptor/.small_shell_conf
@@ -10,6 +9,10 @@ key=all
 # load query string param
 for param in `echo $@`
 do
+
+  if [[ $param == databox:* ]]; then
+    databox=`echo $param | $AWK -F":" '{print $2}'`
+  fi
 
   if [[ $param == session:* ]]; then
     session=`echo $param | $AWK -F":" '{print $2}'`
@@ -19,14 +22,25 @@ do
     pin=`echo $param | $AWK -F":" '{print $2}'`
   fi
 
+  if [[ $param == user_name:* ]]; then
+    user_name=`echo $param | $AWK -F":" '{print $2}'`
+  fi
+
   if [[ $param == id:* ]]; then
     id=`echo $param | $AWK -F":" '{print $2}'`
   fi
 
 done
 
-if [ ! -d ../tmp/${session}_log ];then
-  mkdir ../tmp/${session}_log
+# check posted param
+
+if [ "$id" = "" ];then
+  echo "error: please set correct id"
+  exit 1
+fi
+
+if [ ! -d ../tmp/$session ];then
+  mkdir ../tmp/$session
 fi
 
 # SET BASE_COMMAND
@@ -37,24 +51,14 @@ DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$sess
 # Exec command
 # -----------------
 
-# gen %%log contents
-if [ "$keys" = "all" ];then
-  $DATA_SHELL databox:$databox \
-  action:get id:$id type:log format:html_tag > ../tmp/${session}_log/log
-else
-  GREP=`echo $keys | $SED "s/^/grep -e \"<pre>\" -e \"<\/pre>\" -e key:/g" | $SED "s/,/ -e key:/g"`
-  LOG_GREP="$DATA_SHELL databox:$databox action:get id:$id type:log | $GREP"
-  eval $LOG_GREP > ../tmp/${session}_log/log
-fi
+# exec and gen %%result 
+$DATA_SHELL databox:$databox action:del id:$id > ../tmp/$session/result
 
-# render HTML
-cat ../descriptor/tasks_log_viewer.html.def | $SED -r "s/^( *)</</1" \
-| $SED "/%%log/r ../tmp/${session}_log/log" \
-| $SED "s/%%log//g"\
-| $SED "s/%%id/$id/g"
+# redirect to the table
+echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?subapp=announcements&session=$session&pin=$pin&req=table\">"
 
 if [ "$session" ];then
-  rm -rf ../tmp/${session}_log
+  rm -rf ../tmp/$session
 fi
 
 exit 0

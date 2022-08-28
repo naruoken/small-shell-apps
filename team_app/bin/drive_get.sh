@@ -4,30 +4,30 @@
 databox=drive
 keys=all
 
+# load small-shell conf
+. ../descriptor/.small_shell_conf
+
 # load query string param
 for param in `echo $@`
 do
 
   if [[ $param == session:* ]]; then
-    session=`echo $param | awk -F":" '{print $2}'`
+    session=`echo $param | $AWK -F":" '{print $2}'`
   fi
 
   if [[ $param == pin:* ]]; then
-    pin=`echo $param | awk -F":" '{print $2}'`
+    pin=`echo $param | $AWK -F":" '{print $2}'`
   fi
 
   if [[ $param == user_name:* ]]; then
-    user_name=`echo $param | awk -F":" '{print $2}'`
+    user_name=`echo $param | $AWK -F":" '{print $2}'`
   fi
 
   if [[ $param == id:* ]]; then
-    id=`echo $param | awk -F":" '{print $2}'`
+    id=`echo $param | $AWK -F":" '{print $2}'`
   fi
 
 done
-
-# load small-shell path
-. ../descriptor/.small_shell_path
 
 if [ ! "$id"  ];then
   id="new"
@@ -62,8 +62,8 @@ else
   # gen read only datas
   #---------------------------
   #$DATA_SHELL databox:drive action:get id:$id keys:%%keys format:none > ../tmp/$session/dataset.0.1
-  #cat ../tmp/$session/dataset.0.1 | sed "s/^/<li><label>/g" | sed "s/:/<\/label><p>/g" | sed "s/$/<\/p><\/li>/g" \
-  #| sed "s/<p><\/p>/<p>-<\/p>/g" >> ../tmp/$session/dataset
+  #cat ../tmp/$session/dataset.0.1 | $SED "s/^/<li><label>/g" | $SED "s/:/<\/label><p>/g" | $SED "s/$/<\/p><\/li>/g" \
+  #| $SED "s/<p><\/p>/<p>-<\/p>/g" >> ../tmp/$session/dataset
 
 fi
 
@@ -94,17 +94,17 @@ elif [ "$form_chk" = "multipart" ];then
 fi
 
 # render HTML
-cat ../descriptor/${view} | sed -r "s/^( *)</</1" \
-| sed "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
-| sed "/%%common_menu/d" \
-| sed "/%%dataset/r ../tmp/$session/dataset" \
-| sed "s/%%dataset//g"\
-| sed "/%%history/r ../tmp/$session/history" \
-| sed "s/%%history//g"\
-| sed "s/%%id/$id/g" \
-| sed "s/%%pdls/session=$session\&pin=$pin\&req=get/g" \
-| sed "s/%%session/session=$session\&pin=$pin/g" \
-| sed "s/%%params/subapp=drive\&session=$session\&pin=$pin/g"
+cat ../descriptor/${view} | $SED -r "s/^( *)</</1" \
+| $SED "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
+| $SED "/%%common_menu/d" \
+| $SED "/%%dataset/r ../tmp/$session/dataset" \
+| $SED "s/%%dataset//g"\
+| $SED "/%%history/r ../tmp/$session/history" \
+| $SED "s/%%history//g"\
+| $SED "s/%%id/$id/g" \
+| $SED "s/%%pdls/session=$session\&pin=$pin\&req=get/g" \
+| $SED "s/%%session/session=$session\&pin=$pin/g" \
+| $SED "s/%%params/subapp=drive\&session=$session\&pin=$pin/g"
 
 
 if [ "$session" ];then

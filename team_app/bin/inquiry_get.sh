@@ -1,29 +1,29 @@
 #!/bin/bash
 
+# load small-shell conf
+. ../descriptor/.small_shell_conf
+
 # load query string param
 for param in `echo $@`
 do
 
   if [[ $param == session:* ]]; then
-    session=`echo $param | awk -F":" '{print $2}'`
+    session=`echo $param | $AWK -F":" '{print $2}'`
   fi
 
   if [[ $param == pin:* ]]; then
-    pin=`echo $param | awk -F":" '{print $2}'`
+    pin=`echo $param | $AWK -F":" '{print $2}'`
   fi
 
   if [[ $param == user_name:* ]]; then
-    user_name=`echo $param | awk -F":" '{print $2}'`
+    user_name=`echo $param | $AWK -F":" '{print $2}'`
   fi
 
   if [[ $param == id:* ]]; then
-    id=`echo $param | awk -F":" '{print $2}'`
+    id=`echo $param | $AWK -F":" '{print $2}'`
   fi
 
 done
-
-# load small-shell path
-. ../descriptor/.small_shell_path
 
 if [ ! "$id"  ];then
   id="new"
@@ -46,12 +46,12 @@ else
 
   # gen read only contents
   #$DATA_SHELL databox:inquiries action:get id:$id keys:user_name,email,type format:none > ../tmp/$session/dataset.0.1
-  #cat ../tmp/$session/dataset.0.1 | sed "s/^/<li><label>/g" | sed "s/:/<\/label><p>/g" | sed "s/$/<\/p><\/li>/g" \
-  #| sed "s/<p><\/p>/<p>-<\/p>/g" >> ../tmp/$session/dataset
+  #cat ../tmp/$session/dataset.0.1 | $SED "s/^/<li><label>/g" | $SED "s/:/<\/label><p>/g" | $SED "s/$/<\/p><\/li>/g" \
+  #| $SED "s/<p><\/p>/<p>-<\/p>/g" >> ../tmp/$session/dataset
 
   # gen interactive contents
   $DATA_SHELL databox:inquiries action:merge.get id:$id key:inquiry >> ../tmp/$session/dataset
-  name=`$DATA_SHELL databox:inquiries action:get id:$id key:user_name format:none | awk -F ":" '{print $2}'`
+  name=`$DATA_SHELL databox:inquiries action:get id:$id key:user_name format:none | $AWK -F ":" '{print $2}'`
   email=`$DATA_SHELL databox:inquiries action:get id:$id key:email format:none`
   type=`$DATA_SHELL databox:inquiries action:get id:$id key:type format:none`
   log=`$DATA_SHELL databox:inquiries action:get type:log id:$id format:none | head -1`
@@ -69,25 +69,25 @@ error_chk=`cat ../tmp/$session/dataset | grep "^error:"`
 
 # render HTML
 if [ "$error_chk" ];then
-  cat ../descriptor/inquiry_get_err.html.def | sed -r "s/^( *)</</1" \
-  | sed "s/%%id/$id/g" \
-  | sed "s/%%params/session=$session\&pin=$pin/g"
+  cat ../descriptor/inquiry_get_err.html.def | $SED -r "s/^( *)</</1" \
+  | $SED "s/%%id/$id/g" \
+  | $SED "s/%%params/session=$session\&pin=$pin/g"
 elif [ "$id" = "new" ];then
-  cat ../descriptor/inquiry_get_new.html.def | sed -r "s/^( *)</</1" \
-  | sed "/%%dataset/r ../tmp/$session/dataset" \
-  | sed "s/%%dataset//g"\
-  | sed "s/%%id/$id/g" \
-  | sed "s/%%params/session=$session\&pin=$pin/g"
+  cat ../descriptor/inquiry_get_new.html.def | $SED -r "s/^( *)</</1" \
+  | $SED "/%%dataset/r ../tmp/$session/dataset" \
+  | $SED "s/%%dataset//g"\
+  | $SED "s/%%id/$id/g" \
+  | $SED "s/%%params/session=$session\&pin=$pin/g"
 else
-  cat ../descriptor/inquiry_get.html.def | sed -r "s/^( *)</</1" \
-  | sed "/%%dataset/r ../tmp/$session/dataset" \
-  | sed "s/%%dataset//g"\
-  | sed "/%%history/r ../tmp/$session/history" \
-  | sed "s/%%history//g"\
-  | sed "s/%%user_name/$name/g"\
-  | sed "s/%%id/$id/g" \
-  | sed "s/+MERGE /<\/pre><pre class=\"adm\">/g" \
-  | sed "s/%%params/session=$session\&pin=$pin/g"
+  cat ../descriptor/inquiry_get.html.def | $SED -r "s/^( *)</</1" \
+  | $SED "/%%dataset/r ../tmp/$session/dataset" \
+  | $SED "s/%%dataset//g"\
+  | $SED "/%%history/r ../tmp/$session/history" \
+  | $SED "s/%%history//g"\
+  | $SED "s/%%user_name/$name/g"\
+  | $SED "s/%%id/$id/g" \
+  | $SED "s/+MERGE /<\/pre><pre class=\"adm\">/g" \
+  | $SED "s/%%params/session=$session\&pin=$pin/g"
 fi
 
 if [ "$session" ];then
