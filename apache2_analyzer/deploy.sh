@@ -82,6 +82,7 @@ $ROOT/util/scripts/bat_gen.sh ./db.def
 
 # deploy analyzer to util/scripts
 cat ./scripts/apache2_log_analyzer.sh  | $SED "s#%%log_dir#$log_dir#g" > $ROOT/util/scripts/apache2_log_analyzer.sh
+chown small-shell:small-shell $ROOT/util/scripts/apache2_log_analyzer.sh
 chmod 755 $ROOT/util/scripts/apache2_log_analyzer.sh
 
 # job copy and enable 
@@ -91,6 +92,9 @@ do
   cat ./jobs/$job | $SED "s/%%domain/$domain/g" > $ROOT/util/e-cron/def/$job
 done
 
+chown small-shell:small-shell $ROOT/util/e-cron/def/log_analyzer.def
+chown small-shell:small-shell $ROOT/util/e-cron/def/pv_statistics.def
+chown small-shell:small-shell $ROOT/util/e-cron/def/uniq_statistics.def
 chmod 755 $ROOT/util/e-cron/def/log_analyzer.def
 chmod 755 $ROOT/util/e-cron/def/pv_statistics.def
 chmod 755 $ROOT/util/e-cron/def/uniq_statistics.def
