@@ -4,6 +4,9 @@
 databox=tasks
 keys=all
 
+# define default num of line per page
+num_of_line_per_page=12
+
 # load small-shell conf
 . ../descriptor/.small_shell_conf
 
@@ -27,6 +30,13 @@ do
     page=`echo $param | $AWK -F":" '{print $2}'`
   fi
 
+  if [[ $param == line:* ]]; then
+    line=`echo $param | $AWK -F":" '{print $2}'`
+    if [ "$line" ];then
+      num_of_line_per_page=$line
+    fi
+  fi
+
   # filter can be input both query string and post
   if [[ $param == table_command:* ]]; then
     table_command=`echo $param | $AWK -F":" '{print $2}' | $SED "s/{%%space}/ /g"`
@@ -48,17 +58,23 @@ if [ -s ../tmp/$session/table_command ];then
 fi
 
 primary_key_label=`$META get.label:$databox{primary}`
-sort_chk_post=`echo $table_command | grep "^sort "`
-sort_chk_query_string=`echo $table_command | grep "^sort,"`
+sort_chk=`echo $table_command | grep -e "^sort " -e "^sort,"`
+num_of_line_chk=`echo $table_command | grep -ie "^#line:" -e " #line:"`
 
-if [ "$sort_chk_post" -o "$sort_chk_query_string" ];then
-   table_command=`echo $table_command | $SED "s/ /,/g"`
-   sort_option=`echo $table_command | $SED "s/sort,//g" | cut -f 1 -d ","`
-   sort_label=`echo $table_command  | $SED "s/sort,//g" | cut -f 2- -d "," | $SED "s/,/{%%space}/g"`
-   sort_col=`$META get.key:$databox{$sort_label}`
+if [ "$num_of_line_chk" ];then
+  num_of_line_per_page=`echo $table_command | awk -F ":" '{print $2}'`
+  table_command=`echo $table_command | $SED -r "s/ #(.*):(.*)//g" | $SED -r "s/^#(.*):(.*)//g"`
+fi
+
+if [ "$sort_chk" ];then
+  table_command=`echo $table_command | $SED "s/ /,/g"`
+  sort_option=`echo $table_command | $SED "s/sort,//g" | cut -f 1 -d ","`
+  sort_label=`echo $table_command  | $SED "s/sort,//g" | cut -f 2- -d "," | $SED "s/,/{%%space}/g"`
+  sort_col=`$META get.key:$databox{$sort_label}`
+
   if [ ! "$sort_col" ];then
-     sort_label=" - "
-     sort_col=`$META get.key:$databox{$primary_key_label}`
+    sort_label=" - "
+    sort_col=`$META get.key:$databox{$primary_key_label}`
   fi
 else
   if [[ $table_command == *{*} ]]; then
@@ -107,6 +123,10 @@ if [ ! -d ../tmp/$session ];then
   mkdir ../tmp/$session
 fi
 
+if [ $num_of_line_per_page -lt 2 ];then
+  num_of_line_per_page=12
+fi
+
 # -----------------
 #  Preprocedure
 # -----------------
@@ -122,11 +142,10 @@ else
 fi
 
 # calc pages
-((pages = $line_num / 18))
-adjustment=`echo "scale=6;${line_num}/18" | bc | $AWK -F "." '{print $2}'`
-line_start=$page
-((line_start = $page * 18 - 17))
-((line_end = $line_start + 17))
+((pages = $line_num / $num_of_line_per_page))
+adjustment=`echo "scale=6;${line_num}/${num_of_line_per_page}" | bc | $AWK -F "." '{print $2}'`
+((line_start = $page * ${num_of_line_per_page} - `expr ${num_of_line_per_page} - 1`))
+((line_end = $line_start + `expr ${num_of_line_per_page} - 1`))
 
 if [ ! "$adjustment" = "000000" ];then
   ((pages += 1))
@@ -154,10 +173,14 @@ do
 done
 
 # load permission
-permission=`$META get.attr:team/$user_name{permission}`
+if [ ! "$user_name" = "guest" ];then
+  permission=`$META get.attr:tasks/$user_name{permission}`
+else
+  permission="ro"
+fi
 
 # gen %%page_link contents
-../bin/tasks_page_links.sh $page $pages "$table_command" > ../tmp/$session/page_link &
+../bin/tasks_page_links.sh $page $pages "$table_command" $num_of_line_per_page > ../tmp/$session/page_link &
 wait
 
 # error check
@@ -243,7 +266,7 @@ cat ../descriptor/$view | $SED -r "s/^( *)</</1" \
 | $SED "s/{%%space}/ /g"\
 | $SED "s/.\/shell.app?/.\/team?/g"\
 | $SED "s/%%session/session=$session\&pin=$pin/g" \
-| $SED "s/%%params/subapp=tasks\&session=$session\&pin=$pin/g"
+| $SED "s/%%params/subapp=tasks\&session=$session\&pin=$pin\&databox=$databox/g"
 
 
 if [ "$session" ];then

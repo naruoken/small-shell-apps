@@ -4,6 +4,9 @@
 databox=events
 keys=all
 
+# define default num of line per page
+num_of_line_per_page=12
+
 # load small-shell conf
 . ../descriptor/.small_shell_conf
 
@@ -27,12 +30,20 @@ do
     page=`echo $param | $AWK -F":" '{print $2}'`
   fi
 
+  if [[ $param == line:* ]]; then
+    line=`echo $param | $AWK -F":" '{print $2}'`
+    if [ "$line" ];then
+      num_of_line_per_page=$line
+    fi
+  fi
+
   # filter can be input both query string and post
   if [[ $param == table_command:* ]]; then
     table_command=`echo $param | $AWK -F":" '{print $2}' | $SED "s/{%%space}/ /g"`
   fi
 
 done
+
 
 # SET BASE_COMMAND
 META="sudo -u small-shell ${small_shell_path}/bin/meta"
@@ -47,16 +58,24 @@ if [ -s ../tmp/$session/table_command ];then
   table_command=`cat ../tmp/$session/table_command`
 fi
 
-primary_key=`$META get.key:$databox{primary}`
-sort_chk_post=`echo $table_command | grep "^sort "`
-sort_chk_query_string=`echo $table_command | grep "^sort,"`
+primary_key_label=`$META get.label:$databox{primary}`
+sort_chk=`echo $table_command | grep -e "^sort " -e "^sort,"`
+num_of_line_chk=`echo $table_command | grep -ie "^#line:" -e " #line:"`
 
-if [ "$sort_chk_post" -o "$sort_chk_query_string" ];then
+if [ "$num_of_line_chk" ];then
+  num_of_line_per_page=`echo $table_command | awk -F ":" '{print $2}'`
+  table_command=`echo $table_command | $SED -r "s/ #(.*):(.*)//g" | $SED -r "s/^#(.*):(.*)//g"`
+fi
+
+if [ "$sort_chk" ];then
   table_command=`echo $table_command | $SED "s/ /,/g"`
-  sort_option=`echo $table_command | $SED "s/sort,//g" | $AWK -F "," '{print $1}'`
-  sort_col=`echo $table_command  | $SED "s/sort,//g" | $AWK -F "," '{print $2}'`
+  sort_option=`echo $table_command | $SED "s/sort,//g" | cut -f 1 -d ","`
+  sort_label=`echo $table_command  | $SED "s/sort,//g" | cut -f 2- -d "," | $SED "s/,/{%%space}/g"`
+  sort_col=`$META get.key:$databox{$sort_label}`
+
   if [ ! "$sort_col" ];then
-    sort_col=$primary_key
+    sort_label=" - "
+    sort_col=`$META get.key:$databox{$primary_key_label}`
   fi
 else
   if [[ $table_command == *{*} ]]; then
@@ -105,6 +124,10 @@ if [ ! -d ../tmp/$session ];then
   mkdir ../tmp/$session
 fi
 
+if [ $num_of_line_per_page -lt 2 ];then
+  num_of_line_per_page=12
+fi
+
 # -----------------
 #  Preprocedure
 # -----------------
@@ -120,11 +143,10 @@ else
 fi
 
 # calc pages
-((pages = $line_num / 18))
-adjustment=`echo "scale=6;${line_num}/18" | bc | $AWK -F "." '{print $2}'`
-line_start=$page
-((line_start = $page * 18 - 17))
-((line_end = $line_start + 17))
+((pages = $line_num / $num_of_line_per_page))
+adjustment=`echo "scale=6;${line_num}/${num_of_line_per_page}" | bc | $AWK -F "." '{print $2}'`
+((line_start = $page * ${num_of_line_per_page} - `expr ${num_of_line_per_page} - 1`))
+((line_end = $line_start + `expr ${num_of_line_per_page} - 1`))
 
 if [ ! "$adjustment" = "000000" ];then
   ((pages += 1))
@@ -152,11 +174,15 @@ do
 done
 
 # load permission
-permission=`$META get.attr:team/$user_name{permission}`
 
+if [ ! "$user_name" = "guest" ];then
+  permission=`$META get.attr:team/$user_name{permission}`
+else
+  permission="ro"
+fi
 
 # gen %%page_link contents
-../bin/team_page_links.sh $page $pages "$table_command" > ../tmp/$session/page_link &
+../bin/team_page_links.sh $page $pages "$table_command" $num_of_line_per_page > ../tmp/$session/page_link &
 wait
 
 # error check
@@ -183,7 +209,7 @@ fi
 if [ ! "$sort_col" ];then
   sort_command="ordered by latest update"
 else
-  sort_command="sort option:$sort_option col:$sort_col"
+  sort_command="sort option:$sort_option col:$sort_label"
 fi
 
 if [ "$line_num" = 0 ];then
@@ -193,14 +219,14 @@ if [ "$line_num" = 0 ];then
     if [ ! "$permission" = "ro" ];then
       echo "<h4><a href=\"./team?%%params&req=get&id=new\">+ ADD DATA</a></h4>" >> ../tmp/$session/table
     else
-      echo "<h4>NO DATA</h4>" >> ../tmp/$session/table
+      echo "<h4>= NO DATA</h4>" >> ../tmp/$session/table
     fi
 
   elif [ "$sort_col" ];then
     echo "<h4>sort option $sort_option seems wrong</h4>" >> ../tmp/$session/table
     view=team_table.html.def
   else
-    echo "<h4>NO DATA</h4>" >> ../tmp/$session/table
+    echo "<h4>= NO DATA</h4>" >> ../tmp/$session/table
     view=team_table.html.def
   fi
 else
@@ -223,7 +249,7 @@ cat ../descriptor/$view | $SED -r "s/^( *)</</1" \
 | $SED "s/%%num/$line_num/g"\
 | $SED "s/%%filter/$filter_table/g"\
 | $SED "s/%%sort/$sort_command/g"\
-| $SED "s/%%key/$primary_key/g"\
+| $SED "s/%%key/$primary_key_label/g"\
 | $SED "s/{%%%%%%%%%%%%%%%%%}/'/g"\
 | $SED "s/{%%%%%%%%%%%%%%%%}/%/g"\
 | $SED "s/{%%%%%%%%%%%%%%%}/*/g"\
@@ -239,9 +265,10 @@ cat ../descriptor/$view | $SED -r "s/^( *)</</1" \
 | $SED "s/{%%%%%}/\//g"\
 | $SED "s/{%%%%}/\&/g"\
 | $SED "s/{%%%}/:/g"\
+| $SED "s/{%%space}/ /g"\
 | $SED "s/.\/shell.app?/.\/team?/g"\
 | $SED "s/%%session/session=$session\&pin=$pin/g" \
-| $SED "s/%%params/session=$session\&pin=$pin/g" 
+| $SED "s/%%params/session=$session\&pin=$pin\&databox=$databox/g" 
 
 if [ "$session" ];then
   rm -rf ../tmp/$session

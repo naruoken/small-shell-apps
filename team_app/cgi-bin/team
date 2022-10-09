@@ -20,12 +20,12 @@ if [ "$IP_whitelisting" = "yes" ];then
     do
       IP=`echo $IP | $SED "s/*//g"`
       if [[ ${remote_addr} == ${IP}* ]];then
-        IP_chk_flag=yes
+        IP_chk=yes
         break
       fi
     done
    
-    if [ ! "$IP_chk_flag" = "yes" ];then
+    if [ ! "$IP_chk" = "yes" ];then
       echo "error: your IP is not allowed to access"
       exit 1
     fi
@@ -162,7 +162,7 @@ case "$req" in
     ../bin/team_set.sh session:$session pin:$pin user_name:$user_name databox:$databox id:$id ;;
 
   "table")
-    ../bin/team_table.sh session:$session pin:$pin user_name:$user_name id:$id page:$page table_command:$table_command;;
+    ../bin/team_table.sh session:$session pin:$pin user_name:$user_name id:$id page:$page table_command:$table_command line:$line;;
 
   "log_viewer")
     ../bin/team_log_viewer.sh databox:$databox session:$session pin:$pin id:$id ;;
@@ -175,14 +175,14 @@ case "$req" in
 
 
   # bookmark
-  "bookmarks.table") ../bin/bookmarks_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command;;
+  "bookmarks.table") ../bin/bookmarks_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command line:$line;;
   "bookmarks.get") ../bin/bookmarks_get.sh session:$session pin:$pin user_name:$user_name id:$id ;;
   "bookmarks.set") ../bin/bookmarks_set.sh session:$session pin:$pin user_name:$user_name id:$id ;;
   "bookmarks.del") ../bin/bookmarks_del.sh session:$session pin:$pin user_name:$user_name id:$id ;;
   "bookmarks.log_viewer") ../bin/bookmarks_log_viewer.sh session:$session pin:$pin id:$id ;;
  
   # drive
-  "drive.table") ../bin/drive_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command;;
+  "drive.table") ../bin/drive_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command line:$line;;
   "drive.get") ../bin/drive_get.sh session:$session pin:$pin user_name:$user_name id:$id ;;
   "drive.set") ../bin/drive_set.sh session:$session pin:$pin user_name:$user_name id:$id ;;
   "drive.del") ../bin/drive_del.sh session:$session pin:$pin user_name:$user_name id:$id ;;
@@ -190,19 +190,19 @@ case "$req" in
   "drive.file") ../bin/drive_dl.sh session:$session pin:$pin id:$id ;;
 
   # tasks
-  "tasks.table") ../bin/tasks_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command;;
+  "tasks.table") ../bin/tasks_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command line:$line;;
   "tasks.get") ../bin/tasks_get.sh session:$session pin:$pin user_name:$user_name id:$id ;;
   "tasks.set") ../bin/tasks_set.sh session:$session pin:$pin user_name:$user_name id:$id ;;
   "tasks.log_viewer") ../bin/tasks_log_viewer.sh session:$session pin:$pin id:$id ;;
   
   # inquiries
-  "inquiries.table") ../bin/inquiries_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command;;
+  "inquiries.table") ../bin/inquiries_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command line:$line;;
   "inquiries.get") ../bin/inquiries_get.sh session:$session pin:$pin user_name:$user_name id:$id ;;
   "inquiries.set") ../bin/inquiries_set.sh session:$session pin:$pin user_name:$user_name id:$id ;;
   "inquiries.log_viewer") ../bin/inquiries_log_viewer.sh session:$session pin:$pin id:$id ;;
 
   # announcements
-  "announcements.table") ../bin/announcements_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command;;
+  "announcements.table") ../bin/announcements_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command line:$line;;
   "announcements.get") ../bin/announcements_get.sh session:$session pin:$pin user_name:$user_name id:$id;;
   "announcements.set") ../bin/announcements_set.sh session:$session pin:$pin user_name:$user_name id:$id;;
   "announcements.del") ../bin/announcements_del.sh session:$session pin:$pin user_name:$user_name id:$id ;;
