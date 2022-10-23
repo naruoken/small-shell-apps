@@ -5,7 +5,7 @@ databox=bookmarks
 keys=all
 
 # load small-shell conf
-. ../descriptor/.small_shell_conf
+. %%www/descriptor/.small_shell_conf
 
 # load query string param
 for param in `echo $@`
@@ -33,8 +33,8 @@ if [ ! "$id"  ];then
   id="new"
 fi
 
-if [ ! -d ../tmp/$session ];then
-  mkdir ../tmp/$session
+if [ ! -d %%www/tmp/$session ];then
+  mkdir %%www/tmp/$session
 fi
 
 # SET BASE_COMMAND
@@ -49,26 +49,26 @@ if [ $id = "new" ];then
   #----------------------------
   # gen reqd/write form #new
   #----------------------------
-  $DATA_SHELL databox:$databox action:get id:$id keys:$keys format:html_tag > ../tmp/$session/dataset
+  $DATA_SHELL databox:$databox action:get id:$id keys:$keys format:html_tag > %%www/tmp/$session/dataset
 
 else
 
   #---------------------------
   # gen reqd/write form #update
   #---------------------------
-  $DATA_SHELL databox:$databox action:get id:$id keys:$keys format:html_tag > ../tmp/$session/dataset
+  $DATA_SHELL databox:$databox action:get id:$id keys:$keys format:html_tag > %%www/tmp/$session/dataset
 
   #---------------------------
   # gen read only datas
   #---------------------------
-  #$DATA_SHELL databox:bookmarks action:get id:$id keys:%%keys format:none > ../tmp/$session/dataset.0.1
-  #cat ../tmp/$session/dataset.0.1 | $SED "s/^/<li><label>/g" | $SED "s/:/<\/label><p>/g" | $SED "s/$/<\/p><\/li>/g" \
-  #| $SED "s/<p><\/p>/<p>-<\/p>/g" >> ../tmp/$session/dataset
+  #$DATA_SHELL databox:bookmarks action:get id:$id keys:%%keys format:none > %%www/tmp/$session/dataset.0.1
+  #cat %%www/tmp/$session/dataset.0.1 | $SED "s/^/<li><label>/g" | $SED "s/:/<\/label><p>/g" | $SED "s/$/<\/p><\/li>/g" \
+  #| $SED "s/<p><\/p>/<p>-<\/p>/g" >> %%www/tmp/$session/dataset
 
 fi
 
 # error check
-error_chk=`cat ../tmp/$session/dataset | grep "^error:" | uniq`
+error_chk=`cat %%www/tmp/$session/dataset | grep "^error:" | uniq`
 
 # form type check
 form_chk=`$META chk.form:$databox`
@@ -95,12 +95,12 @@ elif [ "$form_chk" = "multipart" ];then
 fi
 
 # render HTML
-cat ../descriptor/${view} | $SED -r "s/^( *)</</1" \
-| $SED "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
+cat %%www/descriptor/${view} | $SED -r "s/^( *)</</1" \
+| $SED "/%%common_menu/r %%www/descriptor/common_parts/team_common_menu" \
 | $SED "/%%common_menu/d" \
-| $SED "/%%dataset/r ../tmp/$session/dataset" \
+| $SED "/%%dataset/r %%www/tmp/$session/dataset" \
 | $SED "s/%%dataset//g"\
-| $SED "/%%history/r ../tmp/$session/history" \
+| $SED "/%%history/r %%www/tmp/$session/history" \
 | $SED "s/%%history//g"\
 | $SED "s/%%id/$id/g" \
 | $SED "s/%%pdls/session=$session\&pin=$pin\&req=get/g" \
@@ -109,7 +109,7 @@ cat ../descriptor/${view} | $SED -r "s/^( *)</</1" \
 
 
 if [ "$session" ];then
-  rm -rf ../tmp/$session
+  rm -rf %%www/tmp/$session
 fi
 
 exit 0

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # load small-shell conf
-. ../descriptor/.small_shell_conf
+. %%www/descriptor/.small_shell_conf
 
 # load query string param
 for param in `echo $@`
@@ -21,8 +21,8 @@ do
 
 done
 
-if [ ! -d ../tmp/$session ];then
-  mkdir ../tmp/$session
+if [ ! -d %%www/tmp/$session ];then
+  mkdir %%www/tmp/$session
 fi
 
 # -----------------
@@ -52,7 +52,7 @@ $DATA_SHELL databox:events command:show_all[keys=name,start,end,color][filter=sy
 | $SED "s/{%%%%%%}/,/g"\
 | $SED "s/{%%%%%}/\//g"\
 | $SED "s/{%%%%}/\&/g"\
-| $SED "s/{%%%}/:/g"  > ../tmp/$session/events
+| $SED "s/{%%%}/:/g"  > %%www/tmp/$session/events
 
 # gen tasks json
 $DATA_SHELL databox:tasks command:show_all[keys=name,start,end,status][filter=sync{yes}] format:json \
@@ -70,28 +70,28 @@ $DATA_SHELL databox:tasks command:show_all[keys=name,start,end,status][filter=sy
 | $SED "s/{%%%%%%}/,/g"\
 | $SED "s/{%%%%%}/\//g"\
 | $SED "s/{%%%%}/\&/g"\
-| $SED "s/{%%%}/:/g"  > ../tmp/$session/tasks
+| $SED "s/{%%%}/:/g"  > %%www/tmp/$session/tasks
 
 # merge events and tasks to 1 array
-$JQ -s add ../tmp/$session/events ../tmp/$session/tasks > ../tmp/$session/merged_events
+$JQ -s add %%www/tmp/$session/events %%www/tmp/$session/tasks > %%www/tmp/$session/merged_events
 
 # -----------------
 # render HTML
 # -----------------
 
-cat ../descriptor/team_main.html.def | $SED -r "s/^( *)</</1" \
-| $SED "/%%common_menu/r ../descriptor/common_parts/team_common_menu" \
+cat %%www/descriptor/team_main.html.def | $SED -r "s/^( *)</</1" \
+| $SED "/%%common_menu/r %%www/descriptor/common_parts/team_common_menu" \
 | $SED "s/%%common_menu//g"\
-| $SED "/%%team_main_menu/r ../descriptor/common_parts/team_main_menu_${permission}" \
+| $SED "/%%team_main_menu/r %%www/descriptor/common_parts/team_main_menu_${permission}" \
 | $SED "s/%%team_main_menu//g"\
 | $SED "s/%%user_name/$user_name/g" \
-| $SED "/%%json/r ../tmp/$session/merged_events"\
+| $SED "/%%json/r %%www/tmp/$session/merged_events"\
 | $SED "s/%%json//g"\
 | $SED "s/%%common_menu//g"\
 | $SED "s/%%session/session=$session\&pin=$pin/g" 
 
 if [ "$session" ];then
-  rm -rf ../tmp/$session
+  rm -rf %%www/tmp/$session
 fi
 
 exit 0

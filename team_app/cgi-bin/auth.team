@@ -4,7 +4,7 @@
 input=`dd bs=${CONTENT_LENGTH} 2>/dev/null | cat -`
 
 # load small-shell conf
-. ../descriptor/.small_shell_conf
+. %%www/descriptor/.small_shell_conf
 
 # load remote addr
 remote_addr=`echo $REMOTE_ADDR | $SED "s/:/-/g"`
@@ -41,7 +41,7 @@ param=`date +%s`
 param="$param:$RANDOM"
 count=1
 
-while [ -f ../tmp/${param} ]
+while [ -f %%www/tmp/${param} ]
 do
  sleep 0.01
  count=`expr $count + 1`
@@ -52,18 +52,18 @@ do
 done
 
 # parse QUERY STRING
-echo $QUERY_STRING | $PHP -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | $SED "s/\&/\n/g" > ../tmp/${param}
+echo $QUERY_STRING | $PHP -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | $SED "s/\&/\n/g" > %%www/tmp/${param}
 
 # parse POST param
 echo $input | $SED "s/\`//g" | $SED "s/&/\n/g"  | $SED -r "s/team_key(.*)=/team_key=/g" \
-| $PHP -r "echo urldecode(file_get_contents('php://stdin'));"  >> ../tmp/${param}
-cat ../tmp/${param} | $SED -e "s/=/=\"/1" | $SED "s/$/\"/g" | $SED "s/^\"//g" | tr -d \$ | tr -d \` > ../tmp/${param}.load
+| $PHP -r "echo urldecode(file_get_contents('php://stdin'));"  >> %%www/tmp/${param}
+cat %%www/tmp/${param} | $SED -e "s/=/=\"/1" | $SED "s/$/\"/g" | $SED "s/^\"//g" | tr -d \$ | tr -d \` > %%www/tmp/${param}.load
 
-chmod 755 ../tmp/${param}.load
+chmod 755 %%www/tmp/${param}.load
 
 # load query string
-.  ../tmp/${param}.load
-rm  ../tmp/${param}*
+.  %%www/tmp/${param}.load
+rm  %%www/tmp/${param}*
 
 
 # For the access with initialize hashkey which contain in query string and create new user_key
@@ -78,7 +78,7 @@ if [ "$initialize" ];then
 
   # render initialize button HTML
   if [ "$user_name" -a "$user_key" ];then
-    cat ../descriptor/team_auth_initialize.html.def | $SED -r "s/^( *)</</1" \
+    cat %%www/descriptor/team_auth_initialize.html.def | $SED -r "s/^( *)</</1" \
     | $SED "s/%%IP/$remote_addr/g" \
     | $SED "s/%%user_name/$user_name/g" \
     | $SED "s/%%user_key/$user_key/g" \
@@ -95,10 +95,10 @@ if [ ! "$team_key" ];then
 
   if [ "$key_placeholder" ];then
     # render first login form with initialized key
-    cat ../descriptor/team_auth_form_with_key.html.def | $SED -r "s/^( *)</</1" \
-    | $SED "/%%auth_form_menu/r ../descriptor/common_parts/team_auth_form_menu" \
+    cat %%www/descriptor/team_auth_form_with_key.html.def | $SED -r "s/^( *)</</1" \
+    | $SED "/%%auth_form_menu/r %%www/descriptor/common_parts/team_auth_form_menu" \
     | $SED "s/%%auth_form_menu//g"\
-    | $SED "/%%footer/r ../descriptor/common_parts/footer" \
+    | $SED "/%%footer/r %%www/descriptor/common_parts/footer" \
     | $SED "/%%footer/d"\
     | $SED "s/%%key_placeholder/$key_placeholder/g"
     exit 0
@@ -119,10 +119,10 @@ if [ ! "$team_key" ];then
     fi
 
     # render standard login form with queyr string and messge
-    cat ../descriptor/team_auth_form.html.def | $SED -r "s/^( *)</</1" \
-    | $SED "/%%auth_form_menu/r ../descriptor/common_parts/team_auth_form_menu" \
+    cat %%www/descriptor/team_auth_form.html.def | $SED -r "s/^( *)</</1" \
+    | $SED "/%%auth_form_menu/r %%www/descriptor/common_parts/team_auth_form_menu" \
     | $SED "s/%%auth_form_menu//g"\
-    | $SED "/%%footer/r ../descriptor/common_parts/team_footer" \
+    | $SED "/%%footer/r %%www/descriptor/common_parts/team_footer" \
     | $SED "/%%footer/d"\
     | $SED "s/%%message/${message}/g" \
     | $SED "s/?%%params/${req}${page}${id}/g"
@@ -160,11 +160,11 @@ if [ "$team_key" ];then
 
   else
     # render standard login form with error message
-    cat ../descriptor/team_auth_form.html.def | $SED -r "s/^( *)</</1" \
+    cat %%www/descriptor/team_auth_form.html.def | $SED -r "s/^( *)</</1" \
     | $SED "s/%%message/<p><b>! Key is wrong, please try again<\/b><\/p>/g" \
-    | $SED "/%%auth_form_menu/r ../descriptor/common_parts/team_auth_form_menu" \
+    | $SED "/%%auth_form_menu/r %%www/descriptor/common_parts/team_auth_form_menu" \
     | $SED "s/%%auth_form_menu//g"\
-    | $SED "/%%footer/r ../descriptor/common_parts/footer" \
+    | $SED "/%%footer/r %%www/descriptor/common_parts/footer" \
     | $SED "/%%footer/d"\
     | $SED "s/?%%params//g"
     exit 1
