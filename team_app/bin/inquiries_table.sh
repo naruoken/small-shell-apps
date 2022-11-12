@@ -174,7 +174,7 @@ done
 
 # load permission
 if [ ! "$user_name" = "guest" ];then
-  permission=`$META get.attr:inquiries/$user_name{permission}`
+  permission=`$META get.attr:team/$user_name{permission}`
 else
   permission="ro"
 fi
