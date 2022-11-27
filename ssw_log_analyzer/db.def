@@ -3,7 +3,7 @@
 #---------------------------------------------------------------
 
 # databox
-databox="apache2_analyzer"
+databox="web_analyzer"
 
 # col1
 #-------------------------------------------
@@ -49,7 +49,7 @@ col3_required="yes"
 # col4
 #-------------------------------------------
 col4_key_name="uniq_access"
-col4_key_label="uniq access"
+col4_key_label="uniq access exclude attack"
 col4_type="num"
 
 # only for select, checkbox
@@ -65,9 +65,9 @@ col4_required="no"
 +addcol
 # col5
 #-------------------------------------------
-col5_key_name="detail"
-col5_key_label="detail"
-col5_type="textarea"
+col5_key_name="attack"
+col5_key_label="attack"
+col5_type="num"
 
 # only for select, checkbox
 col5_key_params=""
@@ -78,3 +78,22 @@ col5_primary_databox=""
 # required option
 col5_required="no"
 #-------------------------------------------
+
+
++addcol
+# col6
+#-------------------------------------------
+col6_key_name="detail"
+col6_key_label="uniq access detail"
+col6_type="textarea"
+
+# only for select, checkbox
+col6_key_params=""
+
+# only for pdls
+col6_primary_databox=""
+
+# required option
+col6_required="no"
+#-------------------------------------------
+

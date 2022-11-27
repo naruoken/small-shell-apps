@@ -70,11 +70,11 @@ rm  %%www/tmp/${param}*
 if [ "$initialize" ];then
   user_id=`echo $initialize | $AWK -F "," '{print $1}'`
   initialize_hash_key=`echo $initialize |  $AWK -F "," '{print $2}'`
-  key_gen=`sudo -u small-shell ${small_shell_path}/bin/extension_auth app:team initialize:${user_id}{${initialize_hash_key}} \
+  key_gen=`${small_shell_path}/bin/extension_auth app:team initialize:${user_id}{${initialize_hash_key}} \
            remote_addr:${remote_addr}`
   user_name=`echo $key_gen | $AWK -F "," '{print $1}' | $AWK -F ":" '{print $2}'`
   user_key=`echo $key_gen | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}'`
-  server=`sudo -u small-shell ${small_shell_path}/bin/meta get.server`
+  server=`${small_shell_path}/bin/meta get.server`
 
   # render initialize button HTML
   if [ "$user_name" -a "$user_key" ];then
@@ -138,7 +138,7 @@ if [ "$team_key" ];then
   else
     authkey="$team_key"
   fi
-  auth_req=`sudo -u small-shell ${small_shell_path}/bin/extension_auth app:team key_auth:${authkey} remote_addr:${remote_addr}`
+  auth_req=`${small_shell_path}/bin/extension_auth app:team key_auth:${authkey} remote_addr:${remote_addr}`
   user_name=`echo $auth_req | $AWK -F "," '{print $1}' | $AWK -F ":" '{print $2}'`
   session=`echo $auth_req | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}'`
   pin=`echo $auth_req | $AWK -F "," '{print $3}' | $AWK -F ":" '{print $2}'`

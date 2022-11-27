@@ -1,4 +1,4 @@
-job_name: log_analyzer
+job_name: ssw_log_analyzer
 min: 1
 hour: 0 
 date: any

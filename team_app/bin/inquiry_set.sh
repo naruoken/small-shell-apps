@@ -42,8 +42,8 @@ user_name=`cat %%www/tmp/$session/user_name`
 # -----------------
 
 # BASE COMMAND
-META="sudo -u small-shell ${small_shell_path}/bin/meta"
-DATA_SHELL="sudo -u small-shell ${small_shell_path}/bin/DATA_shell session:$session pin:$pin app:inquiry"
+META="${small_shell_path}/bin/meta"
+DATA_SHELL="${small_shell_path}/bin/DATA_shell session:$session pin:$pin app:inquiry"
 
 # push datas to databox
 

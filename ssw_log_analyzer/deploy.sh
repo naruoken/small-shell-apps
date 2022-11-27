@@ -6,14 +6,6 @@ if [ ! "$WHOAMI" = "root" ];then
   exit 1
 fi
 
-echo -n "target domain or IP addr: "
-read domain
-
-if [ ! "$domain" ];then
-  echo "error: please input domain or IP addr as target of analytics"
-  exit 1
-fi
-
 echo -n "small-shell root (/usr/local/small-shell): "
 read ROOT
 
@@ -25,11 +17,11 @@ fi
 . $ROOT/global.conf
 
 # log access permission check
-echo -n "apache2 log dir (/var/log/apache2): "
+echo -n "small-shell web log dir (/var/www/log): "
 read log_dir
 
 if [ ! "$log_dir" ];then
-  log_dir=/var/log/apache2
+  log_dir=/var/www/log
 fi
 
 if [ ! -d "$log_dir" ];then
@@ -37,10 +29,9 @@ if [ ! -d "$log_dir" ];then
   exit 1
 fi
 
-sudo -u small-shell ls /var/log/apache2/access.log >/dev/null 2>&1
+sudo -u small-shell ls /var/www/log/srvdump.log >/dev/null 2>&1
 if [ ! $? -eq 0 ];then
   echo "please add permission to the log dir, exit 1.."
-  echo "command sugesstion is \"usermod -aG adm small-shell\""
   exit 1
 fi
 
@@ -81,33 +72,32 @@ fi
 $ROOT/util/scripts/bat_gen.sh ./db.def
 
 # deploy analyzer to util/scripts
-cat ./scripts/apache2_log_analyzer.sh  | $SED "s#%%log_dir#$log_dir#g" > $ROOT/util/scripts/apache2_log_analyzer.sh
-chown small-shell:small-shell $ROOT/util/scripts/apache2_log_analyzer.sh
-chmod 755 $ROOT/util/scripts/apache2_log_analyzer.sh
+cat ./scripts/ssw_log_analyzer.sh  | $SED "s#%%log_dir#$log_dir#g" > $ROOT/util/scripts/ssw_log_analyzer.sh
+chown small-shell:small-shell $ROOT/util/scripts/ssw_log_analyzer.sh
+chmod 755 $ROOT/util/scripts/ssw_log_analyzer.sh
 
 # job copy and enable 
-for job in pv_statistics.def log_analyzer.def uniq_statistics.def .pv_statistics.dump .log_analyzer.dump .uniq_statistics.dump
- 
+for job in pv_statistics.def ssw_log_analyzer.def uniq_statistics.def .pv_statistics.dump .ssw_log_analyzer.dump .uniq_statistics.dump
 do
-  cat ./jobs/$job | $SED "s/%%domain/$domain/g" > $ROOT/util/e-cron/def/$job
+  cat ./jobs/$job | $SED "s#%%ROOT#$ROOT#g" > $ROOT/util/e-cron/def/$job
 done
 
-chown small-shell:small-shell $ROOT/util/e-cron/def/log_analyzer.def
+chown small-shell:small-shell $ROOT/util/e-cron/def/ssw_log_analyzer.def
 chown small-shell:small-shell $ROOT/util/e-cron/def/pv_statistics.def
 chown small-shell:small-shell $ROOT/util/e-cron/def/uniq_statistics.def
-chmod 755 $ROOT/util/e-cron/def/log_analyzer.def
+chmod 755 $ROOT/util/e-cron/def/ssw_log_analyzer.def
 chmod 755 $ROOT/util/e-cron/def/pv_statistics.def
 chmod 755 $ROOT/util/e-cron/def/uniq_statistics.def
 
-sudo -u small-shell $ROOT/bin/e-cron enable.log_analyzer
+sudo -u small-shell $ROOT/bin/e-cron enable.ssw_log_analyzer
 sudo -u small-shell $ROOT/bin/e-cron enable.pv_statistics
 sudo -u small-shell $ROOT/bin/e-cron enable.uniq_statistics
 
 # Note
 echo "--------------------------------------------------------------------------"
-echo "apache2 log analyzer is successfully deployed"
+echo "small-shell web log analyzer is successfully deployed"
 echo "--------------------------------------------------------------------------"
-echo "1. analyzer will analyze access.log.1 once it's made by anacron on 00:00"
+echo "1. analyzer will analyze srvdump.log.1 once it's made at 00:00"
 echo "2. analytics will be done about 1 day ago log"
 echo "3. you can check graph and data on Base APP"
 
