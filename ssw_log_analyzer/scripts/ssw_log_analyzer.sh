@@ -23,7 +23,7 @@ cat $log | grep requested | grep -v "requested wrong page" | grep -v css | grep 
 uniq_access_num=`cat ${tmp}/uniq_access.tmp | wc -l | tr -d " "`
 attack_num=`cat ${log} | grep -v css | grep -v favicon.ico | grep "requested wrong page" | wc -l` 
 
-echo "#guess country code of sccess access not include attack" >  ${tmp}/whois_dump
+echo "#guess country code of success access not include attack" >  ${tmp}/whois_dump
 echo "target:$log"
 echo "total_access:$total_access_num"
 echo "uniq_access:$uniq_access_num"
