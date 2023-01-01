@@ -1,0 +1,6 @@
+job_name: ssl_auto
+min: 1
+hour: 0 
+date: 1
+month: any
+week: any

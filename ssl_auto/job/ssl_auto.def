@@ -1,0 +1,6 @@
+SCHEDULE:1 0 1 * *
+exec_command="sudo %%ROOT/util/scripts/ssl_auto.sh"
+input_message=""
+output_message=""
+hubapi=""
+api_authkey=""
