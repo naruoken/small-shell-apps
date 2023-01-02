@@ -29,14 +29,6 @@ if [ ! "$chk_srv" ];then
   exit 1
 fi
 
-echo -n "Target domain: "
-read domain
-while [ ! "$domain" ]
-do
-  echo -n "please input Taprget domain name: "
-  read domain
-done
-
 # check certbot command
 which certbot >/dev/null 2>&1
 
@@ -47,14 +39,14 @@ if [ ! $? -eq 0 ];then
 fi
 
 # create certificate
-certbot certonly --webroot -w /var/www/html -d $domain
+certbot certonly --webroot -w /var/www/html -d $server
 
 if [ $? -eq 0 ];then
 
   # deploy certificate & key
-  if [ -d /etc/letsencrypt/live/${domain} ];then
-    cp /etc/letsencrypt/live/${domain}/fullchain.pem ${www}/app/cert.pem
-    cp /etc/letsencrypt/live/${domain}/privkey.pem ${www}/app/privatekey.pem
+  if [ -d /etc/letsencrypt/live/${server} ];then
+    cp /etc/letsencrypt/live/${server}/fullchain.pem ${www}/app/cert.pem
+    cp /etc/letsencrypt/live/${server}/privkey.pem ${www}/app/privatekey.pem
   else
     echo "error: something must be wrong"
     exit 1
@@ -67,7 +59,6 @@ if [ $? -eq 0 ];then
 
   # upgrade web/base
   cat $ROOT/web/base | $SED "s/http/https/g" > $ROOT/web/.base
-  echo "domain=${domain}" >> $ROOT/web/.base
   cat $ROOT/web/.base > $ROOT/web/base
 
   # restart web
