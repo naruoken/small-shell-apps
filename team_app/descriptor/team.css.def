@@ -642,6 +642,7 @@ a {
     border: 1px solid #d3d3d3;
     flex: auto;
     border-radius: 4px;
+    background-color: #FDFEFE;
   }
 
   .form-box input[type="date"], 
@@ -666,6 +667,7 @@ a {
     border: 1px solid #d3d3d3;
     flex: auto;
     border-radius: 4px;
+    background-color: #FDFEFE;
   }
 
   .form-box input[type="date"],
