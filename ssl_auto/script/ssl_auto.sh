@@ -14,7 +14,7 @@ fi
 . $ROOT/web/base
 
 # renew cert
-certbot renew --dry-run
+certbot renew
 
 if [ $? -eq 0 ];then
   # deploy certificate & key
