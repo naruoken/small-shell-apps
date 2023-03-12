@@ -755,11 +755,13 @@ a {
   cursor: hand;
   padding-left: 6px;
   padding-right: 6px;
+  vertical-align: middle;
 }
 
 .form-box .file_form #file_name {
   color: #333;
   margin-left: -2px;
+  vertical-align: middle;
 }
 
 .form-box .file_form a {
