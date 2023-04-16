@@ -5,7 +5,7 @@ databox=drive
 keys=all
 
 # load small-shell conf
-. /var/www/descriptor/.small_shell_conf
+. %%www/descriptor/.small_shell_conf
 
 # load query string param
 for param in `echo $@`
@@ -33,8 +33,8 @@ do
 
 done
 
-if [ ! -d /var/www/tmp/$session ];then
-  mkdir /var/www/tmp/$session
+if [ ! -d %%www/tmp/$session ];then
+  mkdir %%www/tmp/$session
 fi
 
 # SET BASE_COMMAND
@@ -48,7 +48,8 @@ if [ ! $null_chk -eq 1 ];then
 else
   scope=`$DATA_SHELL databox:drive action:get key:share id:$id format:none | $SED "s/share://g"`
   if [ "$scope" = "share to external" ];then
-    filename=`$DATA_SHELL databox:$databox action:get key:file id:$id format:none | $SED "s/filename://g"`
+    filename_with_size=`$DATA_SHELL databox:$databox action:get key:file id:$id format:none | $SED "s/filename://g"`
+    filename=`echo $filename_with_zie | $AWK '{print $1}'`
   else
     error_chk=error
   fi
@@ -62,13 +63,14 @@ else
 fi
 
 # render HTML
-cat /var/www/descriptor/${view} | $SED -r "s/^( *)</</1" \
+cat %%www/descriptor/${view} | $SED -r "s/^( *)</</1" \
 | $SED "s/%%remote_addr/$remote_addr/g" \
+| $SED "s/%%filename_with_size/$filename/g" \
 | $SED "s/%%filename/$filename/g" \
 | $SED "s/%%id/$id/g" 
 
 if [ "$session" ];then
-  rm -rf /var/www/tmp/$session
+  rm -rf %%www/tmp/$session
 fi
 
 exit 0

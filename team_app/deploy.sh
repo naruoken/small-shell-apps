@@ -50,7 +50,7 @@ done
 rand=$RANDOM
 for src in `ls ./descriptor | grep -v common_parts | xargs basename -a`
 do
-  cat ./descriptor/$src | $SED "s#%%rand#$rand#g" | $SED "s#%%base_url#$base_url#g" > $cgidir/../descriptor/$src
+  cat ./descriptor/$src | $SED "s#%%rand#$rand#g" | $SED "s#%%base_url/#$base_url#g" > $cgidir/../descriptor/$src
   chmod 755 $cgidir/../descriptor/$src
 done
 
