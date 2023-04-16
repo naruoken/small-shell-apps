@@ -93,6 +93,14 @@ elif [ "$form_chk" = "multipart" ];then
   fi
 fi
 
+# const button
+scope=`$DATA_SHELL databox:drive action:get app:team key:share id:$id format:none | $SED "s/share://g"`
+if [ "$scope" = "share to external" ];then
+  button="<button class=\"button\" type=\"button\" onclick=\"copyUrl()\">Copy URL</button>"
+else
+  button=""
+fi
+
 # render HTML
 cat %%www/descriptor/${view} | $SED -r "s/^( *)</</1" \
 | $SED "/%%common_menu/r %%www/descriptor/common_parts/team_common_menu" \
@@ -102,6 +110,7 @@ cat %%www/descriptor/${view} | $SED -r "s/^( *)</</1" \
 | $SED "/%%history/r %%www/tmp/$session/history" \
 | $SED "s/%%history//g"\
 | $SED "s/%%id/$id/g" \
+| $SED "s#%%link_button#$button#g" \
 | $SED "s/%%pdls/session=$session\&pin=$pin\&req=get/g" \
 | $SED "s/%%session/session=$session\&pin=$pin/g" \
 | $SED "s/%%params/subapp=drive\&session=$session\&pin=$pin/g"

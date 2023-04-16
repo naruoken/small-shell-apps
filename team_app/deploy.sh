@@ -35,7 +35,7 @@ fi
 # deploy script to production env
 for src in `ls ./cgi-bin | xargs basename -a`
 do
-  cat ./cgi-bin/$src | $SED "s#%%www#${www}#g" > $cgidir/$src
+  cat ./cgi-bin/$src | $SED "s#%%www#${www}#g" | $SED "s#%%authkey#$api_authkey#g" > $cgidir/$src
   chown $cgiusr:$cgiusr $cgidir/$src
   chmod 700 $cgidir/$src
 done
@@ -50,7 +50,7 @@ done
 rand=$RANDOM
 for src in `ls ./descriptor | grep -v common_parts | xargs basename -a`
 do
-  cat ./descriptor/$src | $SED "s/%%rand/$rand/g" > $cgidir/../descriptor/$src
+  cat ./descriptor/$src | $SED "s#%%rand#$rand#g" | $SED "s#%%base_url#$base_url#g" > $cgidir/../descriptor/$src
   chmod 755 $cgidir/../descriptor/$src
 done
 

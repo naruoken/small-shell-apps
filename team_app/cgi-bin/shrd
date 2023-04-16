@@ -1,0 +1,90 @@
+#!/bin/bash
+
+# preproceduure
+param=`date +%s`
+param="$param:$RANDOM"
+count=1
+
+# load small-shell conf
+. %%www/descriptor/.small_shell_conf
+
+# load remote addr
+remote_addr=`echo $REMOTE_ADDR | $SED "s/:/-/g"`
+
+
+IP_whitelisting=no
+
+# IP restriction check
+if [ "$IP_whitelisting" = "yes" ];then
+  whitelist_chk=`${small_shell_path}/bin/meta get.IP | grep -v "NO IP RESTRICTION"`
+  if [ "$whitelist_chk" ];then
+    for IP in $whitelist_chk
+    do
+      IP=`echo $IP | $SED "s/*//g"`
+      if [[ ${REMOTE_ADDR} == ${IP}* ]];then
+        IP_chk_flag=yes
+        break
+      fi
+    done
+   
+    if [ ! "$IP_chk_flag" = "yes" ];then
+      echo "error: your IP is not allowed to access"
+      exit 1
+    fi
+  fi
+fi
+
+# auth for small-shell databox
+# use api key
+authkey="%%authkey"
+auth_req=`${small_shell_path}/bin/auth key_auth:${authkey} remote_addr:${remote_addr}`
+user_name=`echo $auth_req | $AWK -F "," '{print $1}' | $AWK -F ":" '{print $2}'`
+session=`echo $auth_req | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}'`
+pin=`echo $auth_req | $AWK -F "," '{print $3}' | $AWK -F ":" '{print $2}'`
+
+while [ -f %%www/tmp/${param} ]
+do
+ sleep 0.01
+ count=`expr $count + 1`
+ if [ $count -eq 100 ];then
+   echo "error: please contact to adimin"
+   exit 1
+ fi
+done
+
+# parse QUERY_STRING
+echo $QUERY_STRING | $PHP -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | $SED "s/\&/\n/g" > %%www/tmp/${param}
+cat %%www/tmp/${param} | $SED -e "s/=/=\"/1" | $SED "s/$/\"/g" | $SED "s/^\"//g" > %%www/tmp/${param}.load
+chmod 755 %%www/tmp/${param}.load
+
+# load query string
+.  %%www/tmp/${param}.load
+rm  %%www/tmp/${param}*
+
+if [ ! "$req" = "file" ];then
+  echo "Content-Type: text/html"
+  echo ""
+fi
+
+#----------------------------
+# routing to action scripts
+#----------------------------
+
+if [ ! "$req" ];then
+  req=get
+fi
+
+case "$req" in
+
+  "confirm")
+    %%www/bin/shrd_confirm.sh session:$session pin:$pin id:$id remote_addr:${REMOTE_ADDR};;
+
+  "file")
+    %%www/bin/shrd_dl.sh session:$session pin:$pin id:$id remote_addr:${REMOTE_ADDR};;
+
+  *)
+    echo "error: wrong request";;
+
+esac
+
+exit 0

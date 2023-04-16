@@ -44,3 +44,21 @@ col3_primary_databox=""
 # required option
 col3_required="no"
 #-------------------------------------------
+
++addcol
+# col4
+#-------------------------------------------
+col4_key_name="share"
+col4_key_label="scope"
+col4_type="radio"
+
+# only for select, checkbox
+col4_key_params="sahre to internal,share to external"
+
+# only for pdls
+col4_primary_databox=""
+
+# required option
+col4_required="yes"
+#-------------------------------------------
+
