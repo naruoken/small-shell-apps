@@ -47,12 +47,20 @@ do
   chmod 755 $www/bin/$src
 done
 
-rand=$RANDOM
 for src in `ls ./descriptor | grep -v common_parts | xargs basename -a`
 do
   cat ./descriptor/$src | $SED "s#%%rand#$rand#g" | $SED "s#%%base_url/#$base_url#g" > $cgidir/../descriptor/$src
   chmod 755 $cgidir/../descriptor/$src
 done
+
+
+if [ -f $cgidir/../descriptor/.team.rand ];then
+  . $cgidir/../descriptor/.team.rand
+else
+  rand=$RANDOM
+  echo "rand=$rand" > $cgidir/../descriptor/.team.rand 
+  chmod 755 $cgidir/../descriptor/.team.rand
+fi
 
 for src in `ls ./descriptor/common_parts | xargs basename -a`
 do
