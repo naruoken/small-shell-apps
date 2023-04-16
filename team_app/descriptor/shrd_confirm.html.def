@@ -1,0 +1,20 @@
+<html>
+   <head>
+       <meta charset="UTF-8" />
+       <title>shared drive confirmation</title>
+       <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+       <link rel="stylesheet" href="./shrd_css">
+   </head>
+   <body>
+   <div class="container">
+      <div class="main">
+       <div align=center>
+       <h2>Please download file from following button.</h2>
+       <h2>your IP address: %%remote_addr</h2>
+       <p>%%filename</p>
+       <a href="./shrd?req=file&id=%%id" download="%%filename"><button class="button" type="button">DOWNLOAD</button></a>
+       </div>
+      </div>
+   </div>
+   </body>
+</html>
