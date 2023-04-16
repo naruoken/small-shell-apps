@@ -35,7 +35,7 @@ META="${small_shell_path}/bin/meta"
 DATA_SHELL="${small_shell_path}/bin/DATA_shell session:$session pin:$pin"
 
 # load filename
-filename=`$DATA_SHELL databox:$databox action:get key:file id:$id format:none | $SED "s/filename://g" | $AWK '{print $1}'`
+filename=`$DATA_SHELL databox:$databox action:get key:file id:$id format:none | $SED "s/file://g" | $AWK '{print $1}'`
 
 # -----------------
 # render contents

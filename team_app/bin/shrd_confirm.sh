@@ -48,8 +48,8 @@ if [ ! $null_chk -eq 1 ];then
 else
   scope=`$DATA_SHELL databox:drive action:get key:share id:$id format:none | $SED "s/share://g"`
   if [ "$scope" = "share to external" ];then
-    filename_with_size=`$DATA_SHELL databox:$databox action:get key:file id:$id format:none | $SED "s/filename://g"`
-    filename=`echo $filename_with_size | $AWK '{print $1}'`
+    filename_with_size=`$DATA_SHELL databox:$databox action:get key:file id:$id format:none | $SED "s/file://g"`
+    filename=`echo $filename_with_size | $AWK -F " #" '{print $1}' | $SED "s/ /_/g"`
   else
     error_chk=error
   fi
