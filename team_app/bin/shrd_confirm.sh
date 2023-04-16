@@ -49,7 +49,7 @@ else
   scope=`$DATA_SHELL databox:drive action:get key:share id:$id format:none | $SED "s/share://g"`
   if [ "$scope" = "share to external" ];then
     filename_with_size=`$DATA_SHELL databox:$databox action:get key:file id:$id format:none | $SED "s/filename://g"`
-    filename=`echo $filename_with_zie | $AWK '{print $1}'`
+    filename=`echo $filename_with_size | $AWK '{print $1}'`
   else
     error_chk=error
   fi
@@ -65,7 +65,7 @@ fi
 # render HTML
 cat %%www/descriptor/${view} | $SED -r "s/^( *)</</1" \
 | $SED "s/%%remote_addr/$remote_addr/g" \
-| $SED "s/%%filename_with_size/$filename/g" \
+| $SED "s/%%filename_with_size/$filename_with_size/g" \
 | $SED "s/%%filename/$filename/g" \
 | $SED "s/%%id/$id/g" 
 
