@@ -87,7 +87,7 @@ col6_key_label="Status"
 col6_type="select"
 
 # only for select, checkbox
-col6_key_params="open on-going pending closed"
+col6_key_params="open,on-going,pending,closed"
 
 # only for pdls
 col6_primary_databox=""

@@ -53,7 +53,7 @@ col4_key_label="Inquiry Type"
 col4_type="select"
 
 # only for select, checkbox
-col4_key_params="operation trouble other"
+col4_key_params="operation,trouble,other"
 
 # only for pdls
 col4_primary_databox=""
@@ -87,7 +87,7 @@ col6_key_label="Status"
 col6_type="select"
 
 # only for select, checkbox
-col6_key_params="opened assigned investigating replied closed"
+col6_key_params="opened,assigned,investigating,replied,closed"
 
 # only for pdls
 col6_primary_databox=""
