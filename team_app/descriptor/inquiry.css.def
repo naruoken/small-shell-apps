@@ -33,7 +33,7 @@ a {
 
 @media screen and (min-width: 640px){ 
   .form-box {
-    max-width: 72%;
+    max-width: 42%;
     padding: 42px 2px;
     text-align: left;
     line-height: 0.8em;
@@ -382,9 +382,7 @@ a {
 .form-box .adm {
   margin-top: 4px;
   margin-bottom: 4px;
-  border-radius: 12px;
   padding: 12px 12px;
-  background: #e0ffff;
   min-width:100%;
   overflow:auto;
 }
@@ -395,7 +393,6 @@ a {
   margin-bottom: 4px;
   border-radius: 12px;
   padding: 12px 12px;
-  background: #EAF2A4;
   min-width:100%;
   overflow:auto;
 }

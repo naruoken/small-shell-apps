@@ -685,9 +685,8 @@ a {
 .form-box .adm {
   margin-top: 4px;
   margin-bottom: 4px;
-  border-radius: 12px;
   padding: 12px 12px;
-  background: #e0ffff;
+  background: #f8f6e2;
   min-width:100%;
   overflow:auto;
 }
@@ -698,8 +697,8 @@ a {
   margin-bottom: 4px;
   border-radius: 12px;
   padding: 12px 12px;
-  background: #EAF2A4;
   min-width:100%;
+  background: #f8f6e2;
   overflow:auto;
 }
 
