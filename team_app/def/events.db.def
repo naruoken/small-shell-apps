@@ -87,7 +87,7 @@ col6_key_label="color"
 col6_type="select"
 
 # only for select, checkbox
-col6_key_params="blue green purple"
+col6_key_params="blue,green,purple"
 
 # only for pdls
 col6_primary_databox=""
