@@ -53,7 +53,7 @@ col4_key_label="scope"
 col4_type="radio"
 
 # only for select, checkbox
-col4_key_params="sahre to internal,share to external"
+col4_key_params="share to internal,share to external"
 
 # only for pdls
 col4_primary_databox=""
