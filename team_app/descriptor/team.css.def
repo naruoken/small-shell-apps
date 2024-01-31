@@ -681,27 +681,33 @@ a {
   }
 }
 
-/* pre for admin */
+/* comment for admin */
 .form-box .adm {
   margin-top: 4px;
   margin-bottom: 4px;
   padding: 12px 12px;
-  background: #f8f6e2;
   min-width:100%;
   overflow:auto;
 }
 
-/* pre for comment from user */
+/* comment from user */
 .form-box .user {
   margin-top: 4px;
   margin-bottom: 4px;
   border-radius: 12px;
   padding: 12px 12px;
   min-width:100%;
-  background: #f8f6e2;
   overflow:auto;
 }
 
+/* update of task */
+.form-box .task {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 12px 12px;
+  min-width:100%;
+  overflow:auto;
+}
 
 .form-box input[type="radio"],
 .form-box input[type="checkbox"]{

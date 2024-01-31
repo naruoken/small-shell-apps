@@ -111,7 +111,7 @@ cat %%www/descriptor/${view} | $SED -r "s/^( *)</</1" \
 | $SED "/%%history/r %%www/tmp/$session/history" \
 | $SED "s/%%history//g"\
 | $SED "s/%%id/$id/g" \
-| $SED "s/+MERGE /<\/pre><pre class=\"adm\">/g" \
+| $SED "s/+MERGE /<\/pre><pre class=\"task\">/g" \
 | $SED "s/<pre><\/pre>//g" \
 | $SED "s/%%pdls/session=$session\&pin=$pin\&req=get/g" \
 | $SED "s/%%session/session=$session\&pin=$pin/g" \
