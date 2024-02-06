@@ -358,6 +358,15 @@ a {
   font-size: 80%;
 }
 
+.auth-form button:hover {
+  background: #07ADBF;
+}
+  
+.auth-form button:active { 
+  background: #07ADAE;
+}   
+
+
 .table-box {
   line-height: .04em;
   padding: 4px 2px;
@@ -786,10 +795,13 @@ a {
   cursor: hand;
 }
 
-.form-box button a {
-  color:inherit;
-  text-decoration: none;
+.form-box button:hover {
+  background: #07ADBF;
 }
+  
+.form-box button:active { 
+  background: #07ADAE;
+}   
 
 .form-box .flex-button {
   display:flex;
@@ -810,6 +822,14 @@ a {
   cursor: pointer;
   cursor: hand;
 }
+
+.form-box .flex-button button:hover {
+  background: #07ADBF;
+}
+  
+.form-box .flex-button button:active { 
+  background: #07ADAE;
+}   
 
 .form-box .action_links {
   text-align: left;
@@ -1012,6 +1032,14 @@ a {
   cursor: hand;
   font-size: 80%;
 }
+
+.announcement-form-box button:hover {
+  background: #07ADBF;
+}
+  
+.announcement-form-box button:active { 
+  background: #07ADAE;
+}   
 
 .result-box {
   padding-top: 60px;
