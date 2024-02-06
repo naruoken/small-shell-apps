@@ -108,4 +108,11 @@ echo "Team APP deployment has been done, please create APP user."
 echo "sudo $ROOT/adm/ops app:team add.usr:\$user"
 echo "-------------------------------------------------------------------------"
 
+# create index.html
+if [ ! -d $www/html/team ];then
+  mkdir $www/html/team
+  cat $ROOT/web/src/descriptor/redirect.html.def | $SED "s#%%APPURL#${base_url}auth.team#g" > $www/html/team/index.html
+  chmod 755 $www/html/team/index.html
+fi
+
 exit 0
