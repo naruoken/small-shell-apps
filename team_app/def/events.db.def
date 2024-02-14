@@ -83,7 +83,7 @@ col5_required="no"
 # col
 #-------------------------------------------
 col6_key_name="color"
-col6_key_label="color"
+col6_key_label="Color"
 col6_type="select"
 
 # only for select, checkbox
@@ -95,3 +95,21 @@ col6_primary_databox=""
 # required option
 col6_required="no"
 #-------------------------------------------
+
++addcol
+# col
+#-------------------------------------------
+col7_key_name="description"
+col7_key_label="Description"
+col7_type="textarea"
+
+# only for select, checkbox
+col7_key_params=""
+
+# only for pdls
+col7_primary_databox=""
+
+# required option
+col7_required="no"
+#-------------------------------------------
+
