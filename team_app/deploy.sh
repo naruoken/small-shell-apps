@@ -115,4 +115,11 @@ if [ ! -d $www/html/team ];then
   chmod 755 $www/html/team/index.html
 fi
 
+if [ ! -d $www/html/inquiry ];then
+  mkdir $www/html/inquiry
+  cat $ROOT/web/src/descriptor/redirect.html.def | $SED "s#%%APPURL#${base_url}inquiry#g" > $www/html/inquiry/index.html
+  chmod 755 $www/html/inquiry/index.html
+fi
+
+
 exit 0
