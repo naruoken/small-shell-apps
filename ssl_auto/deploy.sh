@@ -61,6 +61,14 @@ if [ $? -eq 0 ];then
   cat $ROOT/web/base | $SED "s/http/https/g" > $ROOT/web/.base
   cat $ROOT/web/.base > $ROOT/web/base
 
+  # update index
+  grep -rl ${index_url} $www  > .list.tmp
+  while read line
+  do
+    cat $line | $SED "s/http/https/g" > .index.new
+    cat .index.new > $line
+  done < .list.tmp
+
   # restart web
   systemctl stop small-shell
   systemctl start small-shell
