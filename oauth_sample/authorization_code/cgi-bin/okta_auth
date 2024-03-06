@@ -127,7 +127,7 @@ if [ "$code" ];then
 
   if [ "$access_token" -a "$user" -a ! "$user" = "null" ];then
     user=`echo $user | $AWK -F"@" '{print $1}'`
-    auth_req=`sudo -u small-shell ${small_shell_path}/bin/extension_auth app:oauth_test key_auth:${authkey} force_user:${user} remote_addr:${remote_addr} user_agent:${user_agent}`
+    auth_req=`${small_shell_path}/bin/extension_auth app:oauth_test key_auth:${authkey} force_user:${user} remote_addr:${remote_addr} user_agent:${user_agent}`
     session=`echo $auth_req | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}'`
     pin=`echo $auth_req | $AWK -F "," '{print $3}' | $AWK -F ":" '{print $2}'`
    
