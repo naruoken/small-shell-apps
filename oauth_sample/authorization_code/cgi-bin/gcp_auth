@@ -91,6 +91,10 @@ if [ ! "$code" ];then
     id="\&id=`echo $id`"
   fi
 
+  if [ "$error" ];then
+    message="Oauth login failed"
+  fi
+
   if [ "$message" ];then
     message="<p><b>`echo $message`<\/b><\/p>"
   fi
@@ -142,8 +146,7 @@ if [ "$code" ];then
       fi
     fi
   else
-    echo "authentication faied"
-    echo "$access_token:$user"
+    echo "Oops, something wrong.."
   fi
 fi
 
