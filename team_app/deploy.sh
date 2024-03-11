@@ -111,15 +111,14 @@ echo "-------------------------------------------------------------------------"
 # create index.html
 if [ ! -d $www/html/team ];then
   mkdir $www/html/team
-  cat $ROOT/web/src/descriptor/redirect.html.def | $SED "s#%%APPURL#${base_url}auth.team#g" > $www/html/team/index.html
-  chmod 755 $www/html/team/index.html
 fi
+cat $ROOT/web/src/descriptor/redirect.html.def | $SED "s#%%APPURL#${base_url}auth.team#g" > $www/html/team/index.html
+chmod 755 $www/html/team/index.html
 
 if [ ! -d $www/html/inquiry ];then
   mkdir $www/html/inquiry
-  cat $ROOT/web/src/descriptor/redirect.html.def | $SED "s#%%APPURL#${base_url}inquiry#g" > $www/html/inquiry/index.html
-  chmod 755 $www/html/inquiry/index.html
 fi
-
+cat $ROOT/web/src/descriptor/redirect.html.def | $SED "s#%%APPURL#${base_url}inquiry#g" > $www/html/inquiry/index.html
+chmod 755 $www/html/inquiry/index.html
 
 exit 0
