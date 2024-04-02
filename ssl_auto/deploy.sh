@@ -47,6 +47,9 @@ if [ $? -eq 0 ];then
   if [ -d /etc/letsencrypt/live/${server} ];then
     cp /etc/letsencrypt/live/${server}/fullchain.pem ${www}/app/cert.pem
     cp /etc/letsencrypt/live/${server}/privkey.pem ${www}/app/privatekey.pem
+    chown small-shell:small-shell ${www}/app/cert.pem
+    chown small-shell:small-shell ${www}/app/privatekey.pem
+    chmod 700 ${www}/app/privatekey.pem
   else
     echo "error: something must be wrong"
     exit 1
