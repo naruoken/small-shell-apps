@@ -32,7 +32,7 @@
       <ul>
       %%dataset
       </ul>
-      <button class="button" type="submit">PUSH</button>
+      <button class="button" type="submit">SET</button>
       %%link_button
       </form>
       <div class="action_links">
