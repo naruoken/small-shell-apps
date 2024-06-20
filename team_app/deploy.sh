@@ -9,8 +9,6 @@ fi
 echo -n "small-shell root (/usr/local/small-shell): "
 read ROOT
 
-echo $ROOT
-
 if [ ! "$ROOT" ];then
   ROOT=/usr/local/small-shell
 fi
@@ -20,6 +18,14 @@ if [ ! -d $ROOT ];then
   exit 1
 fi
 
+echo -n "Do you want to enable IP whitelisting for this APP ? (yes | no): "
+read IP_whitelisting
+while [ ! "$IP_whitelisting" = "yes" -a ! "$IP_whitelisting" = "no" ]
+do 
+  echo "please input yes or no"
+  echo -n "Do you want to enable IP whitelisting ? (yes | no): "
+  read IP_whitelisting
+done
 
 # loal global conf
 . $ROOT/global.conf
@@ -35,7 +41,8 @@ fi
 # deploy script to production env
 for src in `ls ./cgi-bin | xargs basename -a`
 do
-  cat ./cgi-bin/$src | $SED "s#%%www#${www}#g" | $SED "s#%%authkey#$api_authkey#g" > $cgidir/$src
+  cat ./cgi-bin/$src | $SED "s#%%www#${www}#g" | $SED "s#%%authkey#$api_authkey#g" \
+  | $SED "s/%%IP_whitelisting/$IP_whitelisting/g" > $cgidir/$src
   chown $cgiusr:$cgiusr $cgidir/$src
   chmod 700 $cgidir/$src
 done
@@ -94,7 +101,8 @@ chmod 700 $ROOT/users/${app}.${app_user_id}/hash
 authkey=`echo "${app_user_name}:${hash_gen_key}" | $BASE64_ENC`
 
 # update form APP
-cat ./cgi-bin/inquiry | $SED "s#%%www#${www}#g" | $SED "s/%%authkey/$authkey/g" >  $cgidir/inquiry
+cat ./cgi-bin/inquiry | $SED "s#%%www#${www}#g" | $SED "s/%%authkey/$authkey/g" \
+| $SED "s/%%IP_whitelisting/$IP_whitelisting/g" >  $cgidir/inquiry
 
 # create databox
 for src in `ls ./def | xargs basename -a`

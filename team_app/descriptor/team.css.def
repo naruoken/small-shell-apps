@@ -522,8 +522,9 @@ a {
 }
 
 .form-box a {
-  color: #008;
-}
+  color: #07ADAF;
+} 
+
 
 .form-box .description {
   text-align: left;
@@ -551,7 +552,7 @@ a {
   color: #444444;
 }
 
-.form-box .description h3 {
+.form-box .description h4 {
   color: #444444;
 }
 
@@ -868,6 +869,17 @@ a {
   margin-bottom: -10px;
 }
 
+.announcement-form-box .action_links {
+  font-size: 80%;
+  color: #808080;
+  font-weight: bold;
+  font-style : italic;
+}
+
+.announcement-form-box .action_links a {
+  color: #808080;
+}
+
 @media screen and (min-width: 640px){
   .announcement-form-box .description h1 {
     font-size: 180%;
@@ -888,7 +900,7 @@ a {
   color: #444444;
 }
 
-.announcement-form-box .description h3 {
+.announcement-form-box .description h4 {
   color: #444444;
 }
 

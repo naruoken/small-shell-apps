@@ -1,5 +1,9 @@
 #!/bin/bash
 
+####################################
+# controller for Scratch APP #team
+####################################
+
 # preprocedure
 session_update="required"
 IP_persistence="yes"
@@ -162,7 +166,18 @@ case "$req" in
     %%www/bin/team_main.sh session:$session pin:$pin user_name:$user_name remote_addr:${remote_addr};;
 
   "get")
-    %%www/bin/team_get.sh session:$session pin:$pin user_name:$user_name databox:$databox id:$id ;;
+    if [ ! "$master" ];then
+      %%www/bin/team_get.sh session:$session pin:$pin user_name:$user_name id:$id 
+    else
+      sync=`${small_shell_path}/bin/extension_auth app:team sync:${session}@${master}`
+      if [ "$sync" = "synced" ];then
+        redirect=yes
+      else
+        redirect=no
+      fi
+      %%www/bin/team_get.sh session:$session pin:$pin user_name:$user_name id:$id redirect:$redirect
+    fi
+    ;;
 
   "set")
     %%www/bin/team_set.sh session:$session pin:$pin user_name:$user_name databox:$databox id:$id ;;
@@ -183,38 +198,139 @@ case "$req" in
    # sub app routing section
 
    # bookmark
-   "bookmarks.table") %%www/bin/bookmarks_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command line:$line;;
-   "bookmarks.get") %%www/bin/bookmarks_get.sh session:$session pin:$pin user_name:$user_name id:$id ;;
-   "bookmarks.set") %%www/bin/bookmarks_set.sh session:$session pin:$pin user_name:$user_name id:$id ;;
-   "bookmarks.del") %%www/bin/bookmarks_del.sh session:$session pin:$pin user_name:$user_name id:$id ;;
-   "bookmarks.log_viewer") %%www/bin/bookmarks_log_viewer.sh session:$session pin:$pin id:$id ;;
+   "bookmarks.table") 
+     %%www/bin/bookmarks_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command line:$line;;
+
+   "bookmarks.get") 
+     if [ ! "$master" ];then
+       %%www/bin/bookmarks_get.sh session:$session pin:$pin user_name:$user_name id:$id 
+     else
+       sync=`${small_shell_path}/bin/extension_auth app:team sync:${session}@${master}`
+       if [ "$sync" = "synced" ];then
+         redirect=yes
+       else
+         redirect=no
+       fi
+       %%www/bin/bookmarks_get.sh session:$session pin:$pin user_name:$user_name id:$id redirect:$redirect
+     fi
+     ;;
+
+   "bookmarks.set") 
+     %%www/bin/bookmarks_set.sh session:$session pin:$pin user_name:$user_name id:$id ;;
+
+   "bookmarks.del") 
+     %%www/bin/bookmarks_del.sh session:$session pin:$pin user_name:$user_name id:$id ;;
+
+   "bookmarks.log_viewer") 
+     %%www/bin/bookmarks_log_viewer.sh session:$session pin:$pin id:$id ;;
  
    # drive
-   "drive.table") %%www/bin/drive_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command line:$line;;
-   "drive.get") %%www/bin/drive_get.sh session:$session pin:$pin user_name:$user_name id:$id ;;
-   "drive.set") %%www/bin/drive_set.sh session:$session pin:$pin user_name:$user_name id:$id ;;
-   "drive.del") %%www/bin/drive_del.sh session:$session pin:$pin user_name:$user_name id:$id ;;
-   "drive.log_viewer") %%www/bin/drive_log_viewer.sh session:$session pin:$pin id:$id ;;
-   "drive.file") %%www/bin/drive_dl.sh session:$session pin:$pin id:$id ;;
+   "drive.table") 
+     %%www/bin/drive_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command line:$line;;
+
+   "drive.get") 
+     if [ ! "$master" ];then
+       %%www/bin/drive_get.sh session:$session pin:$pin user_name:$user_name id:$id
+     else
+       sync=`${small_shell_path}/bin/extension_auth app:team sync:${session}@${master}`
+       if [ "$sync" = "synced" ];then
+         redirect=yes
+       else
+         redirect=no
+       fi
+       %%www/bin/drive_get.sh session:$session pin:$pin user_name:$user_name id:$id redirect:$redirect
+     fi
+     ;;
+
+   "drive.set") 
+     %%www/bin/drive_set.sh session:$session pin:$pin user_name:$user_name id:$id ;;
+
+   "drive.del") 
+     %%www/bin/drive_del.sh session:$session pin:$pin user_name:$user_name id:$id ;;
+
+   "drive.log_viewer") 
+     %%www/bin/drive_log_viewer.sh session:$session pin:$pin id:$id ;;
+
+   "drive.file") 
+     %%www/bin/drive_dl.sh session:$session pin:$pin id:$id ;;
 
    # tasks
-   "tasks.table") %%www/bin/tasks_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command line:$line;;
-   "tasks.get") %%www/bin/tasks_get.sh session:$session pin:$pin user_name:$user_name id:$id ;;
-   "tasks.set") %%www/bin/tasks_set.sh session:$session pin:$pin user_name:$user_name id:$id ;;
-   "tasks.log_viewer") %%www/bin/tasks_log_viewer.sh session:$session pin:$pin id:$id ;;
+   "tasks.table") 
+     %%www/bin/tasks_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command line:$line;;
+
+   "tasks.get") 
+     if [ ! "$master" ];then
+       %%www/bin/tasks_get.sh session:$session pin:$pin user_name:$user_name id:$id
+     else
+       sync=`${small_shell_path}/bin/extension_auth app:team sync:${session}@${master}`
+       if [ "$sync" = "synced" ];then
+         redirect=yes
+       else
+         redirect=no
+       fi
+       %%www/bin/tasks_get.sh session:$session pin:$pin user_name:$user_name id:$id redirect:$redirect
+     fi
+     ;;
+
+   "tasks.set")
+     %%www/bin/tasks_set.sh session:$session pin:$pin user_name:$user_name id:$id ;;
+
+   "tasks.del") 
+     %%www/bin/tasks_del.sh session:$session pin:$pin user_name:$user_name id:$id ;;
+
+   "tasks.log_viewer") 
+     %%www/bin/tasks_log_viewer.sh session:$session pin:$pin id:$id ;;
   
    # inquiries
-   "inquiries.table") %%www/bin/inquiries_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command line:$line;;
-   "inquiries.get") %%www/bin/inquiries_get.sh session:$session pin:$pin user_name:$user_name id:$id ;;
-   "inquiries.set") %%www/bin/inquiries_set.sh session:$session pin:$pin user_name:$user_name id:$id ;;
-   "inquiries.log_viewer") %%www/bin/inquiries_log_viewer.sh session:$session pin:$pin id:$id ;;
+   "inquiries.table") 
+     %%www/bin/inquiries_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command line:$line;;
+
+   "inquiries.get") 
+     if [ ! "$master" ];then
+       %%www/bin/inquiries_get.sh session:$session pin:$pin user_name:$user_name id:$id 
+     else
+       sync=`${small_shell_path}/bin/extension_auth app:team sync:${session}@${master}`
+       if [ "$sync" = "synced" ];then
+         redirect=yes
+       else
+         redirect=no
+       fi
+       %%www/bin/inquiries_get.sh session:$session pin:$pin user_name:$user_name id:$id redirect:$redirect
+     fi
+     ;;
+
+   "inquiries.set") 
+     %%www/bin/inquiries_set.sh session:$session pin:$pin user_name:$user_name id:$id ;;
+
+   "inquiries.log_viewer")
+     %%www/bin/inquiries_log_viewer.sh session:$session pin:$pin id:$id ;;
 
    # announcements
-   "announcements.table") %%www/bin/announcements_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command line:$line;;
-   "announcements.get") %%www/bin/announcements_get.sh session:$session pin:$pin user_name:$user_name id:$id;;
-   "announcements.set") %%www/bin/announcements_set.sh session:$session pin:$pin user_name:$user_name id:$id;;
-   "announcements.del") %%www/bin/announcements_del.sh session:$session pin:$pin user_name:$user_name id:$id ;;
-   "announcements.log_viewer") %%www/bin/announcements_log_viewer.sh session:$session pin:$pin id:$id;;
+   "announcements.table") 
+     %%www/bin/announcements_table.sh session:$session pin:$pin user_name:$user_name page:$page table_command:$table_command line:$line;;
+
+   "announcements.get") 
+     if [ ! "$master" ];then
+       %%www/bin/announcements_get.sh session:$session pin:$pin user_name:$user_name id:$id
+     else
+       sync=`${small_shell_path}/bin/extension_auth app:team sync:${session}@${master}`
+       if [ "$sync" = "synced" ];then
+         redirect=yes
+       else
+         redirect=no
+       fi
+       %%www/bin/announcements_get.sh session:$session pin:$pin user_name:$user_name id:$id redirect:$redirect
+     fi
+     ;;
+
+   "announcements.set") 
+     %%www/bin/announcements_set.sh session:$session pin:$pin user_name:$user_name id:$id;;
+
+   "announcements.del") 
+     %%www/bin/announcements_del.sh session:$session pin:$pin user_name:$user_name id:$id ;;
+
+   "announcements.log_viewer")
+     %%www/bin/announcements_log_viewer.sh session:$session pin:$pin id:$id;;
 
    #--------------------------------
 

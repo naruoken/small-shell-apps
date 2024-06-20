@@ -73,7 +73,12 @@ else
   sleep $index_update_time
 
   # redirect to the table
-  echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?subapp=drive&session=$session&pin=$pin&req=table\">"
+  if [ "$id" = "new" ];then
+    echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?subapp=drive&session=$session&pin=$pin&req=table\">"
+  else
+    echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?subapp=drive&session=$session&pin=$pin&req=get&id=$id\">"
+  fi
+
 fi
 
 if [ "$session" ];then

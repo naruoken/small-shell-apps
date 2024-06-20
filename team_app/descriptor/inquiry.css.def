@@ -124,7 +124,7 @@ a {
   color: #444444;
 }
 
-.form-box .description h3 {
+.form-box .description h4 {
   color: #444444;
 }
 
@@ -314,6 +314,14 @@ a {
   cursor: pointer;
   cursor: hand;
 }
+
+.form-box button:hover {
+  background: #07ADBF;
+} 
+ 
+.form-box button:active {
+  background: #07ADAE;
+}   
 
 .form-box button a {
   color:inherit;

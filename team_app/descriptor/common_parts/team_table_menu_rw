@@ -1,0 +1,2 @@
+<a href="./team?%%params&req=get&id=new"><p>+ADD</p></a>
+<a href="./team?%%params&req=table"><p>-CLR</p></a>

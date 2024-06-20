@@ -27,6 +27,12 @@ do
     id=`echo $param | $AWK -F":" '{print $2}'`
   fi
 
+  if [ "$master" ];then
+    if [[ $param == redirect* ]];then
+      redirect=`echo $param | $AWK -F":" '{print $2}'`
+    fi
+  fi
+
 done
 
 if [ ! "$id"  ];then
@@ -47,14 +53,14 @@ permission=`$META get.attr:team/$user_name{permission}`
 if [ $id = "new" ];then
 
   #----------------------------
-  # gen reqd/write form #new
+  # gen read/write form #new
   #----------------------------
   $DATA_SHELL databox:$databox action:get id:$id keys:$keys format:html_tag > %%www/tmp/$session/dataset
 
 else
 
   #---------------------------
-  # gen reqd/write form #update
+  # gen read/write form #update
   #---------------------------
   $DATA_SHELL databox:$databox action:get id:$id keys:$keys format:html_tag > %%www/tmp/$session/dataset
 
@@ -90,6 +96,17 @@ elif [ "$form_chk" = "multipart" ];then
     view="drive_get_new_incf.html.def"
   else
     view="drive_get_rw_incf.html.def"
+  fi
+fi
+
+# overwritten by clustering logic
+if [ "$master" -a "$permission" = "rw" ];then
+  if [ "$redirect" = "no" ];then
+    if [ "$id" = "new" ];then
+      view="drive_get_new_master_failed.html.def"
+    else
+      view="drive_get_rw_master_failed.html.def"
+    fi
   fi
 fi
 

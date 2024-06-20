@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# preproceduure
-param=`date +%s`
-param="$param:$RANDOM"
-count=1
+###############################
+# controller for FORM #inquiry
+###############################
+IP_whitelisting=no
 
 echo "Content-Type: text/html"
 echo ""
@@ -14,7 +14,6 @@ echo ""
 # load remote addr
 remote_addr=`echo $REMOTE_ADDR | $SED "s/:/-/g"`
 
-IP_whitelisting=no
 
 # IP restriction check
 if [ "$IP_whitelisting" = "yes" ];then
@@ -36,14 +35,9 @@ if [ "$IP_whitelisting" = "yes" ];then
   fi
 fi
 
-# auth for small-shell databox
-authkey="%%authkey"
-auth_req=`${small_shell_path}/bin/extension_auth key_auth:${authkey} remote_addr:${remote_addr} user_agent:inquiry app:inquiry`
-user_name=`echo $auth_req | $AWK -F "," '{print $1}' | $AWK -F ":" '{print $2}'`
-session=`echo $auth_req | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}'`
-pin=`echo $auth_req | $AWK -F "," '{print $3}' | $AWK -F ":" '{print $2}'`
-
-
+param=`date +%s`
+param="$param:$RANDOM"
+count=1
 while [ -f %%www/tmp/${param} ]
 do
  sleep 0.01
@@ -54,7 +48,6 @@ do
  fi
 done
 
-
 # parse QUERY_STRING
 echo $QUERY_STRING | $PHP -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | $SED "s/\&/\n/g" > %%www/tmp/${param}
 cat %%www/tmp/${param} | $SED -e "s/=/=\"/1" | $SED "s/$/\"/g" | $SED "s/^\"//g" > %%www/tmp/${param}.load
@@ -63,6 +56,18 @@ chmod 755 %%www/tmp/${param}.load
 # load query string
 .  %%www/tmp/${param}.load
 rm  %%www/tmp/${param}*
+
+# auth for small-shell databox
+authkey="%%authkey"
+auth_req=`${small_shell_path}/bin/extension_auth key_auth:${authkey} remote_addr:${remote_addr} user_agent:inquiry app:inquiry`
+user_name=`echo $auth_req | $AWK -F "," '{print $1}' | $AWK -F ":" '{print $2}'`
+session=`echo $auth_req | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}'`
+pin=`echo $auth_req | $AWK -F "," '{print $3}' | $AWK -F ":" '{print $2}'`
+
+if [ ! "$session" -o ! "$pin" ];then
+  echo "error: internal key authentication failure"
+  exit 1
+fi
 
 # parse POST data
 if [ "`echo $REQUEST_METHOD | grep -i "POST"`" ];then
@@ -83,6 +88,7 @@ if [ "`echo $REQUEST_METHOD | grep -i "POST"`" ];then
   %%www/bin/parse.sh $session $method
 
 fi
+
 #----------------------------
 # routing to action scripts
 #----------------------------

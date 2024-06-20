@@ -10,6 +10,10 @@ databox=drive
 for param in `echo $@`
 do
 
+  if [[ $param == remote_addr:* ]]; then
+    remote_addr=`echo $param | $AWK -F":" '{print $2}'`
+  fi
+
   if [[ $param == session:* ]]; then
     session=`echo $param | $AWK -F":" '{print $2}'`
   fi
@@ -44,7 +48,7 @@ filename=`$DATA_SHELL databox:$databox action:get key:file id:$id format:none | 
 echo "Content-Disposition: attachment; filename=\"$filename\""
 echo "Content-Type: application/octet-stream"
 echo ""
-${small_shell_path}/bin/dl session:$session pin:$pin databox:$databox id:$id
+${small_shell_path}/bin/dl session:$session remote_addr:$remote_addr pin:$pin databox:$databox id:$id
 
 if [ "$session" ];then
   rm -rf %%www/tmp/${session}_log

@@ -174,12 +174,7 @@ do
 done
 
 # load permission
-
-if [ ! "$user_name" = "guest" ];then
-  permission=`$META get.attr:team/$user_name{permission}`
-else
-  permission="ro"
-fi
+permission=`$META get.attr:team/$user_name{permission}`
 
 # gen %%page_link contents
 %%www/bin/team_page_links.sh $page $pages "$table_command" $num_of_line_per_page > %%www/tmp/$session/page_link &
@@ -233,14 +228,21 @@ else
   view=team_table.html.def
 fi
 
+# overwritten by clustering logic
+if [ "$replica" ];then
+  cat %%www/tmp/$session/table | $SED "s#./team#${cluster_base_url}team#g" > %%www/tmp/$session/table.base_url
+  table=%%www/tmp/$session/table.base_url
+else
+  table=%%www/tmp/$session/table
+fi
+
 cat %%www/descriptor/$view | $SED -r "s/^( *)</</1" \
 | $SED "/%%common_menu/r %%www/descriptor/common_parts/team_common_menu" \
 | $SED "/%%common_menu/d"\
-| $SED "/%%table_menu/r %%www/descriptor/common_parts/table_menu_${permission}" \
+| $SED "/%%table_menu/r %%www/descriptor/common_parts/team_table_menu_${permission}" \
 | $SED "/%%table_menu/d"\
-| $SED "/%%table/r %%www/tmp/$session/table" \
+| $SED "/%%table/r $table" \
 | $SED "s/%%table//g"\
-| $SED "s/events/$databox/g"\
 | $SED "/%%page_link/r %%www/tmp/$session/page_link" \
 | $SED "s/%%page_link//g"\
 | $SED "/%%tag/r %%www/tmp/$session/tag" \
@@ -266,7 +268,7 @@ cat %%www/descriptor/$view | $SED -r "s/^( *)</</1" \
 | $SED "s/{%%%%}/\&/g"\
 | $SED "s/{%%%}/:/g"\
 | $SED "s/{%%space}/ /g"\
-| $SED "s/.\/shell.app?/.\/team?/g"\
+| $SED "s/.\/base?/.\/team?/g"\
 | $SED "s/%%session/session=$session\&pin=$pin/g" \
 | $SED "s/%%params/session=$session\&pin=$pin\&databox=$databox/g" 
 

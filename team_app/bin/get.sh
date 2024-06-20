@@ -31,6 +31,12 @@ do
     duplicate=`echo $param | $AWK -F":" '{print $2}'`
   fi
 
+  if [ "$master" ];then
+    if [[ $param == redirect* ]];then
+      redirect=`echo $param | $AWK -F":" '{print $2}'`
+    fi
+  fi
+
 done
 
 # SET BASE_COMMAND
@@ -51,7 +57,7 @@ count=0
 for db in $db_list
 do
   if [ ! "$databox" = "$db" -o $count -eq 0 ];then
-    echo "<option value=\"./shell.app?session=$session&pin=$pin&databox=$db&req=table\">DataBox:$db</option>"\
+    echo "<option value=\"./base?session=$session&pin=$pin&databox=$db&req=table\">DataBox:$db</option>"\
     >> %%www/tmp/$session/databox_list
   fi
   ((count +=1 ))
@@ -75,8 +81,9 @@ if [ ! "$duplicate" = "yes" ];then
 
     # gen read only datas
     $DATA_SHELL databox:$databox action:get id:$id keys:all format:none | grep -v hashid > %%www/tmp/$session/dataset.0.1
-    cat %%www/tmp/$session/dataset.0.1 | $SED "s/^/<li><label>/g" | $SED "s/:/<\/label><pre>/g" | $SED "s/$/<\/pre><\/li>/g" \
-    | $SED "s/<p><\/p>/<p>-<\/p>/g" | $SED "s/_%%enter_/\n/g" >> %%www/tmp/$session/dataset
+    cat %%www/tmp/$session/dataset.0.1 | $SED "s/^/<li><label>/g" | $SED "s/:/<\/label><pre>/1" | $SED "s/$/<\/pre><\/li>/g" \
+    | $SED "s/<pre><\/pre>/<pre>-<\/pre>/g" | $SED "s/_%%enter_/\n/g" >> %%www/tmp/$session/dataset
+
 
   fi
 
@@ -84,24 +91,25 @@ else
 
   # else means copying data
   keys=`$META get.key:$databox{all}`
+  primary_key=`$META get.key:$databox{primary}`
+
+  $DATA_SHELL databox:$databox \
+  action:get id:new key:$primary_key format:html_tag > %%www/tmp/$session/dataset
+
   for key in $keys
   do
     # gen %%data by conpying
-    if [ "$primary_key" = "$key" ];then
-      $DATA_SHELL databox:$databox \
-      action:get id:new key:$key format:html_tag > %%www/tmp/$session/dataset
-    else
+    if [ ! "$primary_key" = "$key" ];then
       data=`$DATA_SHELL databox:$databox \
-      action:get id:$id key:$key format:html_tag` 
+      action:get id:$id key:$key format:html_tag`
       file_chk=`echo $data | grep "<div class=\"file_form\">" `
 
       if [ ! "$file_chk" ];then
-        echo "$data"  >> %%www/tmp/$session/dataset
+        echo "$data"  >> /var/www/tmp/$session/dataset
       else
         $DATA_SHELL databox:$databox \
-        action:get id:new key:$key format:html_tag  > %%www/tmp/$session/dataset
+        action:get id:new key:$key format:html_tag  >> %%www/tmp/$session/dataset
       fi
-
     fi
   done
   id=new
@@ -137,6 +145,17 @@ elif [ "$form_chk" = "multipart" ];then
     view="get_new_incf.html.def"
   else
     view="get_rw_incf.html.def"
+  fi
+fi
+
+# overwritten by clustering logic
+if [ "$master" -a "$permission" = "rw" ];then
+  if [ "$redirect" = "no" ];then
+    if [ "$id" = "new" ];then
+      view="get_new_master_failed.html.def"
+    else
+      view="get_rw_master_failed.html.def"
+    fi
   fi
 fi
 
