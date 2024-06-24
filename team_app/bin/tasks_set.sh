@@ -86,7 +86,6 @@ if [ "$error_chk" ];then
   | $SED "/%%message/d"\
   | $SED "s/%%session/session=$session\&pin=$pin/g"
 else
-  # redirect to the table
   echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?subapp=tasks&session=$session&pin=$pin&req=get&id=$id\">"
 fi
 

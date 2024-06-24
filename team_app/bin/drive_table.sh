@@ -265,7 +265,7 @@ else
 fi
 
 # overwritten by clustering logic
-if [ "$replica" ];then
+if [ "$replica_hosts" ];then
   cat %%www/tmp/$session/table | $SED "s#./team#${cluster_base_url}team#g" > %%www/tmp/$session/table.base_url
   table=%%www/tmp/$session/table.base_url
 else

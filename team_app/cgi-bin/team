@@ -129,6 +129,14 @@ if [ "$auth" = "required" ];then
         exit 1
       fi
     fi
+
+    if [ "$replica_hosts" -a "$update" = "yes" ];then
+      for replica in $replica_hosts
+      do
+        ${small_shell_path}/bin/extension_auth app:team sync:${session}@${replica} > /dev/null 2>&1 &
+      done
+    fi
+
   fi
 fi
 

@@ -71,7 +71,6 @@ else
   index_update_time="0.$buffer"
   sleep $index_update_time
 
-  # redirect to the table
   echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?session=$session&pin=$pin&req=main\">"
 fi
 
