@@ -71,7 +71,7 @@ else
   index_update_time="0.$buffer"
   sleep $index_update_time
 
-  echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?session=$session&pin=$pin&req=main\">"
+  echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?session=$session&pin=$pin&req=main&update=yes\">"
 fi
 
 if [ "$session" ];then
