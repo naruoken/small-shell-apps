@@ -9,7 +9,7 @@
     <div class="container">
       <div class="flex-header">
         <div class="left-header">
-          <h4><a href="./team?%%session&req=main">Team APP</a></h4>
+          <h4><a href="./team?%%params&req=main">Team APP</a></h4>
         </div>
         <div class="right-header">
           <button class="even-btn-menu">=</button>

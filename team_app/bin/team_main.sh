@@ -88,7 +88,9 @@ cat %%www/descriptor/team_main.html.def | $SED -r "s/^( *)</</1" \
 | $SED "/%%json/r %%www/tmp/$session/merged_events"\
 | $SED "s/%%json//g"\
 | $SED "s/%%common_menu//g"\
-| $SED "s/%%session/session=$session\&pin=$pin/g" 
+| $SED "s/%%session/session=$session\&pin=$pin/g" \
+| $SED "s/%%params/session=$session\&pin=$pin/g"
+
 
 if [ "$session" ];then
   rm -rf %%www/tmp/$session

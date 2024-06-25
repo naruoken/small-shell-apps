@@ -13,7 +13,7 @@
     <div class="container">
       <div class="portal-flex-header">
         <div class="left-header">
-        <a href="./team?%%session&req=main"><h3>Team APP</h3></a>
+        <a href="./team?%%params&req=main"><h3>Team APP</h3></a>
         </div>
         <div class="right-header">
         <button class="portal-even-btn-menu">=</button>
@@ -207,7 +207,7 @@
                this.$refs.calendar.next()
              },
              showEvent({ nativeEvent, event }) {
-               var url = './team?%%session&req=get&id=';
+               var url = './team?%%params&req=get&id=';
                var id = `${event.id}`
                this.eventstart = `start:${event.start}`
                this.eventurl = url + id
