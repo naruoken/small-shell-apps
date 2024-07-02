@@ -11,8 +11,8 @@ count=1
 # load remote addr
 remote_addr=`echo $REMOTE_ADDR | $SED "s/:/-/g"`
 
+IP_whitelisting=%%IP_whitelisting
 
-IP_whitelisting=no
 
 # IP restriction check
 if [ "$IP_whitelisting" = "yes" ];then

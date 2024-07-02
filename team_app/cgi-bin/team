@@ -15,34 +15,14 @@ User_agent_persistence="yes"
 # load header
 if [ "$IP_persistence" = "yes" ];then
   remote_addr=`echo $REMOTE_ADDR | $SED "s/:/-/g"`
+else
+  logging_IP=`echo $REMOTE_ADDR | $SED "s/:/-/g"`
 fi
 if [ "$User_agent_persistence" = "yes" ];then
   user_agent=`echo $HTTP_USER_AGENT | $SED "s/:/-/g" | $SED "s/ /_/g"`
 fi
 
-IP_whitelisting=%%IP_whitelisting
 auth=required
-
-# IP restriction check
-if [ "$IP_whitelisting" = "yes" ];then
-  whitelist_chk=`${small_shell_path}/bin/meta get.IP | grep -v "NO IP RESTRICTION"`
-  if [ "$whitelist_chk" ];then
-    for IP in $whitelist_chk
-    do
-      IP=`echo $IP | $SED "s/*//g"`
-      if [[ ${remote_addr} == ${IP}* ]];then
-        IP_chk=yes
-        break
-      fi
-    done
-   
-    if [ ! "$IP_chk" = "yes" ];then
-      echo "error: your IP is not allowed to access"
-      exit 1
-    fi
-  fi
-fi
-
 param=`date +%s`
 param="$param:$RANDOM"
 count=1
@@ -89,7 +69,8 @@ if [ "$auth" = "required" ];then
     session_update=no
 
     # session check
-    session_chk=`${small_shell_path}/bin/extension_auth app:team session_chk:${session} pin:${pin} remote_addr:${remote_addr} user_agent:${user_agent}`
+    session_chk=`${small_shell_path}/bin/extension_auth app:team session_chk:${session} pin:${pin} \
+    remote_addr:${remote_addr} user_agent:${user_agent} logging_IP:${logging_IP}`
     if [ ! "$session_chk" ];then
       if [ "$req" = "log_viewer" ];then
         echo "<meta http-equiv=\"refresh\" content=\"0; url=./auth.team?req=$req&id=$id&message=!%20Session%20Expired\">"
@@ -102,7 +83,8 @@ if [ "$auth" = "required" ];then
   fi
 
   if [ "$req" = "logout" ]; then
-    ${small_shell_path}/bin/extension_auth app:team pin:${pin} remote_addr:${remote_addr} logout:${session} user_agent:${user_agent}
+    ${small_shell_path}/bin/extension_auth app:team pin:${pin} remote_addr:${remote_addr} logout:${session} \
+    user_agent:${user_agent} logging_IP:${logging_IP}
     echo "<meta http-equiv=\"refresh\" content=\"0; url=./auth.team?req=main\">"
     exit 0
   fi
@@ -110,7 +92,7 @@ if [ "$auth" = "required" ];then
   # session update
   if [ "$session_update" = "required" ];then
     get_session=`${small_shell_path}/bin/extension_auth session_persist:${session} \
-    pin:${pin} remote_addr:${remote_addr} user_agent:${user_agent} app:team`
+    pin:${pin} remote_addr:${remote_addr} user_agent:${user_agent} app:team logging_IP:${logging_IP}`
 
     user_name=`echo $get_session | $AWK -F "," '{print $1}' | $AWK -F ":" '{print $2}'`
     session=`echo $get_session | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}'`

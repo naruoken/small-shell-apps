@@ -3,7 +3,7 @@
 ###############################
 # controller for FORM #inquiry
 ###############################
-IP_whitelisting=no
+IP_whitelisting=%%IP_whitelisting
 
 echo "Content-Type: text/html"
 echo ""
