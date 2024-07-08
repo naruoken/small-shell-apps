@@ -420,6 +420,10 @@ a {
   padding : 0px ;
 }
 
+.table-box h4 {
+  padding-left: 6px;
+}
+
 .table-box .tags p {
   padding-right: 8px;
   font-size: 80%;
