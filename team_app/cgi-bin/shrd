@@ -8,13 +8,8 @@ count=1
 # load small-shell conf
 . %%www/descriptor/.small_shell_conf
 
-# load remote addr
-remote_addr=`echo $REMOTE_ADDR | $SED "s/:/-/g"`
-
-IP_whitelisting=%%IP_whitelisting
-
-
 # IP restriction check
+IP_whitelisting=%%IP_whitelisting
 if [ "$IP_whitelisting" = "yes" ];then
   whitelist_chk=`${small_shell_path}/bin/meta get.IP | grep -v "NO IP RESTRICTION"`
   if [ "$whitelist_chk" ];then
@@ -33,6 +28,9 @@ if [ "$IP_whitelisting" = "yes" ];then
     fi
   fi
 fi
+
+# load remote addr
+remote_addr=`echo $REMOTE_ADDR | $SED "s/:/-/g"`
 
 # auth for small-shell databox
 # use api key
