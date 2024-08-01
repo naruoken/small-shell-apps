@@ -35,6 +35,7 @@
           %%tag
           <div class="tooltip">
           <p>#Sort.Hint</p>
+          <span class="tooltip-text">
           <p>------------------------------------------------------------------------</p>
           <p>#Sort command usage: sort -option column_name</p>
           <p>------------------------------------------------------------------------</p>
