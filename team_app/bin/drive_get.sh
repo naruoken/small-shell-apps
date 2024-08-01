@@ -122,6 +122,7 @@ fi
 cat %%www/descriptor/${view} | $SED -r "s/^( *)</</1" \
 | $SED "/%%common_menu/r %%www/descriptor/common_parts/team_common_menu" \
 | $SED "/%%common_menu/d" \
+| $SED "s/%%user/$user_name/g"\
 | $SED "/%%dataset/r %%www/tmp/$session/dataset" \
 | $SED "s/%%dataset//g"\
 | $SED "/%%history/r %%www/tmp/$session/history" \

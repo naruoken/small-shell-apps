@@ -84,7 +84,7 @@ cat %%www/descriptor/team_main.html.def | $SED -r "s/^( *)</</1" \
 | $SED "s/%%common_menu//g"\
 | $SED "/%%team_main_menu/r %%www/descriptor/common_parts/team_main_menu_${permission}" \
 | $SED "s/%%team_main_menu//g"\
-| $SED "s/%%user_name/$user_name/g" \
+| $SED "s/%%user/$user_name/g" \
 | $SED "/%%json/r %%www/tmp/$session/merged_events"\
 | $SED "s/%%json//g"\
 | $SED "s/%%common_menu//g"\
