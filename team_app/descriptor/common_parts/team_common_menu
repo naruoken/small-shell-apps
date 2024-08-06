@@ -6,4 +6,4 @@
 <li><a href="./team?%%session&subapp=drive&req=table">Drive</a></li>
 <li><a href="./team?%%session&subapp=bookmarks&req=table">Bookmarks</a></li>
 <li><a href="./inquiry?id=new&req=get">Inquiry Form</a></li>
-<li><a href="./team?%%session&req=logout">Sign Out #%%user</a></li>
+<li><a href="./team?%%session&req=logout">Log Out #%%user</a></li>
