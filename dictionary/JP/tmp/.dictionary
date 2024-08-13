@@ -1,0 +1,34 @@
+ScratchAPP:APP Portal{%%%%%%}ポータル
+ScratchAPP:Table{%%%%%%}テーブル
+ScratchAPP:Log Out{%%%%%%}ログアウト
+Your Key is successfully generated.{%%%%%%}あなた専用の鍵が生成されました。
+Your APP Key is successfully generated.{%%%%%%}あなた専用の鍵が生成されました。
+If your are not <b>%%user_name</b>, please escalate to webadmin.{%%%%%%}以下ボタンを押してアプリへアクセスしてください(鍵は自動でブラウザに記憶されます）
+your IP (%%IP) will be recorded on audit log{%%%%%%}
+Type any filter words or you can sort column by sort command{%%%%%%}検索ワードまたはsortコマンドを入力してください
+Executed $table_command. if you want to clear the table, please click -CLR{%%%%%%}実行コマンド:$table_command　クリアしたい場合は-CLRをクリックしてください
+Executed ${org_table_command}, you can clear the table by clicking -CLR{%%%%%%}実行コマンド:$org_table_command　クリアしたい場合は-CLRをクリックしてください
+Filtered by $table_command. you can clear the table by clicking -CLR{%%%%%%}フィルタ条件: $table_command クリアしたい場合は-CLRをクリックしてください
+There is no $org_filter_key key, filtered by $filter_word with all column{%%%%%%}key ($org_filter_key) が見つからなかったため全カラムを検索しています
+Type any filter words or command \\[%%commands..\\] which can be pipelined to the databox{%%%%%%}検索ワードまたはコマンドを入力してください　\\[%%commands..\\]
+Sort command usage:{%%%%%%}sortコマンドの使い方:
+nature sort{%%%%%%}自然なソート
+numetric sort{%%%%%%}昇順
+reverse sort{%%%%%%}降順
+nature{%%space}sort{%%%%%%}自然なソート
+numetric{%%space}sort{%%%%%%}昇順
+reverse{%%space}sort{%%%%%%}降順
+Data.Num:{%%%%%%}データNUM:
+Sort.Hint{%%%%%%}ソートヒント
+Import Data{%%%%%%}データインポート
+Table View{%%%%%%}テーブル
+Console Box{%%%%%%}コンソール
+Log Out{%%%%%%}ログアウト
++ADD{%%%%%%}+データ追加
+ADD DATA{%%%%%%}データ追加
+Add Data{%%%%%%}データ追加
+\\-CLR{%%%%%%}-クリア
+Show data update history{%%%%%%}更新ログ
+>Copy<{%%%%%%}>コピー<
+>Delete<{%%%%%%}>削除<
+IMPORT CSV DATA{%%%%%%}インポートCSVデータ

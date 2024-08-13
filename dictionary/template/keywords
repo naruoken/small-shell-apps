@@ -1,0 +1,37 @@
+##########################################################
+# usage: original_word{%%%%%%}translated_word
+##########################################################
+ScratchAPP:APP Portal{%%%%%%}
+ScratchAPP:Table{%%%%%%}
+ScratchAPP:Log Out{%%%%%%}
+Your Key is successfully generated.{%%%%%%}
+Your APP Key is successfully generated.{%%%%%%}
+If your are not <b>%%user_name</b>, please escalate to webadmin.{%%%%%%}
+your IP (%%IP) will be recorded on audit log{%%%%%%}
+Type any filter words or you can sort column by sort command{%%%%%%}
+Executed $table_command. if you want to clear the table, please click -CLR{%%%%%%}
+Executed ${org_table_command}, you can clear the table by clicking -CLR{%%%%%%}
+Filtered by $table_command. you can clear the table by clicking -CLR{%%%%%%}
+There is no $org_filter_key key, filtered by $filter_word with all column{%%%%%%}
+Type any filter words or command \\[%%commands..\\] which can be pipelined to the databox{%%%%%%}
+Sort command usage:{%%%%%%}
+nature sort{%%%%%%}
+numetric sort{%%%%%%}
+reverse sort{%%%%%%}
+nature{%%space}sort{%%%%%%}
+numetric{%%space}sort{%%%%%%}
+reverse{%%space}sort{%%%%%%}
+Data.Num:{%%%%%%}
+Sort.Hint{%%%%%%}
+Import Data{%%%%%%}
+Table View{%%%%%%}
+Console Box{%%%%%%}
+Log Out{%%%%%%}
++ADD{%%%%%%}
+ADD DATA{%%%%%%}
+Add Data{%%%%%%}
+\\-CLR{%%%%%%}
+Show data update history{%%%%%%}
+>Copy<{%%%%%%}
+>Delete<{%%%%%%}
+IMPORT CSV DATA{%%%%%%}

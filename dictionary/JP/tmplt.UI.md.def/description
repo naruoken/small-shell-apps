@@ -1,0 +1,97 @@
+# テンプレートページ
+本ページは自動生成されたテンプレートのポータルページです、Base.APPの%%app.UI.md.defにて編集が可能です。MarkdownもしくはHTMLにて記述をしてください。Markdownの文法は以下をご確認ください。詳細レシピは[cookbook](https://www.small-shell.org/cook_book/#portal-design-recipe) にて紹介されています。
+
+<a href="./%%app?req=table"><button class="button">DataBox</button></a>
+
+# 大項目
+大項目、中項目、少項目は行頭に#を一つつけることで定義できます、以下例をご確認ください。大項目と中項目は左メニューに自動でリンクが生成されます
+````
+# 大項目
+````
+## 中項目
+````
+## 中項目
+````
+### 少項目
+````
+### 少項目
+````
+
+## テーブル
+テーブルの例は以下をご確認ください
+
+|header1|header2|header3|
+-------------------------
+|col1text|col2text|col3text|
+|col1text|col2text|col3text|
+|col1text|col2text|col3text|
+|col1text|col2text|col3text|
+
+````
+|header1|header2|header3|
+-------------------------
+|col1text|col2text|col3text|
+|col1text|col2text|col3text|
+|col1text|col2text|col3text|
+|col1text|col2text|col3text|
+````
+
+## リンク
+[外部リンク](https://small-shell.org)は以下例のとおりです
+````
+[外部リンク](https://small-shell.org)
+````
+
+small-shellサイト内の[テーブルリンク](./%%app?req=table)は以下のとおりです
+````
+[テーブルリンク](./%%app?req=table)
+````
+
+## リストと強調
+アスタリスクを使うことでリストやテキストの強調が可能です
+### リスト
+リスト化したいテキストの先頭にアスタリスクをつけてください
+* text1
+* text2
+* text3
+* text4
+
+````
+* text1
+* text2
+* text3
+* text4
+````
+
+### 強調
+強調したい* text *をアスタリスクで囲んでください
+````
+* text *
+````
+
+## Code
+コードブロックはbackquoteを４つ並べることで定義できます
+````
+\`\`\`\`
+Code
+\`\`\`\`
+````
+
+## その他強調
+NoteやWarningは:を4つ並べることで定義できます
+::: Note
+text
+:::
+
+::: Warning
+text
+:::
+````
+::: Note
+text
+:::
+
+::: Warning
+text
+:::
+````
