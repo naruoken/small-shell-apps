@@ -25,6 +25,11 @@ if [ ! -f ./keywords ];then
   exit 1
 fi
 
+if [ ! $SED ];then
+  echo "please execute $ROOT/adm/gen first"
+  exit 1
+fi
+
 # update web/src
 cat ./keywords | grep -v "^#" > ${tmp_dir}/.dictionary
 while read line
@@ -88,40 +93,44 @@ if [ "$logout" ];then
   cat .target.new > $ROOT/adm/gen
 fi
 
-for target in `ls ${www}/descriptor/common_parts/*_common_menu* | grep -v .org$ | xargs basename -a`
-do
-  app=`head -1 ${www}/descriptor/common_parts/${target} | $AWK -F "./" '{print $2}' | $AWK -F "?" '{print $1}'`
-  chk_team=`grep "# controller for Scratch APP #team" ${cgidir}/${app}`
+scratch_APP_chk=`ls ${www}/descriptor/common_parts/*_common_menu* > /dev/null 2>&1`
 
-  if [ -f ${cgidir}/${app} -a ! -d ${tmp_dir}/${app} -a ! "${chk_team}" ];then       
-    # update UI.md.def
-    mkdir ${tmp_dir}/${app}
+if [ "$scratch_APP_chk" ];then
+  for target in `ls ${www}/descriptor/common_parts/*_common_menu* | grep -v .org$ | xargs basename -a`
+  do
+    app=`head -1 ${www}/descriptor/common_parts/${target} | $AWK -F "./" '{print $2}' | $AWK -F "?" '{print $1}'`
+    chk_team=`grep "# controller for Scratch APP #team" ${cgidir}/${app}`
 
-    id=`sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:get command:head_-1 format:none | awk -F "," '{print $1}'`
-    sudo -u small-shell $ROOT/bin/DATA_shell authkey:$authkey databox:${app}.UI.md.def action:get id:${id} key:righth format:none \
-    | $SED "s#APP Portal#${portal}#g" | $SED "s/Table/${table}/g" | $SED "s/Log Out/${logout}/g" \
-    | $SED "s/_%%enter_/\n/g" | $SED "s/righth://g" > ${tmp_dir}/${app}/righth
-    sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:set id:${id} key:righth input_dir:${tmp_dir}/${app}
+    if [ -f ${cgidir}/${app} -a ! -d ${tmp_dir}/${app} -a ! "${chk_team}" ];then       
+      # update UI.md.def
+      mkdir ${tmp_dir}/${app}
 
-    # update description
-    if [ -f ./tmplt.UI.md.def/description ];then
-      cat ./tmplt.UI.md.def/description | $SED "s/%%app/${app}/g" > ${tmp_dir}/${app}/description
-      sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:set id:${id} key:description input_dir:${tmp_dir}/${app}
+      id=`sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:get command:head_-1 format:none | awk -F "," '{print $1}'`
+      sudo -u small-shell $ROOT/bin/DATA_shell authkey:$authkey databox:${app}.UI.md.def action:get id:${id} key:righth format:none \
+      | $SED "s#APP Portal#${portal}#g" | $SED "s/Table/${table}/g" | $SED "s/Log Out/${logout}/g" \
+      | $SED "s/_%%enter_/\n/g" | $SED "s/righth://g" > ${tmp_dir}/${app}/righth
+      sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:set id:${id} key:righth input_dir:${tmp_dir}/${app}
+
+      # update description
+      if [ -f ./tmplt.UI.md.def/description ];then
+        cat ./tmplt.UI.md.def/description | $SED "s/%%app/${app}/g" > ${tmp_dir}/${app}/description
+        sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:set id:${id} key:description input_dir:${tmp_dir}/${app}
+      fi
     fi
+  done
+
+  if [ "$permission" = "ro" ];then
+    $ROOT/adm/ops set.attr:sys{ro} > /dev/null 2>&1
   fi
-done
 
-if [ "$permission" = "ro" ];then
-  $ROOT/adm/ops set.attr:sys{ro} > /dev/null 2>&1
+  # update team
+  if [ -f ./team/team_common_menu ];then
+    cat ./team/team_common_menu > ${www}/descriptor/common_parts/team_common_menu
+    cat ./team/team_common_menu > ../../team_app/descriptor/common_parts/team_common_menu
+  fi
+
+  rm -rf ${tmp_dir}/*
 fi
-
-# update team
-if [ -f ./team/team_common_menu ];then
-  cat ./team/team_common_menu > ${www}/descriptor/common_parts/team_common_menu
-  cat ./team/team_common_menu > ../../team_app/descriptor/common_parts/team_common_menu
-fi
-
-rm -rf ${tmp_dir}/*
 
 echo "package deployment is completed"
 exit 0
