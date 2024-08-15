@@ -31,7 +31,6 @@ if [ ! $SED ];then
 fi
 
 # update web/src
-cat ./keywords | grep -v "^#" > ${tmp_dir}/.dictionary
 while read line
 do
   org="`echo $line | $AWK -F"{%%%%%%}" '{print $1}'`"
@@ -93,7 +92,7 @@ if [ "$logout" ];then
   cat .target.new > $ROOT/adm/gen
 fi
 
-scratch_APP_chk=`ls ${www}/descriptor/common_parts/*_common_menu* > /dev/null 2>&1`
+scratch_APP_chk=`ls ${www}/descriptor/common_parts/*_common_menu* 2>/dev/null`
 
 if [ "$scratch_APP_chk" ];then
   for target in `ls ${www}/descriptor/common_parts/*_common_menu* | grep -v .org$ | xargs basename -a`
