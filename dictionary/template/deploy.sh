@@ -1,6 +1,17 @@
 #!/bin/bash
 
 tmp_dir=./tmp
+WHOAMI=`whoami`
+if [ ! "$WHOAMI" = "root" ];then
+  echo "error: user must be root"
+  exit 1
+fi
+
+if [ ! -f ./keywords ];then
+  echo "please execute this script at `dirname $0`"
+  exit 1
+fi
+
 echo -n "small-shell root (/usr/local/small-shell): "
 read ROOT
 
@@ -13,17 +24,6 @@ fi
 
 # load web base
 . $ROOT/web/base
-
-WHOAMI=`whoami`
-if [ ! "$WHOAMI" = "root" ];then
-  echo "error: user must be root"
-  exit 1
-fi
-
-if [ ! -f ./keywords ];then
-  echo "please execute this script at `dirname $0`"
-  exit 1
-fi
 
 if [ ! $SED ];then
   echo "please execute $ROOT/adm/gen first"
