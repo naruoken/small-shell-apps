@@ -6,6 +6,11 @@ if [ ! "$WHOAMI" = "root" ];then
   exit 1
 fi
 
+if [ ! -d ./def ];then
+  echo "please execute this script at `dirname $0`"
+  exit 1
+fi
+
 echo -n "small-shell root (/usr/local/small-shell): "
 read ROOT
 
