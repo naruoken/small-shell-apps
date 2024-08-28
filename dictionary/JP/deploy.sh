@@ -30,6 +30,7 @@ if [ ! $SED ];then
   exit 1
 fi
 
+cat ./keywords | grep -v "^#" > ${tmp_dir}/.dictionary
 # update web/src
 while read line
 do
@@ -48,7 +49,6 @@ do
 done <  ${tmp_dir}/.dictionary
 
 # update www
-cat ./keywords | grep -v "^#" > ${tmp_dir}/.dictionary
 while read line
 do
   org="`echo $line | $AWK -F"{%%%%%%}" '{print $1}'`"
