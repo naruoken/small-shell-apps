@@ -19,24 +19,23 @@ if [ ! "$master" ];then
   certbot renew
   if [ $? -eq 0 ];then
     # deploy certificate & key
-    if [ "$ssl_domain" ];then
-      cat /etc/letsencrypt/live/${ssl_domain}/fullchain.pem > ${www}/app/cert.pem
-      cat /etc/letsencrypt/live/${ssl_domain}/privkey.pem > ${www}/app/privatekey.pem
-    else 
-      cat /etc/letsencrypt/live/${server}/fullchain.pem > ${www}/app/cert.pem
-      cat /etc/letsencrypt/live/${server}/privkey.pem > ${www}/app/privatekey.pem
+    if [ "$cluster_server" ];then
+      cat /etc/letsencrypt/live/${cluster_server}/fullchain.pem > ${www}/app/reverse_proxy/${cluster_server}_cert.pem
+      cat /etc/letsencrypt/live/${cluster_server}/privkey.pem > ${www}/app/reverse_proxy/${cluster_server}_privatekey.pem
     fi
+    cat /etc/letsencrypt/live/${server}/fullchain.pem > ${www}/app/reverse_proxy/${server}_cert.pem
+    cat /etc/letsencrypt/live/${server}/privkey.pem > ${www}/app/reverse_proxy/${server}_privatekey.pem
   else
     echo "error: something must be wrong"
     exit 1
   fi
 else
   #sleep 60
-  sudo -u small-shell scp -i /home/small-shell/.ssh/id_rsa small-shell@${master}:${www}/app/*pem ${www}/app/
+  sudo -u small-shell scp -i /home/small-shell/.ssh/id_rsa small-shell@${master}:${www}/app/reverse_proxy/${cluster_server}_*pem ${www}/app/reverse_proxy/
 fi
 
 # restart web
-systemctl stop small-shell
-systemctl start small-shell
+systemctl stop nginx
+systemctl start nginx
 
 exit 0
