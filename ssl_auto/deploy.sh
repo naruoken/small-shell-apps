@@ -311,8 +311,7 @@ echo "small-shell   ALL=(ALL:ALL)    NOPASSWD: /usr/local/small-shell/util/scrip
 echo "---------------------------------------------------------------------------------------------------"
 
 if [ "$cluster_server" -a ! "$master" ];then
-  echo ""
-  echo "Also you need to execute this script on $replica_hosts as well"
+  echo "Also you need to execute ./deploy.sh script on $replica_hosts as well"
 fi
 
 exit 0
