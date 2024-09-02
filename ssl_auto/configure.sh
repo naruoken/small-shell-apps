@@ -65,7 +65,6 @@ if [ "$cluster_server" -a ! "$master" ];then
 
 server {
 	listen 80;
-	root ${www}/html;
 	server_name _;
         return       444;
 }
@@ -96,7 +95,6 @@ elif [ "$master" ];then
 
 server {
 	listen 80;
-	root ${www}/html;
 	server_name _;
         return       444;
 }
@@ -133,7 +131,6 @@ else
 
 server {
 	listen 80;
-	root ${www}/html;
 	server_name _;
         return       444;
 }

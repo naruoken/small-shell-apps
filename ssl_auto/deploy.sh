@@ -47,6 +47,16 @@ if [ "$cluster_server" ];then
       exit 1
     fi
   done
+  chk_https=`grep 443 /etc/nginx/sites-available/default`
+  if [ "$chk_https" ];then
+    echo "error: please execute ./configure.sh again"
+    exit 1
+  fi
+  chk_nginx=`ps -ef | grep nginx | grep -v grep`
+  if [ ! "$chk_nginx" ];then
+    echo "error: please execute ./configure.sh again"
+    exit 1
+  fi
 fi
 
 # create certificate
@@ -194,6 +204,15 @@ if [ "$cluster_server" -a ! "$master" ];then
   cat <<EOF >> .default.conf
 
 server {
+        listen 443;
+        ssl on;
+        ssl_certificate ${www}/app/reverse_proxy/${cluster_server}_cert.pem;
+        ssl_certificate_key ${www}/app/reverse_proxy/${cluster_server}_privatekey.pem;
+        server_name _;
+        return       444;
+}
+
+server {
 	listen 443;
         ssl on;
         ssl_certificate ${www}/app/reverse_proxy/${server}_cert.pem;
@@ -233,7 +252,6 @@ server {
         ssl on;
         ssl_certificate ${www}/app/reverse_proxy/${cluster_server}_cert.pem;
         ssl_certificate_key ${www}/app/reverse_proxy/${cluster_server}_privatekey.pem;
-        root ${www}/html;
         server_name _;
         return       444;
 }
@@ -256,6 +274,15 @@ EOF
 else
   # for standalone host
   cat <<EOF >> .default.conf
+
+server {
+        listen 443;
+        ssl on;
+        ssl_certificate ${www}/app/reverse_proxy/${cluster_server}_cert.pem;
+        ssl_certificate_key ${www}/app/reverse_proxy/${cluster_server}_privatekey.pem;
+        server_name _;
+        return       444;
+}
 
 server {
 	listen 443;
@@ -303,7 +330,7 @@ chmod 755 $ROOT/util/scripts/ssl_auto.sh
 chmod 755 $ROOT/util/e-cron/def/ssl_auto.def
 sudo -u small-shell $ROOT/bin/e-cron enable.ssl_auto
 sleep 2
-clear
+#clear
 echo "Successfully depoyed, your small-shell web server is already upgraded to https with reverse proxy"
 echo "Please add following line to sudoers by visudo command"
 echo "---------------------------------------------------------------------------------------------------"
