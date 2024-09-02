@@ -71,19 +71,23 @@ server {
 
 server {
         listen 80;
-        real_ip_header X-Forwarded-For;  
         server_name ${server};
         location / {
            proxy_pass    http://localhost:8080/;
+           proxy_set_header Host \$host;
+           proxy_set_header X-Real-IP \$remote_addr;
+           proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
         }
 }
 
 server {
         listen 80;
-        real_ip_header X-Forwarded-For; 
         server_name ${cluster_server};
         location / {
            proxy_pass    http://localhost:8080/;
+           proxy_set_header Host \$host;
+           proxy_set_header X-Real-IP \$remote_addr;
+           proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
         }
 }
 EOF
@@ -101,7 +105,6 @@ server {
 
 server {
         listen 80;
-        real_ip_header X-Forwarded-For;  
         server_name ${server};
         location / {
            proxy_pass    http://localhost:8080/;
@@ -113,7 +116,6 @@ server {
 
 server {
         listen 80;
-        real_ip_header X-Forwarded-For;  
         server_name ${cluster_server};
         location / {
            proxy_pass    http://${master}/;
@@ -137,7 +139,6 @@ server {
 
 server {
         listen 80;
-        real_ip_header X-Forwarded-For;  
         server_name ${server};
         location / {
            proxy_pass    http://localhost:8080/;
