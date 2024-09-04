@@ -6,6 +6,11 @@ if [ ! "$WHOAMI" = "root" ];then
   exit 1
 fi
 
+if [ ! -f ./db.def ];then
+  echo "please execute this script at `dirname $0`"
+  exit 1
+fi
+
 echo -n "small-shell root (/usr/local/small-shell): "
 read ROOT
 
@@ -16,22 +21,11 @@ fi
 # loal global conf
 . $ROOT/global.conf
 
-# log access permission check
-echo -n "small-shell web log dir (/var/www/log): "
-read log_dir
+# load web/base
+. ${ROOT}/web/base
 
-if [ ! "$log_dir" ];then
-  log_dir=/var/www/log
-fi
-
-if [ ! -d "$log_dir" ];then
-  echo "error: there is no $log_dir"
-  exit 1
-fi
-
-sudo -u small-shell ls /var/www/log/srvdump.log >/dev/null 2>&1
-if [ ! $? -eq 0 ];then
-  echo "please add permission to the log dir, exit 1.."
+if [ ! "$index_url" ];then
+  echo "error: this tool can be used for small-shell default WEB server"
   exit 1
 fi
 
@@ -48,7 +42,6 @@ if [ ! "$chk_permission" = "rw" ];then
   fi
 fi
 
-
 # pyshell check
 . $ROOT/util/pyshell/env
 $PYTHON --version
@@ -56,15 +49,6 @@ if [ $? -eq 0 ];then
   echo "pyshell should be ready"
 else
   echo "please install python libraries refering to https://small-shell.org/python_tour/"
-  exit 1
-fi
-
-# whois check 
-which whois >/dev/null 2>&1
-if [ $? -eq 0 ];then
-  echo "whois command is working"
-else
-  echo "you must install whois command, exit 1.."
   exit 1
 fi
 
@@ -77,20 +61,20 @@ chown small-shell:small-shell $ROOT/util/scripts/ssw_log_analyzer.sh
 chmod 755 $ROOT/util/scripts/ssw_log_analyzer.sh
 
 # job copy and enable 
-for job in pv_statistics.def ssw_log_analyzer.def uniq_statistics.def .pv_statistics.dump .ssw_log_analyzer.dump .uniq_statistics.dump
+for job in attack_statistics.def ssw_log_analyzer.def uniq_statistics.def .attack_statistics.dump .ssw_log_analyzer.dump .uniq_statistics.dump
 do
   cat ./jobs/$job | $SED "s#%%ROOT#$ROOT#g" > $ROOT/util/e-cron/def/$job
 done
 
 chown small-shell:small-shell $ROOT/util/e-cron/def/ssw_log_analyzer.def
-chown small-shell:small-shell $ROOT/util/e-cron/def/pv_statistics.def
+chown small-shell:small-shell $ROOT/util/e-cron/def/attack_statistics.def
 chown small-shell:small-shell $ROOT/util/e-cron/def/uniq_statistics.def
 chmod 755 $ROOT/util/e-cron/def/ssw_log_analyzer.def
-chmod 755 $ROOT/util/e-cron/def/pv_statistics.def
+chmod 755 $ROOT/util/e-cron/def/attack_statistics.def
 chmod 755 $ROOT/util/e-cron/def/uniq_statistics.def
 
 sudo -u small-shell $ROOT/bin/e-cron enable.ssw_log_analyzer
-sudo -u small-shell $ROOT/bin/e-cron enable.pv_statistics
+sudo -u small-shell $ROOT/bin/e-cron enable.attack_statistics
 sudo -u small-shell $ROOT/bin/e-cron enable.uniq_statistics
 
 # Note

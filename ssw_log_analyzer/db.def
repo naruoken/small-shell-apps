@@ -15,7 +15,7 @@ primary_key_label="hashid"
 # col2
 #-------------------------------------------
 col2_key_name="date"
-col2_key_label="date"
+col2_key_label="Date"
 col2_type="date"
 
 # only for select, checkbox
@@ -31,8 +31,8 @@ col2_required="yes"
 +addcol
 # col3
 #-------------------------------------------
-col3_key_name="pv"
-col3_key_label="page view"
+col3_key_name="uniq_access"
+col3_key_label="Uniq access exclude attack"
 col3_type="num"
 
 # only for select, checkbox
@@ -41,15 +41,15 @@ col3_key_params=""
 # only for pdls
 col3_primary_databox=""
 
-# required
-col3_required="yes"
+# required option
+col3_required="no"
 #-------------------------------------------
 
 +addcol
 # col4
 #-------------------------------------------
-col4_key_name="uniq_access"
-col4_key_label="uniq access exclude attack"
+col4_key_name="attack"
+col4_key_label="Attack"
 col4_type="num"
 
 # only for select, checkbox
@@ -62,12 +62,13 @@ col4_primary_databox=""
 col4_required="no"
 #-------------------------------------------
 
+
 +addcol
 # col5
 #-------------------------------------------
-col5_key_name="attack"
-col5_key_label="attack"
-col5_type="num"
+col5_key_name="detail"
+col5_key_label="Uniq access detail"
+col5_type="textarea"
 
 # only for select, checkbox
 col5_key_params=""
@@ -79,21 +80,4 @@ col5_primary_databox=""
 col5_required="no"
 #-------------------------------------------
 
-
-+addcol
-# col6
-#-------------------------------------------
-col6_key_name="detail"
-col6_key_label="uniq access detail"
-col6_type="textarea"
-
-# only for select, checkbox
-col6_key_params=""
-
-# only for pdls
-col6_primary_databox=""
-
-# required option
-col6_required="no"
-#-------------------------------------------
 
