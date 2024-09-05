@@ -11,9 +11,10 @@ if [ ! -d ./job ];then
   exit 1
 fi
 
-ROOT=`cat .path`
-if [ ! "$ROOT" ];then
-  ROOT=/usr/local/small-shell
+ROOT=`cat .path 2>/dev/null `
+if [ ! $ROOT ];then
+  echo "error: you need to execute configure beforehand, please execute ./configure.sh"
+  exit 1
 fi
 
 # load global conf and base
