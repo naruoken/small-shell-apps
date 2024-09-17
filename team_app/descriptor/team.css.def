@@ -405,7 +405,7 @@ a {
 
 .table-box .tags {
   display: flex;
-  color: #008b8b;
+  color: #333;
   font-weight: bold;
   font-size: 86%;
   flex-wrap: wrap;
