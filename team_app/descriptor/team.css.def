@@ -431,6 +431,10 @@ a {
   color: #6495ED;
 }
 
+.table-box .tags a:hover {
+  color: #7D73F4;
+}
+
 .table-box .pagelink {
   display: flex;
   padding-top:4px;
@@ -833,6 +837,14 @@ a {
 
 .form-box .action_links a {
   color: #808080;
+}
+
+.form-box .action_links a:hover {
+  color: #5C5B71;
+}
+ 
+.form-box .action_links p:hover {
+  color: #5C5B71;
 }
 
 @media screen and (min-width: 640px){
