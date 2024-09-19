@@ -830,21 +830,21 @@ a {
   padding-top: 12px;
   line-height: 0.8em;
   font-size: 80%;
-  color: #808080;
+  color: #BCBBBE;
   font-weight: bold;
   font-style : italic;
 }
 
 .form-box .action_links a {
-  color: #808080;
+  color: #BCBBBE;
 }
 
 .form-box .action_links a:hover {
-  color: #5C5B71;
+  color: #7C7C82;
 }
  
 .form-box .action_links p:hover {
-  color: #5C5B71;
+  color: #7C7C82;
 }
 
 @media screen and (min-width: 640px){
