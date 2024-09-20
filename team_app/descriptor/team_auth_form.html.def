@@ -52,7 +52,9 @@
       }
       function setKey() {
         var newkey = document.getElementById("team_key_%%rand").value;
-        localStorage.setItem("team_key_%%rand", newkey);
+        if (newkey !== '') {
+          localStorage.setItem("team_key_%%rand", newkey);
+        }
       }
 
     </script>
