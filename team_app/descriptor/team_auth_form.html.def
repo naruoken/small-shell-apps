@@ -13,10 +13,10 @@
           %%message
           <h1>Team APP</h1>
           <div class="wrapper">
-            <input type="text" id="team_key_%%rand" name="team_key_%%rand" placeholder="Your key" list="keylist" autocomplete="on">
+            <input type="text" id="team_key_%%rand" name="team_key_%%rand" placeholder="Click and Load Key" autocomplete="on" onclick="loadKey()">
             <datalist id="keylist">
             </datalist>
-            <button class="button" type="submit" onclick="setkey()">SUBMIT</button>
+            <button class="button" type="submit" onclick="setKey()">SUBMIT</button>
           </div>
           </form>
         </div>
@@ -45,18 +45,15 @@
         }
       })
 
-     // local storage key handling
-     var keylist = document.getElementById("keylist");
-     key=document.createElement("option");
-     key.text=localStorage.getItem("team_key_%%rand");
-     if (key.text !== "null") {
-        keylist.appendChild(key);
-     }
-
-     function setkey() {
+      // local storage key handling
+      function loadKey() {
+        storedKey=localStorage.getItem("team_key_%%rand");
+        document.getElementById("team_key_%%rand").value = storedKey;
+      }
+      function setKey() {
         var newkey = document.getElementById("team_key_%%rand").value;
         localStorage.setItem("team_key_%%rand", newkey);
-     }
+      }
 
     </script>
   </body>

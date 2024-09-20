@@ -93,12 +93,17 @@
           <h2> Your APP Key is successfully generated.</h2>
           <p> <b>user_key:%%user_key</b></p>
           <p> If your are not <b>%%user_name</b>, please escalate to webadmin. your IP (%%IP) will be recorded on audit log</p>
-
-          <form method="post" action="./auth.team">
-          <input type="hidden" name="key_placeholder" value="%%user_key" >
-          <button class="button" type="submit">Connect team with KEY</button>
-          </form>
+          <a href="./auth.team"><button class="button" onclick="setKey()">Connect team with KEY</button></a>
         </div>
       </div>
     </div>
+
+    <script>
+      // key push to localstorage
+      function setKey() {
+        localStorage.setItem("team_key_%%rand", "%%user_key");
+      }
+    </script>
+
+  </body>
 </html>

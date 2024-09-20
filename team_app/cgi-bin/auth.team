@@ -120,43 +120,28 @@ fi
 
 # Render auth form html
 if [ ! "$team_key" ];then
-
-  if [ "$key_placeholder" ];then
-    # render first login form with initialized key
-    cat %%www/descriptor/team_auth_form_with_key.html.def | $SED -r "s/^( *)</</1" \
-    | $SED "/%%auth_form_menu/r %%www/descriptor/common_parts/team_auth_form_menu" \
-    | $SED "s/%%auth_form_menu//g"\
-    | $SED "/%%footer/r %%www/descriptor/common_parts/footer" \
-    | $SED "/%%footer/d"\
-    | $SED "s/%%key_placeholder/$key_placeholder/g"
-    exit 0
-
-  else
-
-    # regenerate  query string
-    if [ "$req" ];then
-      req="?req=`echo $req`"
-    fi
-
-    if [ "$id" ];then
-      id="\&id=`echo $id`"
-    fi
-
-    if [ "$message" ];then
-      message="<p><b>`echo $message`<\/b><\/p>"
-    fi
-
-    # render standard login form with queyr string and messge
-    cat %%www/descriptor/team_auth_form.html.def | $SED -r "s/^( *)</</1" \
-    | $SED "/%%auth_form_menu/r %%www/descriptor/common_parts/team_auth_form_menu" \
-    | $SED "s/%%auth_form_menu//g"\
-    | $SED "/%%footer/r %%www/descriptor/common_parts/team_footer" \
-    | $SED "/%%footer/d"\
-    | $SED "s/%%message/${message}/g" \
-    | $SED "s/?%%params/${req}${page}${id}/g"
-    exit 0
+  # regenerate  query string
+  if [ "$req" ];then
+    req="?req=`echo $req`"
   fi
 
+  if [ "$id" ];then
+    id="\&id=`echo $id`"
+  fi
+
+  if [ "$message" ];then
+    message="<p><b>`echo $message`<\/b><\/p>"
+  fi
+
+  # render standard login form with queyr string and messge
+  cat %%www/descriptor/team_auth_form.html.def | $SED -r "s/^( *)</</1" \
+  | $SED "/%%auth_form_menu/r %%www/descriptor/common_parts/team_auth_form_menu" \
+  | $SED "s/%%auth_form_menu//g"\
+  | $SED "/%%footer/r %%www/descriptor/common_parts/team_footer" \
+  | $SED "/%%footer/d"\
+  | $SED "s/%%message/${message}/g" \
+  | $SED "s/?%%params/${req}${page}${id}/g"
+  exit 0
 fi
 
 # Authentication
