@@ -279,8 +279,8 @@ else
 server {
         listen 443;
         ssl on;
-        ssl_certificate ${www}/app/reverse_proxy/${cluster_server}_cert.pem;
-        ssl_certificate_key ${www}/app/reverse_proxy/${cluster_server}_privatekey.pem;
+        ssl_certificate ${www}/app/reverse_proxy/${server}_cert.pem;
+        ssl_certificate_key ${www}/app/reverse_proxy/${server}_privatekey.pem;
         server_name _;
         return       444;
 }
