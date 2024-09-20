@@ -13,7 +13,7 @@
           %%message
           <h1>Team APP</h1>
           <div class="wrapper">
-            <input type="text" id="team_key_%%rand" name="team_key_%%rand" placeholder="Click and Load Key" autocomplete="on" onclick="loadKey()">
+            <input type="text" id="team_key_%%rand" name="team_key_%%rand" placeholder="Click and Load Key" autocomplete="off" onclick="loadKey()">
             <datalist id="keylist">
             </datalist>
             <button class="button" type="submit" onclick="setKey()">SUBMIT</button>
