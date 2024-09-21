@@ -156,9 +156,13 @@ a {
 }
 
 .right-header a {
-  color: #ADFBEA;
+  color: #EEFAF6;
   text-decoration: none;
   white-space: nowrap;
+}
+
+.right-header a:hover {
+  color: #D0F1E6;
 }
 
 .right-header ul {
