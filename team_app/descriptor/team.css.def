@@ -412,7 +412,7 @@ a {
   padding: 10px 10px;
   border: 1px dotted #9dc2fa;
   color: #abbcd5;
-  background: #07;
+  background: #fcfdfe;
   text-transform: uppercase;
   letter-spacing: .09em;
   border-radius: 2px;
