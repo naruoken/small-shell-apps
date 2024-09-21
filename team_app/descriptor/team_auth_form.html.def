@@ -54,7 +54,9 @@
         var newkey = document.getElementById("team_key_%%rand").value;
         if (newkey !== '') {
           localStorage.setItem("team_key_%%rand", newkey);
-        }
+         }else{
+           alert("key is null. please click input field first. if you have your own key, it will be loaded.");
+         } 
       }
 
     </script>
