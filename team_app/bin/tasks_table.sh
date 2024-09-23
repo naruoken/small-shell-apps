@@ -229,6 +229,7 @@ fi
 # -----------------
 # render HTML
 # -----------------
+view=tasks_table.html.def
 wait
 
 if [ ! "$filter_table" ];then
@@ -243,23 +244,12 @@ fi
 
 if [ "$line_num" = 0 ];then
   if [ "$err_chk" = "" -a "$filter_table" = "-" -a ! "$sort_col" ];then
-
-    view=tasks_table.html.def
-    if [ ! "$permission" = "ro" ];then
-      echo "<h4><a href=\"./team?&%%params&req=get&id=new\">+ ADD DATA</a></h4>" >> %%www/tmp/$session/table
-    else
-      echo "<h4>= NO DATA</h4>" >> %%www/tmp/$session/table
-    fi
-
+    echo "<h4>= NO DATA</h4>" >> %%www/tmp/$session/table
   elif [ "$sort_col" ];then
     echo "<h4>= SORT OPTION FAILURE</h4>" >> %%www/tmp/$session/table
-    view=tasks_table.html.def
   else
     echo "<h4>= NO DATA</h4>" >> %%www/tmp/$session/table
-    view=tasks_table.html.def
   fi
-else
-  view=tasks_table.html.def
 fi
 
 # overwritten by clustering logic
