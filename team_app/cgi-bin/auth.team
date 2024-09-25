@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # set persistence option
-IP_persistence="yes"
+IP_persistence="no"
 User_agent_persistence="yes"
 IP_whitelisting=%%IP_whitelisting
 
