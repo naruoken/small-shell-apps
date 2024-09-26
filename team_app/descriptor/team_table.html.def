@@ -21,9 +21,6 @@
         </div>
       </div>
       <div class="table-box">
-        <div class="description">
-          <h1>#events</h1>
-        </div>
         <form method="post" action="./team?%%params&req=table">
         <div class="wrapper">
           <input type="search" name="table_command" placeholder="%%placeholder" autocomplete="off">
