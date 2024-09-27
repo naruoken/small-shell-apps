@@ -190,35 +190,46 @@ a {
 }
 
 @media screen and (min-width: 641px) {
-.right-header .even-btn-menu {
-    margin: auto;
-    border-style: none;
-    background: transparent;
-    outline:0;
-    color: #dcdcdc;
-    font-size: 240%;
-    cursor: pointer;
-    letter-spacing: .01em;
-    border-radius: 8px;
-    padding: .5rem;
-    cursor: pointer;
-    line-height: 1;
-}
+  .right-header .even-btn-menu {
+      margin: auto;
+      border-style: none;
+      background: transparent;
+      outline:0;
+      color: #dcdcdc;
+      font-size: 240%;
+      cursor: pointer;
+      letter-spacing: .01em;
+      border-radius: 8px;
+      padding: .5rem;
+      cursor: pointer;
+      line-height: 1;
+  }
 
-.right-header .portal-even-btn-menu {
-    margin: auto;
-    border-style: none;
-    background: transparent;
-    outline:0;
-    color: #dcdcdc;
-    font-size: 240%;
-    cursor: pointer;
-    letter-spacing: .01em;
-    border-radius: 8px;
-    padding: .5rem;
-    cursor: pointer;
-    line-height: 1;
-}
+  .right-header .portal-even-btn-menu {
+      margin: auto;
+      font-weight: 480;
+      border-style: none;
+      background: transparent;
+      outline:0;
+      color: #dcdcdc;
+      font-size: 220%;
+      cursor: pointer;
+      letter-spacing: .01em;
+      border-radius: 8px;
+      padding: .5rem;
+      cursor: pointer;
+      line-height: 1;
+  }
+
+
+  .right-header .even-btn-menu:hover {
+    color: #dfe6f9;
+  }
+
+  .right-header .portal-btn-menu:hover {
+    color: #dfe6f9;
+  }
+
 }
 
 @media screen and (max-width: 641px) {
@@ -235,22 +246,32 @@ a {
     padding: .5rem;
     cursor: pointer;
     line-height: 1;
-}
+  }
 
   .right-header .portal-even-btn-menu {
+    font-weight: bold;
     border-color: #000033;
     border-style: none;
     background: transparent;
     outline:0;
     color: #01386E;
-    font-size: 240%;
+    font-size: 220%;
     cursor: pointer;
     letter-spacing: .01em;
     border-radius: 8px;
     padding: .5rem;
     cursor: pointer;
     line-height: 1;
-}
+  }
+
+  .right-header .even-btn-menu:hover {
+    color: #dfe6f9;
+  }
+
+  .right-header .portal-btn-menu:hover {
+    color: #dfe6f9;
+  }
+
 }
 
 @media screen and (min-width: 641px) {
