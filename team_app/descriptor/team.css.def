@@ -249,12 +249,12 @@ a {
   }
 
   .right-header .portal-even-btn-menu {
-    font-weight: bold;
+    font-weight: 480;
     border-color: #000033;
     border-style: none;
     background: transparent;
     outline:0;
-    color: #01386E;
+    color:  #000033;
     font-size: 220%;
     cursor: pointer;
     letter-spacing: .01em;
@@ -262,14 +262,6 @@ a {
     padding: .5rem;
     cursor: pointer;
     line-height: 1;
-  }
-
-  .right-header .even-btn-menu:hover {
-    color: #dfe6f9;
-  }
-
-  .right-header .portal-btn-menu:hover {
-    color: #dfe6f9;
   }
 
 }
@@ -407,7 +399,7 @@ a {
 
 .table-box {
   line-height: .04em;
-  padding: 4px 2px;
+  padding: 12px 2px;
   margin: auto;
   color: #111111;
   margin-bottom: -24px;
