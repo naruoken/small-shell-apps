@@ -112,7 +112,7 @@ a {
   .flex-header {
     display:flex;
     flex-wrap:wrap;
-    margin-bottom: -16px;
+    margin-bottom: 2px;
     color: #dcdcdc;
     padding-right: 3px;
   }
