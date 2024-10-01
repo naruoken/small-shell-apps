@@ -304,6 +304,7 @@ fi
 
 # restart nginx
 cp .default.conf /etc/nginx/sites-available/default
+systemctl enable nginx
 systemctl restart nginx
 if [ ! $? -eq 0 ];then
   echo "error: failed to upgrade reverse proxy (nginx), something must be wrong"
