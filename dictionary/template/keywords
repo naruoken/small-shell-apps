@@ -21,14 +21,12 @@ reverse sort{%%%%%%}
 nature{%%space}sort{%%%%%%}
 numetric{%%space}sort{%%%%%%}
 reverse{%%space}sort{%%%%%%}
-Data.Num:{%%%%%%}
 Sort.Hint{%%%%%%}
+Data.Num{%%%%%%}
 Import Data{%%%%%%}
 Table View{%%%%%%}
 Console Box{%%%%%%}
 Log Out{%%%%%%}
-+ADD{%%%%%%}
-ADD DATA{%%%%%%}
 Add Data{%%%%%%}
 \\-CLR{%%%%%%}
 Show data update history{%%%%%%}

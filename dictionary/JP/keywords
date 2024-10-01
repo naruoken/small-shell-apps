@@ -4,6 +4,8 @@
 ScratchAPP:APP Portal{%%%%%%}ポータル
 ScratchAPP:Table{%%%%%%}テーブル
 ScratchAPP:Log Out{%%%%%%}ログアウト
+Click and Load Key{%%%%%%}クリックして鍵をロード
+key is null. please click input field first. if you have your own key, it will be loaded.{%%%%%%}最初にインプットフィールドをクリックして下さい、鍵がある場合はロードされます
 Your Key is successfully generated.{%%%%%%}あなた専用の鍵が生成されました。
 Your APP Key is successfully generated.{%%%%%%}あなた専用の鍵が生成されました。
 If your are not <b>%%user_name</b>, please escalate to webadmin.{%%%%%%}以下ボタンを押してアプリへアクセスしてください(鍵は自動でブラウザに記憶されます）
@@ -21,14 +23,13 @@ reverse sort{%%%%%%}降順
 nature{%%space}sort{%%%%%%}自然なソート
 numetric{%%space}sort{%%%%%%}昇順
 reverse{%%space}sort{%%%%%%}降順
-Data.Num:{%%%%%%}データNUM:
 Sort.Hint{%%%%%%}ソートヒント
+Data.Num{%%%%%%}データ数
 Import Data{%%%%%%}データインポート
 Table View{%%%%%%}テーブル
 Console Box{%%%%%%}コンソール
 Log Out{%%%%%%}ログアウト
 +ADD{%%%%%%}+データ追加
-ADD DATA{%%%%%%}データ追加
 Add Data{%%%%%%}データ追加
 \\-CLR{%%%%%%}-クリア
 Show data update history{%%%%%%}更新ログ

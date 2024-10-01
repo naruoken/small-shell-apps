@@ -7,3 +7,19 @@
 <li><a href="./team?%%session&subapp=bookmarks&req=table">ブックマーク</a></li>
 <li><a href="./inquiry?id=new&req=get">問い合わせフォーム</a></li>
 <li><a href="./team?%%session&req=logout">ログアウト #%%user</a></li>
+<li><button class="inside-menu-button" onclick="duplicateKey()">Export access key</button></li>
+
+<script>
+  // local storage key handling
+  function duplicateKey() {
+    storedKey=localStorage.getItem("team_key_%rand");
+    const duplicatedKey = document.createElement('input');
+    duplicatedKey.value = storedKey;
+    document.body.appendChild(duplicatedKey);
+    duplicatedKey.select();
+    document.execCommand('copy');
+    document.body.removeChild(duplicatedKey);
+    alert('Your access key is duplicated and copied to your clipboard. key text is available on your other device.');
+   }
+</script>
+
