@@ -29,9 +29,7 @@ Import Data{%%%%%%}データインポート
 Table View{%%%%%%}テーブル
 Console Box{%%%%%%}コンソール
 Log Out{%%%%%%}ログアウト
-+ADD{%%%%%%}+データ追加
 Add Data{%%%%%%}データ追加
-\\-CLR{%%%%%%}-クリア
 Show data update history{%%%%%%}更新ログ
 >Copy<{%%%%%%}>コピー<
 >Delete<{%%%%%%}>削除<
