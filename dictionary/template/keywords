@@ -6,8 +6,8 @@ ScratchAPP:Table{%%%%%%}
 ScratchAPP:Log Out{%%%%%%}
 Your Key is successfully generated.{%%%%%%}
 Your APP Key is successfully generated.{%%%%%%}
-If your are not <b>%%user_name</b>, please escalate to webadmin.{%%%%%%}
-your IP (%%IP) will be recorded on audit log{%%%%%%}
+When you click the button, the key will be saved in your browser. but please copy and save the key text manually just in case.{%%%%%%}
+Your access key is duplicated and copied to your clipboard. key text is available on your other device.{%%%%%%}
 Type any filter words or you can sort column by sort command{%%%%%%}
 Executed $table_command. if you want to clear the table, please click -CLR{%%%%%%}
 Executed ${org_table_command}, you can clear the table by clicking -CLR{%%%%%%}
@@ -28,7 +28,6 @@ Table View{%%%%%%}
 Console Box{%%%%%%}
 Log Out{%%%%%%}
 Add Data{%%%%%%}
-\\-CLR{%%%%%%}
 Show data update history{%%%%%%}
 >Copy<{%%%%%%}
 >Delete<{%%%%%%}

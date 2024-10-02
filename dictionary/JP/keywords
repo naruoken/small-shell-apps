@@ -4,12 +4,10 @@
 ScratchAPP:APP Portal{%%%%%%}ポータル
 ScratchAPP:Table{%%%%%%}テーブル
 ScratchAPP:Log Out{%%%%%%}ログアウト
-Click and Load Key{%%%%%%}クリックして鍵をロード
-key is null. please click input field first. if you have your own key, it will be loaded.{%%%%%%}最初にインプットフィールドをクリックして下さい、鍵がある場合はロードされます
 Your Key is successfully generated.{%%%%%%}あなた専用の鍵が生成されました。
 Your APP Key is successfully generated.{%%%%%%}あなた専用の鍵が生成されました。
-If your are not <b>%%user_name</b>, please escalate to webadmin.{%%%%%%}以下ボタンを押してアプリへアクセスしてください(鍵は自動でブラウザに記憶されます）
-your IP (%%IP) will be recorded on audit log{%%%%%%}
+When you click the button, the key will be saved in your browser. but please copy and save the key text manually just in case.{%%%%%%}鍵は自動でブラウザに記憶されますが、念の為テキストで保存しておくことをお勧めします
+Your access key is duplicated and copied to your clipboard. key text is available on your other device.{%%%%%%}あなたの鍵が複製されクリップボードにコピーされました。コピーされた鍵は別のデバイスでも利用可能です
 Type any filter words or you can sort column by sort command{%%%%%%}検索ワードまたはsortコマンドを入力してください
 Executed $table_command. if you want to clear the table, please click -CLR{%%%%%%}実行コマンド:$table_command　クリアしたい場合は-CLRをクリックしてください
 Executed ${org_table_command}, you can clear the table by clicking -CLR{%%%%%%}実行コマンド:$org_table_command　クリアしたい場合は-CLRをクリックしてください
