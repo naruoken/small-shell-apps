@@ -32,11 +32,11 @@ fi
 # analyze log
 total_access_num=`cat $log | grep requested | grep -v "requested wrong page" | grep -v css | grep -v favicon.ico | wc -l | tr -d " "`
 cat $log | grep requested | grep -v "requested wrong page" | grep -v css | grep -v favicon.ico | $AWK '{print $3}' | sort | uniq > ${tmp}/uniq_access.tmp
-uniq_access_num=`cat ${tmp}/uniq_access.tmp | wc -l | tr -d " "`
 attack_num=`cat ${log} | grep -v css | grep -v favicon.ico | grep "requested wrong page" | wc -l` 
 apps=`ls ${www}/html |  xargs basename -a`
 
 echo "" > ${tmp}/access_detail
+uniq_access_num=0
 for app in $apps
 do
   if [ "$app" = "index.html" ];then
@@ -45,6 +45,7 @@ do
     num=`grep "requested $app" $log | $AWK '{print $3}' | sort | uniq  | wc -l`
   fi
   echo "$app:$num" >> ${tmp}/access_detail
+  uniq_access_num=`echo "$uniq_access_num + $num" | bc`
 done
 
 # dump
