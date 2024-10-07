@@ -18,7 +18,7 @@ global_filter:"$date" databox:web_analyzer
 $ROOT/util/scripts/sumup.sh type:line sumup_key:attack frequency:daily title:attack set_time:"$date" \
 global_filter:"$date" databox:web_analyzer
 
-# replication check
+# sync to repilca hosts
 if [ "$cluster_server" ];then
   if [ ! "$master" ];then
     for replica in $replica_hosts
