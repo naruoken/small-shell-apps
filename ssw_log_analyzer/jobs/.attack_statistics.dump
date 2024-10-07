@@ -1,6 +1,0 @@
-job_name: attack_statistics
-min: 0
-hour: 1
-date: any
-month: any
-week: any

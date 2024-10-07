@@ -57,25 +57,23 @@ $ROOT/util/scripts/bat_gen.sh ./db.def
 
 # deploy analyzer to util/scripts
 cat ./scripts/ssw_log_analyzer.sh  | $SED "s#%%log_dir#$log_dir#g" > $ROOT/util/scripts/ssw_log_analyzer.sh
-chown small-shell:small-shell $ROOT/util/scripts/ssw_log_analyzer.sh
-chmod 755 $ROOT/util/scripts/ssw_log_analyzer.sh
+cat ./scripts/ssw_statistics.sh  > $ROOT/util/scripts/ssw_statistics.sh
+chown small-shell:small-shell $ROOT/util/scripts/ssw_*
+chmod 755 $ROOT/util/scripts/ssw_*
 
 # job copy and enable 
-for job in attack_statistics.def ssw_log_analyzer.def uniq_statistics.def .attack_statistics.dump .ssw_log_analyzer.dump .uniq_statistics.dump
+for job in ssw_log_analyzer.def ssw_statistics.def .ssw_log_analyzer.dump .ssw_statistics.dump
 do
   cat ./jobs/$job | $SED "s#%%ROOT#$ROOT#g" > $ROOT/util/e-cron/def/$job
 done
 
 chown small-shell:small-shell $ROOT/util/e-cron/def/ssw_log_analyzer.def
-chown small-shell:small-shell $ROOT/util/e-cron/def/attack_statistics.def
-chown small-shell:small-shell $ROOT/util/e-cron/def/uniq_statistics.def
+chown small-shell:small-shell $ROOT/util/e-cron/def/ssw_statistics.def
 chmod 755 $ROOT/util/e-cron/def/ssw_log_analyzer.def
-chmod 755 $ROOT/util/e-cron/def/attack_statistics.def
-chmod 755 $ROOT/util/e-cron/def/uniq_statistics.def
+chmod 755 $ROOT/util/e-cron/def/ssw_statistics.def
 
 sudo -u small-shell $ROOT/bin/e-cron enable.ssw_log_analyzer
-sudo -u small-shell $ROOT/bin/e-cron enable.attack_statistics
-sudo -u small-shell $ROOT/bin/e-cron enable.uniq_statistics
+sudo -u small-shell $ROOT/bin/e-cron enable.ssw_statistics
 
 # Note
 echo "--------------------------------------------------------------------------"

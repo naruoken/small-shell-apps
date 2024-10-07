@@ -1,6 +1,0 @@
-SCHEDULE:0 1 * * *
-exec_command="/usr/local/small-shell/util/scripts/sumup.sh type:line sumup_key:attack frequency:daily title:attack set_time:\"`date +%Y-%m-%d --date '1 day ago'`\" global_filter:\"`date +%Y-%m-%d --date '1 day ago'`\" databox:web_analyzer"
-input_message="analyzer.done"
-output_message="attack.done"
-hubapi=""
-api_authkey=""

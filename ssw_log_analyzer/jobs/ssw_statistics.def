@@ -1,0 +1,6 @@
+SCHEDULE:10 0 * * *
+exec_command="%%ROOT/util/scripts/ssw_statistics.sh"
+input_message="analyzer.done"
+output_message=""
+hubapi=""
+api_authkey=""
