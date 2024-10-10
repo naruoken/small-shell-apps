@@ -77,7 +77,7 @@
          element.select();
          document.execCommand('copy');
          document.body.removeChild(element);
-        alert(element.value  +  "copied!");
+         alert("copied download URL on clipboard");
       }
     </script>
   </body>
