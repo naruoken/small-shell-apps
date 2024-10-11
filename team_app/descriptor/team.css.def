@@ -546,7 +546,8 @@ a {
 .table-box h4 {
   font-weight: bold;
   font-size: 96%;
-  padding-left: 6px;
+  color: #5b5e62;
+  padding-left: 12px;
 }
 
 .table-box h4 a {
@@ -601,6 +602,7 @@ a {
     font-weight: bold;
     border-radius: 4px;
     border: 1px dotted #c0c0c0;
+    color: #5b5e62;
   }
 }
 
