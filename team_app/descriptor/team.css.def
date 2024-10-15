@@ -365,6 +365,7 @@ a {
 
 .auth-form h1 {
   color: #2f3333;
+  padding-left: 2px;
   font-size: 240%;
 }
 
@@ -505,7 +506,7 @@ a {
   border-radius: 4px;
   cursor: pointer;
   cursor: hand;
-  margin-right: 4px;
+  margin-right: 2px;
   margin-bottom: 2px;
 }
 
@@ -768,7 +769,7 @@ a {
   .form-box li label:not(.checkbox-label):not(.radio-label):not(#file_input_label):not(#gray_label) {
     font-size: 70%;
     text-align: left;
-    color: #444444;
+    color: #616166;
     min-width:100%;
     font-weight: 300;
     margin-right: 2px;
@@ -782,7 +783,7 @@ a {
   .form-box li label:not(.checkbox-label):not(.radio-label):not(#file_input_label):not(#gray_label) {
     font-size: 84%;
     font-weight:bold;
-    color: #444444;
+    color: #616166;
     min-width:100%;
     text-align: left;
     padding: 3px 3px;
