@@ -124,7 +124,7 @@ if [ "$scratch_APP_chk" ];then
 
   # update team
   if [ -f ./team/team_common_menu ];then
-    rand=`grep team_key ${www}/descriptor/common_parts/team_common_menu  | awk -F "team_key_" '{print $2}'| awk -F "\"" '{print $1}'`
+    rand=`grep team_key ${www}/descriptor/common_parts/team_common_menu  | $AWK -F "team_key_" '{print $2}'| $AWK -F "\"" '{print $1}'`
     cat ./team/team_common_menu | $SED "s/%%rand/${rand}/g" > ${www}/descriptor/common_parts/team_common_menu
   fi
 
