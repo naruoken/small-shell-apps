@@ -1037,13 +1037,21 @@ a {
 
 .announcement-form-box .action_links {
   font-size: 80%;
-  color: #808080;
+  color: #BCBBBE;
   font-weight: bold;
   font-style : italic;
 }
 
 .announcement-form-box .action_links a {
-  color: #808080;
+  color: #BCBBBE;
+}
+
+.announcement-form-box .action_links a:hover {
+  color: #7C7C82;
+}
+ 
+.announcement-form-box .action_links p:hover {
+  color: #7C7C82;
 }
 
 @media screen and (min-width: 641px){
@@ -1130,7 +1138,7 @@ a {
   .announcement-form-box li label:not(.checkbox-label):not(.radio-label):not(#file_input_label):not(#gray_label) {
     font-size: 70%;
     text-align: left;
-    color: #444444;
+    color: #616166;
     min-width:100%;
     font-weight: 300;
     margin-right: 2px;
@@ -1144,7 +1152,7 @@ a {
   .announcement-form-box li label:not(.checkbox-label):not(.radio-label):not(#file_input_label):not(#gray_label) {
     font-size: 84%;
     font-weight:bold;
-    color: #444444;
+    color: #616166;
     min-width:100%;
     text-align: left;
     padding: 3px 3px;
