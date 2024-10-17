@@ -97,7 +97,7 @@ scratch_APP_chk=`ls ${www}/descriptor/common_parts/*_common_menu* 2>/dev/null`
 if [ "$scratch_APP_chk" ];then
   for target in `ls ${www}/descriptor/common_parts/*_common_menu* | grep -v .org$ | xargs basename -a`
   do
-    app=`echo "${target}" | $AWK -F "_" '{print $1}'`
+    app=`echo "${target}" | $AWK -F "_common_menu" '{print $1}'`
     chk_team=`grep "# controller for Scratch APP #team" ${cgidir}/${app}`
 
     if [ -f ${cgidir}/${app} -a ! -d ${tmp_dir}/${app} -a ! "${chk_team}" ];then       
@@ -124,7 +124,7 @@ if [ "$scratch_APP_chk" ];then
 
   # update team
   if [ -f ./team/team_common_menu ];then
-    rand=`grep team_key ${www}/descriptor/common_parts/team_common_menu  | awk -F "team_key_" '{print $2}'| awk -F "\"" '{print $1}'`
+    rand=`grep team_key ${www}/descriptor/common_parts/team_common_menu  | $AWK -F "team_key_" '{print $2}'| $AWK -F "\"" '{print $1}'`
     cat ./team/team_common_menu | $SED "s/%%rand/${rand}/g" > ${www}/descriptor/common_parts/team_common_menu
   fi
 
