@@ -69,13 +69,14 @@ done
 
 chown small-shell:small-shell $ROOT/util/e-cron/def/ssw_log_analyzer.def
 chown small-shell:small-shell $ROOT/util/e-cron/def/ssw_statistics.def
+chown small-shell:small-shell $ROOT/util/e-cron/def/.ssw_log_analyzer.dump
+chown small-shell:small-shell $ROOT/util/e-cron/def/.ssw_statistics.dump
 chmod 755 $ROOT/util/e-cron/def/ssw_log_analyzer.def
 chmod 755 $ROOT/util/e-cron/def/ssw_statistics.def
 
 sudo -u small-shell $ROOT/bin/e-cron enable.ssw_log_analyzer
 sudo -u small-shell $ROOT/bin/e-cron enable.ssw_statistics
 
-# Note
 echo "--------------------------------------------------------------------------"
 echo "small-shell web log analyzer is successfully deployed"
 echo "--------------------------------------------------------------------------"
