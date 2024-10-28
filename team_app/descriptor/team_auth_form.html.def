@@ -17,7 +17,7 @@
             <input type="hidden" id="team_key_%%rand" name="team_key_%%rand">
             <datalist id="keylist">
             </datalist>
-            <button class="button" type="submit" onclick="setKey()">SUBMIT</button>
+            <button class="button" type="submit" onclick="setKey()">CONNECT</button>
           </div>
           </form>
         </div>
