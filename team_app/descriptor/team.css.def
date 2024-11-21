@@ -597,8 +597,8 @@ a {
 }
 
 .table {
-  line-height: .8em;
-  margin: auto;
+  padding-right: 4px;
+  padding-left: 4px;
 }
 
 @media screen and (min-width: 641px) {
