@@ -298,7 +298,6 @@ a {
   letter-spacing: .09em;
   border-radius: 2px;
   cursor: pointer;
-  cursor: hand;  
   font-size: 80%;
 }
   
@@ -399,7 +398,6 @@ a {
   letter-spacing: .09em;
   border-radius: 2px;
   cursor: pointer;
-  cursor: hand;
   font-size: 80%;
 }
 
@@ -480,7 +478,6 @@ a {
   letter-spacing: .09em;
   border-radius: 2px;
   cursor: pointer;
-  cursor: hand;
   font-size: 80%;
 }
  
@@ -493,7 +490,6 @@ a {
   align-items: center;
   color: #333;
   font-weight: bold;
-  font-size: 86%;
   flex-wrap: wrap;
   white-space: nowrap;
   margin : 0px ;
@@ -502,13 +498,12 @@ a {
 
 .table-box .custome-button-add {
   width: 48px;
-  font-size: 80%;
+  font-size: 90%;
   text-align: center;
   border: 1px dotted #9dc2fa;
   background: #fafcfe; 
   border-radius: 4px;
   cursor: pointer;
-  cursor: hand;
   margin-right: 2px;
   margin-bottom: 2px;
 }
@@ -519,13 +514,12 @@ a {
 
 .table-box .custome-button-clr {
   width: 48px;
-  font-size: 80%;
+  font-size: 90%;
   text-align: center;
   border: 1px dotted #9dc2fa;
   background: #fafcfe; 
   border-radius: 4px;
   cursor: pointer;
-  cursor: hand;
   margin-right: 8px;
   margin-bottom: 2px;
 }
@@ -920,7 +914,7 @@ a {
   color: #333;
   font-size: 140%;
   font-weight: bold;
-  cursor: hand;
+  cursor: pointer;
   padding-left: 6px;
   padding-right: 6px;
   vertical-align: middle;
@@ -947,7 +941,6 @@ a {
   letter-spacing: .09em;
   border-radius: 2px;
   cursor: pointer;
-  cursor: hand;
 }
 
 .form-box button:hover {
@@ -975,7 +968,6 @@ a {
   letter-spacing: .09em;
   border-radius: 2px;
   cursor: pointer;
-  cursor: hand;
 }
 
 .form-box .flex-button button:hover {
@@ -1190,7 +1182,6 @@ a {
   letter-spacing: .09em;
   border-radius: 2px;
   cursor: pointer;
-  cursor: hand;
   font-size: 80%;
 }
 
