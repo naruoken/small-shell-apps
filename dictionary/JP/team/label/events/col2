@@ -1,0 +1,4 @@
+name="name"
+label="イベント名"
+type="text"
+option="required"

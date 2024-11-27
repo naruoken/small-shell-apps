@@ -123,9 +123,24 @@ if [ "$scratch_APP_chk" ];then
   fi
 
   # update team
-  if [ -f ./team/team_common_menu ];then
+  if [ -d ./team ];then
     rand=`grep team_key ${www}/descriptor/common_parts/team_common_menu  | $AWK -F "team_key_" '{print $2}'| $AWK -F "\"" '{print $1}'`
-    cat ./team/team_common_menu | $SED "s/%%rand/${rand}/g" > ${www}/descriptor/common_parts/team_common_menu
+    cat ./team/descriptor/common_parts/team_common_menu | $SED "s/%%rand/${rand}/g" > ${www}/descriptor/common_parts/team_common_menu
+
+    if [ -d ./team/descriptor ];then
+      for target in `ls ./team/descriptor | xargs basename -a | grep -v common_parts`
+      do
+        cat ./team/descriptor/${target} | $SED "s#%%www#${www}#g" > ${www}/descriptor/${target}
+      done
+    fi
+
+    if [ -d ./team/label ];then
+      for target in `ls ./team/label | xargs basename -a`
+      do
+        cp ./team/label/${target}/* $ROOT/databox/${target}/def/
+      done
+    fi
+    
   fi
 
   rm -rf ${tmp_dir}/*

@@ -1,0 +1,5 @@
+name="status"
+label="ステータス"
+type="select"
+params="opened,assigned,investigating,replied,closed"
+option="required"

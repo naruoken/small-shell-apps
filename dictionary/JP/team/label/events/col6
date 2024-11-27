@@ -1,0 +1,5 @@
+name="color"
+label="カラー"
+type="select"
+params="blue,green,purple"
+option="required"

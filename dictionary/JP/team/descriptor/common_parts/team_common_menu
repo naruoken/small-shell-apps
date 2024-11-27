@@ -5,7 +5,6 @@
 <li><a href="./team?%%session&subapp=announcements&req=table">アナウンスメント</a></li>
 <li><a href="./team?%%session&subapp=drive&req=table">ドライブ</a></li>
 <li><a href="./team?%%session&subapp=bookmarks&req=table">ブックマーク</a></li>
-<li><a href="./inquiry?id=new&req=get">問い合わせフォーム</a></li>
 <li><a href="./team?%%session&req=logout">ログアウト #%%user</a></li>
 <li><button class="inside-menu-button" onclick="duplicateKey()">Export access key</button></li>
 

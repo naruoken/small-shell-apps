@@ -1,0 +1,5 @@
+name="share"
+label="スコープ"
+type="radio"
+params="share to internal,share to external"
+option="required"

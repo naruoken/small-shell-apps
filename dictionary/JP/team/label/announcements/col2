@@ -1,0 +1,4 @@
+name="subject"
+label="サブジェクト"
+type="text"
+option="required"

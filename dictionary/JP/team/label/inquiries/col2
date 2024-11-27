@@ -1,0 +1,4 @@
+name="user_name"
+label="お名前"
+type="text"
+option="required"

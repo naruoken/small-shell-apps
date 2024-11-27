@@ -1,0 +1,4 @@
+name="hashid"
+label="#ID"
+type="text"
+option="required"

@@ -1,0 +1,5 @@
+name="sync"
+label="カレンダーと同期する"
+type="checkbox"
+params="yes"
+option="required"

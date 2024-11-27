@@ -1,0 +1,4 @@
+name="name"
+label="タスク名"
+type="text"
+option="required"

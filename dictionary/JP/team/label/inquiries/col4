@@ -1,0 +1,5 @@
+name="type"
+label="問い合わせタイプ"
+type="select"
+params="オペレーションについて,トラブルについて,その他"
+option="required"

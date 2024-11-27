@@ -1,0 +1,4 @@
+name="contents"
+label="コンテンツ"
+type="textarea"
+option="required"

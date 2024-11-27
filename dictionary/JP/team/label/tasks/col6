@@ -1,0 +1,5 @@
+name="status"
+label="ステータス"
+type="select"
+params="open,on-going,pending,closed"
+option="required"
