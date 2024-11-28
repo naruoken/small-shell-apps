@@ -121,7 +121,7 @@ echo "Team APP deployment has been done, please create APP user."
 echo "sudo $ROOT/adm/ops app:team add.usr:\$user"
 echo ""
 echo "Team APP URL: ${base_url}/team"
-echo "Inquiry Form URL: ${bae_url}/inquiry"
+echo "Inquiry Form URL: ${base_url}/inquiry"
 echo "-------------------------------------------------------------------------"
 
 # create index.html
