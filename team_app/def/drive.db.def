@@ -25,7 +25,7 @@ col2_key_params=""
 col2_primary_databox=""
 
 # required
-col2_required="no"
+col2_required=""
 #-------------------------------------------
 
 +addcol
