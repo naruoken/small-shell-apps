@@ -59,6 +59,6 @@ col4_key_params="share to internal,share to external"
 col4_primary_databox=""
 
 # required option
-col4_required="yes"
+col4_required=""
 #-------------------------------------------
 

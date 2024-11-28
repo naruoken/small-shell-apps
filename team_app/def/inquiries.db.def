@@ -59,7 +59,7 @@ col4_key_params="operation,trouble,other"
 col4_primary_databox=""
 
 # required option
-col4_required="yes"
+col4_required=""
 #-------------------------------------------
 
 +addcol
@@ -93,7 +93,7 @@ col6_key_params="opened,assigned,investigating,replied,closed"
 col6_primary_databox=""
 
 # required option
-col6_required="yes"
+col6_required=""
 #-------------------------------------------
 
 +addcol

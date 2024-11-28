@@ -93,7 +93,7 @@ col6_key_params="blue,green,purple"
 col6_primary_databox=""
 
 # required option
-col6_required="no"
+col6_required=""
 #-------------------------------------------
 
 +addcol
