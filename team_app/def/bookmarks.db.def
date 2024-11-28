@@ -18,7 +18,7 @@ col2_key_name="name"
 col2_key_label="Site Name"
 col2_type="text"
 
-# only for select, checkbox
+# only for select, radio
 col2_key_params=""
 
 # only for pdls
@@ -35,7 +35,7 @@ col3_key_name="url"
 col3_key_label="URL"
 col3_type="url"
 
-# only for select, checkbox
+# only for select, radio
 col3_key_params=""
 
 # only for pdls
@@ -52,7 +52,7 @@ col4_key_name="description"
 col4_key_label="Description"
 col4_type="text"
 
-# only for select, checkbox
+# only for select, radio
 col4_key_params=""
 
 # only for pdls

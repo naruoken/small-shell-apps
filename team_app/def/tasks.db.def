@@ -18,7 +18,7 @@ col2_key_name="name"
 col2_key_label="Task Name"
 col2_type="text"
 
-# only for select, checkbox
+# only for select, radio
 col2_key_params=""
 
 # only for pdls
@@ -35,7 +35,7 @@ col3_key_name="start"
 col3_key_label="Start"
 col3_type="date"
 
-# only for select, checkbox
+# only for select, radio
 col3_key_params=""
 
 # only for pdls
@@ -52,7 +52,7 @@ col4_key_name="end"
 col4_key_label="End"
 col4_type="date"
 
-# only for select, checkbox
+# only for select, radio
 col4_key_params=""
 
 # only for pdls
@@ -69,7 +69,7 @@ col5_key_name="assign"
 col5_key_label="Assignee"
 col5_type="mls"
 
-# only for select, checkbox
+# only for select, radio
 col5_key_params=""
 
 # only for pdls
@@ -86,7 +86,7 @@ col6_key_name="status"
 col6_key_label="Status"
 col6_type="select"
 
-# only for select, checkbox
+# only for select, radio
 col6_key_params="open,on-going,pending,closed"
 
 # only for pdls
@@ -103,8 +103,8 @@ col7_key_name="sync"
 col7_key_label="Sync to Calendar"
 col7_type="checkbox"
 
-# only for select, checkbox
-col7_key_params="yes"
+# only for select, radio
+col7_key_params=""
 
 # only for pdls
 col7_primary_databox=""
@@ -120,7 +120,7 @@ col8_key_name="description"
 col8_key_label="Description"
 col8_type="textarea"
 
-# only for select, checkbox
+# only for select, radio
 col8_key_params=""
 
 # only for pdls
@@ -137,7 +137,7 @@ col9_key_name="update"
 col9_key_label="Update"
 col9_type="textarea"
 
-# only for select, checkbox
+# only for select, radio
 col9_key_params=""
 
 # only for pdls

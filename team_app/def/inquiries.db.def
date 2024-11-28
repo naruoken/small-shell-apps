@@ -18,7 +18,7 @@ col2_key_name="user_name"
 col2_key_label="User Name"
 col2_type="text"
 
-# only for select, checkbox
+# only for select, radio
 col2_key_params=""
 
 # only for pdls
@@ -35,7 +35,7 @@ col3_key_name="email"
 col3_key_label="Mail addr"
 col3_type="email"
 
-# only for select, checkbox
+# only for select, radio
 col3_key_params=""
 
 # only for pdls
@@ -52,7 +52,7 @@ col4_key_name="type"
 col4_key_label="Inquiry Type"
 col4_type="select"
 
-# only for select, checkbox
+# only for select, radio
 col4_key_params="operation,trouble,other"
 
 # only for pdls
@@ -69,7 +69,7 @@ col5_key_name="assign"
 col5_key_label="Assignee"
 col5_type="mls"
 
-# only for select, checkbox
+# only for select, radio
 col5_key_params=""
 
 # only for pdls
@@ -86,7 +86,7 @@ col6_key_name="status"
 col6_key_label="Status"
 col6_type="select"
 
-# only for select, checkbox
+# only for select, radio
 col6_key_params="opened,assigned,investigating,replied,closed"
 
 # only for pdls
@@ -103,7 +103,7 @@ col7_key_name="inquiry"
 col7_key_label="Inquiry"
 col7_type="textarea"
 
-# only for select, checkbox
+# only for select, radio
 col7_key_params=""
 
 # only for pdls

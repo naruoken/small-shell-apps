@@ -18,7 +18,7 @@ col2_key_name="date"
 col2_key_label="Date"
 col2_type="date"
 
-# only for select, checkbox
+# only for select, radio
 col2_key_params=""
 
 # only for pdls
@@ -35,7 +35,7 @@ col3_key_name="uniq_access"
 col3_key_label="Uniq access exclude attack"
 col3_type="num"
 
-# only for select, checkbox
+# only for select, radio
 col3_key_params=""
 
 # only for pdls
@@ -52,7 +52,7 @@ col4_key_name="attack"
 col4_key_label="Attack"
 col4_type="num"
 
-# only for select, checkbox
+# only for select, radio
 col4_key_params=""
 
 # only for pdls
@@ -70,7 +70,7 @@ col5_key_name="detail"
 col5_key_label="Uniq access detail"
 col5_type="textarea"
 
-# only for select, checkbox
+# only for select, radio
 col5_key_params=""
 
 # only for pdls
