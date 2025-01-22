@@ -123,7 +123,7 @@ if [ "$scratch_APP_chk" ];then
   fi
 
   # update team
-  if [ -d ./team ];then
+  if [ -d ./team -a -f ${www}/cgi-bin/team ];then
     rand=`grep team_key ${www}/descriptor/common_parts/team_common_menu  | $AWK -F "team_key_" '{print $2}'| $AWK -F "\"" '{print $1}'`
     cat ./team/descriptor/common_parts/team_common_menu | $SED "s/%%rand/${rand}/g" > ${www}/descriptor/common_parts/team_common_menu
 
