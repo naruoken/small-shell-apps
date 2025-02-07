@@ -21,7 +21,7 @@ reverse sort{%%%%%%}
 nature{%%space}sort{%%%%%%}
 numetric{%%space}sort{%%%%%%}
 reverse{%%space}sort{%%%%%%}
-Sort.Hint{%%%%%%}
+SortTips{%%%%%%}
 Data.Num{%%%%%%}
 Import Data{%%%%%%}
 Table View{%%%%%%}

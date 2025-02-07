@@ -21,7 +21,7 @@ reverse sort{%%%%%%}降順
 nature{%%space}sort{%%%%%%}自然なソート
 numetric{%%space}sort{%%%%%%}昇順
 reverse{%%space}sort{%%%%%%}降順
-Sort.Hint{%%%%%%}ソートヒント
+SortTips{%%%%%%}ソートヒント
 Data.Num{%%%%%%}データ数
 Import Data{%%%%%%}データインポート
 Table View{%%%%%%}テーブル
