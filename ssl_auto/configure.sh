@@ -51,16 +51,19 @@ if [ ! "$chk_srv" ];then
   exit 1
 fi
 
-which nginx >/dev/null 2>&1
-if [ ! $? -eq 0 ];then
-  echo "error: you need to install nginx with no configuration"
-  exit 1
+if [ "$cluster_server" ];then
+  which nginx >/dev/null 2>&1
+  if [ ! $? -eq 0 ];then
+    echo "error: you need to install nginx with no configuration"
+    exit 1
+  fi
 fi
 
 # update nginx configuration
-if [ "$cluster_server" -a ! "$master" ];then
-  # for master
-  cat <<EOF > .default.conf
+if [ "$cluster_server" ];then
+  if [ ! "$master" ];then
+    # for master
+    cat <<EOF > .default.conf
 # Default server configuration for small-shell
 
 server {
@@ -93,9 +96,9 @@ server {
 }
 EOF
 
-elif [ "$master" ];then
-  # for replica
-  cat <<EOF > .default.conf
+  elif [ "$master" ];then
+     # for replica
+    cat <<EOF > .default.conf
 # Default server configuration for small-shell
 
 server {
@@ -126,61 +129,51 @@ server {
         }
 }
 EOF
-
-else
-  # for standalone host
-  cat <<EOF > .default.conf
-# Default server configuration for small-shell
-
-server {
-	listen 80;
-	server_name _;
-        return       444;
-}
-
-server {
-        listen 80;
-        server_name ${server};
-        location / {
-           proxy_pass    http://localhost:8080/;
-           proxy_set_header Host \$host;
-           proxy_set_header X-Real-IP \$remote_addr;
-           proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-           client_max_body_size 4G;
-        }
-}
-EOF
-fi
-
-# change node.js APP port
-node_version=`node --version | $SED "s/v//g" | $AWK -F "." '{print $1}'`
-if [ "$node_version" -ge 16 ];then
-  cat $ROOT/web/src/app/index.js | $SED "s/%%protocol/http/g" | $SED "s/%%port/8080/g" \
-  | $SED "s#%%sed#$SED#g" | $SED "s/%%cluster/cluster.isPrimary/g" > ${www}/app/index.js
-else
-  cat $ROOT/web/src/app/index.js | $SED "s/%%protocol/http/g" | $SED "s/%%port/8080/g" \
-  | $SED "s#%%sed#$SED#g" | $SED "s/%%cluster/cluster.isMaster/g" > ${www}/app/index.js
-fi
-systemctl restart small-shell
-
-# start nginx
-cp .default.conf /etc/nginx/sites-available/default
-systemctl restart nginx
-if [ ! $? -eq 0 ];then
-  echo "error: failed to start reverse proxy, something must be wrong"
+  fi
+  # change node.js APP port
+  node_version=`node --version | $SED "s/v//g" | $AWK -F "." '{print $1}'`
   if [ "$node_version" -ge 16 ];then
-    cat $ROOT/web/src/app/index.js | $SED "s/%%protocol/http/g" | $SED "s/%%port/80/g" \
+    cat $ROOT/web/src/app/index.js | $SED "s/%%protocol/http/g" | $SED "s/%%port/8080/g" \
     | $SED "s#%%sed#$SED#g" | $SED "s/%%cluster/cluster.isPrimary/g" > ${www}/app/index.js
   else
-    cat $ROOT/web/src/app/index.js | $SED "s/%%protocol/http/g" | $SED "s/%%port/80/g" \
+    cat $ROOT/web/src/app/index.js | $SED "s/%%protocol/http/g" | $SED "s/%%port/8080/g" \
     | $SED "s#%%sed#$SED#g" | $SED "s/%%cluster/cluster.isMaster/g" > ${www}/app/index.js
   fi
   systemctl restart small-shell
-  exit 1 
+
+  # start nginx
+  cp .default.conf /etc/nginx/sites-available/default
+  systemctl restart nginx
+  if [ ! $? -eq 0 ];then
+    echo "error: failed to start reverse proxy, something must be wrong"
+    if [ "$node_version" -ge 16 ];then
+      cat $ROOT/web/src/app/index.js | $SED "s/%%protocol/http/g" | $SED "s/%%port/80/g" \
+      | $SED "s#%%sed#$SED#g" | $SED "s/%%cluster/cluster.isPrimary/g" > ${www}/app/index.js
+    else
+      cat $ROOT/web/src/app/index.js | $SED "s/%%protocol/http/g" | $SED "s/%%port/80/g" \
+      | $SED "s#%%sed#$SED#g" | $SED "s/%%cluster/cluster.isMaster/g" > ${www}/app/index.js
+    fi
+    systemctl restart small-shell
+    exit 1 
+  fi
+  # create flg file
+  echo "cluster=yes" > ./.configure
+  echo "ROOT=\"$ROOT\"" >> ./.configure
+  chmod 755 ./.configure
+  echo "--------------------------------------------------------------------------------------"
+  echo "reverse proxy setting has been done, please execute ./deploy.sh for cert deployment"
+  echo "--------------------------------------------------------------------------------------"
+
+else
+
+  # for standalone host, not need to use nginx
+  # create flg file
+  echo "cluster=no" > ./.configure
+  echo "ROOT=\"$ROOT\"" >> ./.configure
+  chmod 755 ./.configure
+  echo "--------------------------------------------------------------------------------------"
+  echo "configuration has been done, please execute ./deploy.sh for cert deployment"
+  echo "--------------------------------------------------------------------------------------"
 fi
-echo $ROOT > .path
-echo "--------------------------------------------------------------------------------------"
-echo "reverse proxy setting has been done, please execute ./deploy.sh for cert deployment"
-echo "--------------------------------------------------------------------------------------"
 
 exit 0
