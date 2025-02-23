@@ -14,7 +14,7 @@ fi
 . $ROOT/web/base
 
 # renew cert
-if [ ! "$clustesr_server" ];then
+if [ ! "$cluster_server" ];then
   certbot renew
   if [ $? -eq 0 ];then
     # deploy certificate & key
