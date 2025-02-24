@@ -46,7 +46,7 @@ for replica in $replica_hosts
 do
   chk_config=`sudo -u small-shell ssh $replica grep $cluster_server /etc/nginx/sites-available/default`
   if [ ! "$chk_config" ];then
-    echo "error: you need to execute configure beforehand, please execute ./configure.sh on $replica"
+    echo "error: you need to execute configure beforehand on replica as well, please execute ./configure.sh on $replica"
     exit 1
   fi
 done
