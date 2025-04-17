@@ -15,6 +15,7 @@ Filtered by $table_command. you can clear the table by clicking -CLR{%%%%%%}
 There is no $org_filter_key key, filtered by $filter_word with all column{%%%%%%}
 Type any filter words or command \\[%%commands..\\] which can be pipelined to the databox{%%%%%%}
 Sort command usage:{%%%%%%}
+reverse{%%space}sort{%%space}with{%%space}numetric{%%space}sort{%%%%%%}
 nature sort{%%%%%%}
 numetric sort{%%%%%%}
 reverse sort{%%%%%%}

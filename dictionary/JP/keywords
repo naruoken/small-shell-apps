@@ -18,8 +18,9 @@ Sort command usage:{%%%%%%}sortコマンドの使い方:
 nature sort{%%%%%%}自然なソート
 numetric sort{%%%%%%}昇順
 reverse sort{%%%%%%}降順
+reverse{%%space}sort{%%space}with{%%space}numetric{%%space}sort{%%%%%%}数として降順にソートする
 nature{%%space}sort{%%%%%%}自然なソート
-numetric{%%space}sort{%%%%%%}昇順
+numetric{%%space}sort{%%%%%%}数としてソートする
 reverse{%%space}sort{%%%%%%}降順
 SortTips{%%%%%%}ソートヒント
 Data.Num{%%%%%%}データ数
