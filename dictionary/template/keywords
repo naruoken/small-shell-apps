@@ -15,11 +15,12 @@ Filtered by $table_command. you can clear the table by clicking -CLR{%%%%%%}
 There is no $org_filter_key key, filtered by $filter_word with all column{%%%%%%}
 Type any filter words or command \\[%%commands..\\] which can be pipelined to the databox{%%%%%%}
 Sort command usage:{%%%%%%}
-reverse{%%space}sort{%%space}with{%%space}numetric{%%space}sort{%%%%%%}
 nature sort{%%%%%%}
+reverse sort with numetric sort{%%%%%%}
 numetric sort{%%%%%%}
 reverse sort{%%%%%%}
 nature{%%space}sort{%%%%%%}
+reverse{%%space}sort{%%space}with{%%space}numetric{%%space}sort{%%%%%%}
 numetric{%%space}sort{%%%%%%}
 reverse{%%space}sort{%%%%%%}
 SortTips{%%%%%%}

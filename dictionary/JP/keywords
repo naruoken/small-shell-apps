@@ -15,13 +15,14 @@ Filtered by $table_command. you can clear the table by clicking -CLR{%%%%%%}フ�
 There is no $org_filter_key key, filtered by $filter_word with all column{%%%%%%}key ($org_filter_key) が見つからなかったため全カラムを検索しています
 Type any filter words or command \\[%%commands..\\] which can be pipelined to the databox{%%%%%%}検索ワードまたはコマンドを入力してください　\\[%%commands..\\]
 Sort command usage:{%%%%%%}sortコマンドの使い方:
-nature sort{%%%%%%}自然なソート
-numetric sort{%%%%%%}昇順
-reverse sort{%%%%%%}降順
+reverse sort with numetric sort{%%%%%%}数として降順にソートする
+nature sort{%%%%%%}自然なかたちでソートする
+numetric sort{%%%%%%}数としてソートする
+reverse sort{%%%%%%}降順にソートする
 reverse{%%space}sort{%%space}with{%%space}numetric{%%space}sort{%%%%%%}数として降順にソートする
-nature{%%space}sort{%%%%%%}自然なソート
+nature{%%space}sort{%%%%%%}自然なかたちでソートする
 numetric{%%space}sort{%%%%%%}数としてソートする
-reverse{%%space}sort{%%%%%%}降順
+reverse{%%space}sort{%%%%%%}降順にソートする
 SortTips{%%%%%%}ソートヒント
 Data.Num{%%%%%%}データ数
 Import Data{%%%%%%}データインポート
