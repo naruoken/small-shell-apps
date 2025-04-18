@@ -26,12 +26,12 @@
           <h1>#tasks.data</h1>
           <p>id:%%id</p>
         </div>
-        <form method="post" action="./team?%%params&req=set&id=%%id" onclick="document.charset='utf-8';">
+        <form id="one-time-form" method="post" action="./team?%%params&req=set&id=%%id" onclick="document.charset='utf-8';">
         <ul>
          %%dataset
         </ul>
         <div class="flex-button">
-           <button class="button" type="submit">SET</button>
+           <button class="button" id="one-time-button" type="submit">SET</button>
         </div>
         </form>
         <div class="action_links">
@@ -66,6 +66,10 @@
            location.href = "./team?%%params&req=del&id=%%id";
          }
       }
+
+      document.getElementById('one-time-form').addEventListener('submit', function() {
+        document.getElementById('one-time-button').disabled = true;
+      });
 
       var element = document.documentElement;
       var bottom = element.scrollHeight - element.clientHeight;

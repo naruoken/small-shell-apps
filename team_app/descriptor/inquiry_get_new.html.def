@@ -14,14 +14,20 @@
       <p>Inquiry form to the team</p>
       <hr>
       </div>
-      <form method="post" action="./inquiry?req=set&id=%%id">
+      <form id="one-time-form" method="post" action="./inquiry?req=set&id=%%id">
       <ul>
        %%dataset
       </ul>
-      <button class="button" type="submit">SUBMIT</button>
+      <button class="button" id="one-time-button" type="submit">SUBMIT</button>
       </form>
       </div>
 
     </div>
+
+   <script>
+      document.getElementById('one-time-form').addEventListener('submit', function() {
+        document.getElementById('one-time-button').disabled = true;
+      });
+   </script>
    </body>
 </html>

@@ -12,12 +12,12 @@
           <h1>#ticket</h1>
           <p>id:%%id</p>
           <p>%%history</p>
-          <form method="post" action="./inquiry?req=set&id=%%id">
+          <form id="one-time-form" method="post" action="./inquiry?req=set&id=%%id">
           <ul>
           %%dataset
           </ul>
           <input name="user_name" type="hidden" value="%%user_name">
-          <button class="button" type="submit">SUBMIT</button>
+          <button class="button" id="one-time-button" type="submit">SUBMIT</button>
         </div>
       </div>
     </div>
@@ -33,6 +33,10 @@
         if (str.includes('inquiry.app')) {
           comment.classList.add('user');
         }
+      });
+
+      document.getElementById('one-time-form').addEventListener('submit', function() {
+        document.getElementById('one-time-button').disabled = true;
       });
 
     </script>
