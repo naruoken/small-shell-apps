@@ -22,7 +22,7 @@
       </div>
     </div>
     <script>
-
+      // handle chat
       var element = document.documentElement;
       var bottom = element.scrollHeight - element.clientHeight;
       window.scrollTo({top: bottom, left: 0, behavior: 'smooth'});
@@ -35,10 +35,10 @@
         }
       });
 
+      // handle one time button
       document.getElementById('one-time-form').addEventListener('submit', function() {
         document.getElementById('one-time-button').disabled = true;
       });
-
     </script>
 
   </body>

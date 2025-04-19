@@ -272,7 +272,7 @@
         nav.classList.remove('open-menu')
         btn.innerHTML = '=';
       }
-    })
+    });
 
    </script>
    </body>

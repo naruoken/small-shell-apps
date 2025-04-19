@@ -41,6 +41,7 @@
     </div>
 
     <script>
+      // handle menu
       const btn = document.querySelector('.even-btn-menu');
       const nav = document.querySelector('nav');
 
@@ -56,7 +57,12 @@
           nav.classList.remove('open-menu')
           btn.innerHTML = '=';
         }
-      })
+      });
+
+      // handle one time button
+      document.getElementById('one-time-form').addEventListener('submit', function() {
+        document.getElementById('one-time-button').disabled = true;
+      });
 
       var element = document.documentElement;
       var bottom = element.scrollHeight - element.clientHeight;
@@ -68,10 +74,6 @@
         if (str.includes('inquiry.app')) {
           comment.classList.add('user');
         }
-      });
-
-      document.getElementById('one-time-form').addEventListener('submit', function() {
-        document.getElementById('one-time-button').disabled = true;
       });
 
     </script>

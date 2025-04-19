@@ -36,6 +36,7 @@
     </div>
 
     <script>
+      // handle menu
       const btn = document.querySelector('.even-btn-menu');
       const nav = document.querySelector('nav');
 
@@ -51,8 +52,9 @@
           nav.classList.remove('open-menu')
           btn.innerHTML = '=';
         }
-      })
+      });
 
+      // handle delete request
       function del_confirmation(){
         ret = confirm("Are you OK to delete this data ?");
         if (ret == true){

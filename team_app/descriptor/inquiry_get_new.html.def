@@ -25,6 +25,7 @@
     </div>
 
    <script>
+      // handle one time button
       document.getElementById('one-time-form').addEventListener('submit', function() {
         document.getElementById('one-time-button').disabled = true;
       });

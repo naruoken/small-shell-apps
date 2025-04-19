@@ -36,6 +36,7 @@
     </div>
 
     <script>
+      // handle menu
       const btn = document.querySelector('.even-btn-menu');
       const nav = document.querySelector('nav');
 
@@ -51,13 +52,15 @@
           nav.classList.remove('open-menu')
           btn.innerHTML = '=';
         }
-      })
+      });
 
+      // handle one time button
       document.getElementById('one-time-form').addEventListener('submit', function() {
         document.getElementById('one-time-button').disabled = true;
       });
 
-      document.getElementById("txtara").rows="14"
+      // adjust text area row size
+      document.getElementById("txtara").rows="14";
     </script>
   </body>
 </html>
