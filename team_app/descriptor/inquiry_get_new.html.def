@@ -14,7 +14,7 @@
       <p>Inquiry form to the team</p>
       <hr>
       </div>
-      <form id="one-time-form" method="post" action="./inquiry?req=set&id=%%id">
+      <form id="one-time-form" method="post" autocomplete="off" action="./inquiry?req=set&id=%%id">
       <ul>
        %%dataset
       </ul>
