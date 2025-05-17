@@ -65,13 +65,13 @@ a {
   box-sizing: border-box;
 }
 
-.flex-header {
+.navbar {
   display:flex;
   flex-wrap:wrap;
   margin-bottom: -16px;
 }
 
-.left-header {
+.navbar-left-links {
   font-weight: 300;
   line-height: 0.8em;
   font-size: 80%;
@@ -79,24 +79,24 @@ a {
   margin: auto;
 }
 
-.left-header .dataselect{
+.navbar-left-links .dataselect{
   font-weight: bold;
   color: #333333;
   cursor: hand;
   border-style: none;
 }
 
-.left-header p {
+.navbar-left-links p {
   font-weight: bold;
   margin-top: 8px;
   margin-left: 2px;
 }
 
-.left-header a {
+.navbar-left-links a {
   color: #333;
 }
 
-.right-header {
+.navbar-right-menu {
   font-weight: 300;
   line-height: 0.8em;
   padding-right: 0px;
@@ -104,24 +104,24 @@ a {
   color: white;
 }
 
-.right-header a {
+.navbar-right-menu a {
   color: white;
   text-decoration: none;
   white-space: nowrap;
 }
 
-.right-header ul {
+.navbar-right-menu ul {
   list-style: none;
   margin: 0px;
   padding: 0px;
   margin-bottom: 28px;
 }
 
-.right-header li {
+.navbar-right-menu li {
   margin: 2rem 0;
 }
 
-.right-header nav {
+.navbar-right-menu nav {
   background: #000011;
   padding-top: 10px;
   opacity: 0.8;
@@ -135,7 +135,7 @@ a {
 }
 
 @media screen and (min-width: 641px) {
-.right-header .even-btn-menu {
+.navbar-right-menu .even-btn {
     margin: auto;
     border-style: none;
     background: transparent;
@@ -152,7 +152,7 @@ a {
 }
 
 @media screen and (max-width: 641px) {
-  .right-header .even-btn-menu {
+  .navbar-right-menu .even-btn {
     border-color: #000033;
     border-style: none;
     background: transparent;
@@ -169,7 +169,7 @@ a {
 }
 
 @media screen and (min-width: 641px) {
-  .right-header nav.open-menu {
+  .navbar-right-menu nav.open-menu {
     border-radius: 16px;
     font-size: 88%;
     font-weight: bold;
@@ -180,7 +180,7 @@ a {
   }
 }
 @media screen and (max-width: 640px) {
-  .right-header nav.open-menu {
+  .navbar-right-menu nav.open-menu {
     margin-top: 20px;
     width: 100%;
     display: block;

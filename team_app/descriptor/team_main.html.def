@@ -11,12 +11,12 @@
     </head>
     <body>
     <div class="container">
-      <div class="portal-flex-header">
-        <div class="left-header">
+      <div class="portal-navbar">
+        <div class="navbar-left-links">
         <a href="./team?%%params&req=main"><h3>Team APP</h3></a>
         </div>
-        <div class="right-header">
-        <button class="portal-even-btn-menu">=</button>
+        <div class="navbar-right-menu">
+        <button class="portal-even-btn">=</button>
         <nav>
          <ul>
          %%common_menu
@@ -257,11 +257,11 @@
       spinner.classList.add('loaded');
     }
 
-    const btn = document.querySelector('.portal-even-btn-menu');
+    const btn = document.querySelector('.portal-even-btn');
     const nav = document.querySelector('nav');
 
     document.addEventListener('click', (e) => {
-      if(e.target.closest('.portal-even-btn-menu')) {
+      if(e.target.closest('.portal-even-btn')) {
         nav.classList.toggle('open-menu')
         if (btn.innerHTML === '=') {
           btn.innerHTML = '-';
