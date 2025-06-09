@@ -8,12 +8,12 @@ Your Key is successfully generated.{%%%%%%}あなた専用の鍵が生成され�
 Your APP Key is successfully generated.{%%%%%%}あなた専用の鍵が生成されました。
 When you click the button, the key will be saved in your browser. but please copy and save the key text manually just in case.{%%%%%%}鍵は自動でブラウザに記憶されますが、念の為テキストで保存しておくことをお勧めします
 Your access key is duplicated and copied to your clipboard. key text is available on your other device.{%%%%%%}あなたの鍵が複製されクリップボードにコピーされました。コピーされた鍵は別のデバイスでも利用可能です
-Type any filter words or you can sort column by sort command{%%%%%%}検索ワードまたはsortコマンドを入力してください
+Type keywords or sort command{%%%%%%}検索ワードまたはsortコマンドを入力してください
 Executed $table_command. if you want to clear the table, please click -CLR{%%%%%%}実行コマンド:$table_command　クリアしたい場合は-CLRをクリックしてください
 Executed ${org_table_command}, you can clear the table by clicking -CLR{%%%%%%}実行コマンド:$org_table_command　クリアしたい場合は-CLRをクリックしてください
 Filtered by $table_command. you can clear the table by clicking -CLR{%%%%%%}フィルタ条件: $table_command クリアしたい場合は-CLRをクリックしてください
 There is no $org_filter_key key, filtered by $filter_word with all column{%%%%%%}key ($org_filter_key) が見つからなかったため全カラムを検索しています
-Type any filter words or command \\[%%commands..\\] which can be pipelined to the databox{%%%%%%}検索ワードまたはコマンドを入力してください　\\[%%commands..\\]
+Type keywords or command \\[%%commands..\\] which can be pipelined to the databox{%%%%%%}検索ワードまたはコマンドを入力してください　\\[%%commands..\\]
 Sort command usage:{%%%%%%}sortコマンドの使い方:
 reverse sort with numetric sort{%%%%%%}数として降順にソートする
 nature sort{%%%%%%}自然なかたちでソートする
