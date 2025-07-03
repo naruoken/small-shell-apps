@@ -56,17 +56,24 @@ if [ $? -eq 0 ];then
     exit 1
   fi
 
+  # upgrade index js
   node_version=`node --version | $SED "s/v//g" | $AWK -F "." '{print $1}'`
-  if [ "$node_version" -ge 16 ];then
-    cat $ROOT/web/src/app/index.js | $SED "s/%%protocol/https/g" | $SED "s/%%port/443/g" \
-    | $SED "s#%%sed#$SED#g" | $SED "s#// https ##g" | $SED "s#/\* forward option start##g" \
-    | $SED "s#option end \*/##g" | $SED "s/%%cluster/cluster.isPrimary/g" > ${www}/app/index.js
+  if [ "$node_version" -ge 18 ];then
+    any_routing="/{*any}"
   else
-  # generate index.js for lower version of v16        
-    cat $ROOT/web/src/app/index.js | $SED "s/%%protocol/https/g" | $SED "s/%%port/443/g" \
-    | $SED "s#%%sed#$SED#g" | $SED "s#// https ##g" | $SED "s#/\* forward option start##g" \
-    | $SED "s#option end \*/##g" | $SED "s/%%cluster/cluster.isMaster/g" > ${www}/app/index.js
+    any_routing="*"
   fi
+
+  if [ "$node_version" -ge 16 ];then
+    cluster="cluster.isPrimary"
+  else
+    cluster="cluster.isMaster"
+  fi
+
+  cat $ROOT/web/src/app/index.js | $SED "s/%%protocol/https/g" | $SED "s/%%port/443/g" \
+  | $SED "s#%%sed#$SED#g" | $SED "s#// https ##g" | $SED "s#/\* forward option start##g" \
+  | $SED "s#option end \*/##g" | $SED "s/%%cluster/$cluster/g" \
+  | $SED "s#%%any_routing#$any_routing#g" > ${www}/app/index.js
 
   # upgrade web/base
   cat $ROOT/web/base | $SED "s/http/https/g" > $ROOT/web/.base

@@ -129,15 +129,24 @@ server {
 }
 EOF
   fi
+
   # change node.js APP port
   node_version=`node --version | $SED "s/v//g" | $AWK -F "." '{print $1}'`
-  if [ "$node_version" -ge 16 ];then
-    cat $ROOT/web/src/app/index.js | $SED "s/%%protocol/http/g" | $SED "s/%%port/8080/g" \
-    | $SED "s#%%sed#$SED#g" | $SED "s/%%cluster/cluster.isPrimary/g" > ${www}/app/index.js
+  if [ "$node_version" -ge 18 ];then
+    any_routing="/{*any}"
   else
-    cat $ROOT/web/src/app/index.js | $SED "s/%%protocol/http/g" | $SED "s/%%port/8080/g" \
-    | $SED "s#%%sed#$SED#g" | $SED "s/%%cluster/cluster.isMaster/g" > ${www}/app/index.js
+    any_routing="*"
   fi
+
+  if [ "$node_version" -ge 16 ];then
+    cluster="cluster.isPrimary"
+  else
+    cluster="cluster.isMaster"
+  fi
+
+  cat $ROOT/web/src/app/index.js | $SED "s/%%protocol/http/g" | $SED "s/%%port/8080/g" \
+  | $SED "s#%%sed#$SED#g" | $SED "s/%%cluster/$cluster/g" \
+  | $SED "s#%%any_routing#$any_routing#g" > ${www}/app/index.js
   systemctl restart small-shell
 
   # start nginx
@@ -145,13 +154,9 @@ EOF
   systemctl restart nginx
   if [ ! $? -eq 0 ];then
     echo "error: failed to start reverse proxy, something must be wrong"
-    if [ "$node_version" -ge 16 ];then
-      cat $ROOT/web/src/app/index.js | $SED "s/%%protocol/http/g" | $SED "s/%%port/80/g" \
-      | $SED "s#%%sed#$SED#g" | $SED "s/%%cluster/cluster.isPrimary/g" > ${www}/app/index.js
-    else
-      cat $ROOT/web/src/app/index.js | $SED "s/%%protocol/http/g" | $SED "s/%%port/80/g" \
-      | $SED "s#%%sed#$SED#g" | $SED "s/%%cluster/cluster.isMaster/g" > ${www}/app/index.js
-    fi
+    cat $ROOT/web/src/app/index.js | $SED "s/%%protocol/http/g" | $SED "s/%%port/80/g" \
+    | $SED "s#%%sed#$SED#g" | $SED "s/%%cluster/$cluster/g" \
+    | $SED "s#%%any_routing#$any_routing#g" > ${www}/app/index.js
     systemctl restart small-shell
     exit 1 
   fi
