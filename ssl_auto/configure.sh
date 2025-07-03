@@ -38,8 +38,7 @@ if [ ! "$www" ];then
 fi
 
 # check default srv
-chk_index=`grep "index_url=" $ROOT/web/base`
-if [ ! "$chk_index" ];then
+if [ ! "$srv_type" = "default" ];then
   echo "error: you need to setup Base APP by using small-shell default WEB srv, please execute \"sudo $ROOT/adm/gen -app\" again"
   exit 1
 fi

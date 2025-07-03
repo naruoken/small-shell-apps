@@ -135,11 +135,11 @@ echo "reverse_proxy=\"yes\"" >> $ROOT/web/.base
 cat $ROOT/web/.base > $ROOT/web/base
 
 # update descriptors
-new_index_url=`echo $index_url | $SED "s/http:/https:/g"`
-grep -rl ${index_url} $www  > .list.tmp
+new_static_url=`echo $static_url | $SED "s/http:/https:/g"`
+grep -rl ${static_url} $www  > .list.tmp
 while read line
 do
-  cat $line | $SED "s#${index_url}#${new_index_url}#g" > .index.new
+  cat $line | $SED "s#${static_url}#${new_static_url}#g" > .index.new
   cat .index.new > $line
 done < .list.tmp
 
@@ -162,10 +162,10 @@ if [ "$cluster_base_url" ];then
   if [ "$replica_hosts" ];then
     tmp_dir=/var/tmp/ssl_auto
     mkdir $tmp_dir
-    for target in `ls ${cgidir} | grep -v base | grep -v api | grep -v e-cron | xargs basename -a`
+    for target in `ls ${cgi_dir} | grep -v base | grep -v api | grep -v e-cron | xargs basename -a`
     do
       app=$target
-      type3_chk=`grep "# controller for Scratch APP" ${cgidir}/${app}`
+      type3_chk=`grep "# controller for Scratch APP" ${cgi_dir}/${app}`
       if [ "$type3_chk" ];then
         if [ ! -d ${tmp_dir}/${app} ];then
           mkdir ${tmp_dir}/${app}

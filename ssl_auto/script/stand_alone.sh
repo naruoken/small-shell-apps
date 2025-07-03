@@ -73,7 +73,7 @@ if [ $? -eq 0 ];then
   cat $ROOT/web/.base > $ROOT/web/base
 
   # update index
-  grep -rl ${index_url} $www  > .list.tmp
+  grep -rl ${static_url} $www  > .list.tmp
   while read line
   do
     cat $line | $SED "s/http/https/g" > .index.new

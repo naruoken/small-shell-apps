@@ -24,7 +24,8 @@ fi
 # load web/base
 . ${ROOT}/web/base
 
-if [ ! "$index_url" ];then
+# check default srv
+if [ ! "$srv_type" = "default" ];then
   echo "error: this tool can be used for small-shell default WEB server"
   exit 1
 fi
