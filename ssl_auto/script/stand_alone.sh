@@ -76,14 +76,14 @@ if [ $? -eq 0 ];then
   | $SED "s#%%any_routing#$any_routing#g" > ${www}/app/index.js
 
   # upgrade web/base
-  cat $ROOT/web/base | $SED "s/http/https/g" > $ROOT/web/.base
+  cat $ROOT/web/base | $SED "s/http:/https:/g" > $ROOT/web/.base
   cat $ROOT/web/.base > $ROOT/web/base
 
   # update index
   grep -rl ${static_url} $www  > .list.tmp
   while read line
   do
-    cat $line | $SED "s/http/https/g" > .index.new
+    cat $line | $SED "s/http:/https:/g" > .index.new
     cat .index.new > $line
   done < .list.tmp
 
