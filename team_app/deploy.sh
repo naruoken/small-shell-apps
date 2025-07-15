@@ -38,7 +38,7 @@ done
 # load web base
 . $ROOT/web/base
 
-if [ ! "$cgidir" ];then
+if [ ! "$cgi_dir" ];then
   echo "error: please gen base app first #${root}/adm/gen -app"
   exit 1
 fi
@@ -47,9 +47,9 @@ fi
 for src in `ls ./cgi-bin | xargs basename -a`
 do
   cat ./cgi-bin/$src | $SED "s#%%www#${www}#g" | $SED "s#%%authkey#$api_authkey#g" \
-  | $SED "s/%%IP_whitelisting/$IP_whitelisting/g" > $cgidir/$src
-  chown $cgiusr:$cgiusr $cgidir/$src
-  chmod 700 $cgidir/$src
+  | $SED "s/%%IP_whitelisting/$IP_whitelisting/g" > $cgi_dir/$src
+  chown $cgiusr:$cgiusr $cgi_dir/$src
+  chmod 700 $cgi_dir/$src
 done
 
 for src in `ls ./bin | xargs basename -a`
@@ -59,24 +59,24 @@ do
   chmod 755 $www/bin/$src
 done
 
-if [ -f $cgidir/../descriptor/.team.rand ];then
-  . $cgidir/../descriptor/.team.rand
+if [ -f $cgi_dir/../descriptor/.team.rand ];then
+  . $cgi_dir/../descriptor/.team.rand
 else
   rand=$RANDOM
-  echo "rand=$rand" > $cgidir/../descriptor/.team.rand
-  chmod 755 $cgidir/../descriptor/.team.rand
+  echo "rand=$rand" > $cgi_dir/../descriptor/.team.rand
+  chmod 755 $cgi_dir/../descriptor/.team.rand
 fi
 
 for src in `ls ./descriptor | grep -v common_parts | xargs basename -a`
 do
-  cat ./descriptor/$src | $SED "s#%%rand#$rand#g" | $SED "s#%%base_url/#$base_url#g" > $cgidir/../descriptor/$src
-  chmod 755 $cgidir/../descriptor/$src
+  cat ./descriptor/$src | $SED "s#%%rand#$rand#g" | $SED "s#%%base_url/#$base_url#g" > $cgi_dir/../descriptor/$src
+  chmod 755 $cgi_dir/../descriptor/$src
 done
 
 for src in `ls ./descriptor/common_parts | xargs basename -a`
 do
-  cat ./descriptor/common_parts/$src | $SED "s/%%rand/$rand/g" > $cgidir/../descriptor/common_parts/$src
-  chmod 755 $cgidir/../descriptor/common_parts/$src
+  cat ./descriptor/common_parts/$src | $SED "s/%%rand/$rand/g" > $cgi_dir/../descriptor/common_parts/$src
+  chmod 755 $cgi_dir/../descriptor/common_parts/$src
 done
 
 # create authkey for inquiry form
@@ -107,7 +107,7 @@ authkey=`echo "${app_user_name}:${hash_gen_key}" | $BASE64_ENC`
 
 # update form APP
 cat ./cgi-bin/inquiry | $SED "s#%%www#${www}#g" | $SED "s/%%authkey/$authkey/g" \
-| $SED "s/%%IP_whitelisting/$IP_whitelisting/g" >  $cgidir/inquiry
+| $SED "s/%%IP_whitelisting/$IP_whitelisting/g" >  $cgi_dir/inquiry
 
 # create databox
 for src in `ls ./def | xargs basename -a`

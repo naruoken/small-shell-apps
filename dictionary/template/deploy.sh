@@ -98,9 +98,9 @@ if [ "$scratch_APP_chk" ];then
   for target in `ls ${www}/descriptor/common_parts/*_common_menu* | grep -v .org$ | xargs basename -a`
   do
     app=`echo "${target}" | $AWK -F "_common_menu" '{print $1}'`
-    chk_team=`grep "# controller for Scratch APP #team" ${cgidir}/${app}`
+    chk_team=`grep "# controller for Scratch APP #team" ${cgi_dir}/${app}`
 
-    if [ -f ${cgidir}/${app} -a ! -d ${tmp_dir}/${app} -a ! "${chk_team}" ];then       
+    if [ -f ${cgi_dir}/${app} -a ! -d ${tmp_dir}/${app} -a ! "${chk_team}" ];then       
       # update UI.md.def
       mkdir ${tmp_dir}/${app}
 
