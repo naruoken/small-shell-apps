@@ -76,7 +76,7 @@ if [ $? -eq 0 ];then
   | $SED "s#%%any_routing#$any_routing#g" > ${www}/app/index.js
 
   # upgrade web/base
-  cat $ROOT/web/base | $SED "s/http:/https:/g" > $ROOT/web/.base
+  cat $ROOT/web/base |  $SED "s/\"http\"/\"https\"/g" | $SED "s/http:/https:/g" > $ROOT/web/.base
   cat $ROOT/web/.base > $ROOT/web/base
 
   # update index
