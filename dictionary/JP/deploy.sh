@@ -75,9 +75,9 @@ if [ "$permission" = "ro" ];then
   $ROOT/adm/ops set.attr:sys{rw} > /dev/null 2>&1
 fi
 
-# update description and tmp/gen
-if [ -f ./tmplt.UI.md.def/description ];then
-  cat ./tmplt.UI.md.def/description > $ROOT/tmp/gen/.tmplt.UI.md.def/description
+# update body and tmp/gen
+if [ -f ./tmplt.UI.md.def/body ];then
+  cat ./tmplt.UI.md.def/body > $ROOT/tmp/gen/.tmplt.UI.md.def/body
 fi
 if [ "$portal" -a "$table" ];then
   for target in `ls $ROOT/tmp/gen/.tmplt.UI.md.def | xargs basename -a`
@@ -110,10 +110,10 @@ if [ "$scratch_APP_chk" ];then
       | $SED "s/_%%enter_/\n/g" | $SED "s/righth://g" > ${tmp_dir}/${app}/righth
       sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:set id:${id} key:righth input_dir:${tmp_dir}/${app}
 
-      # update description
-      if [ -f ./tmplt.UI.md.def/description ];then
-        cat ./tmplt.UI.md.def/description | $SED "s/%%app/${app}/g" > ${tmp_dir}/${app}/description
-        sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:set id:${id} key:description input_dir:${tmp_dir}/${app}
+      # update body
+      if [ -f ./tmplt.UI.md.def/body ];then
+        cat ./tmplt.UI.md.def/body | $SED "s/%%app/${app}/g" > ${tmp_dir}/${app}/body
+        sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:set id:${id} key:body input_dir:${tmp_dir}/${app}
       fi
     fi
   done
