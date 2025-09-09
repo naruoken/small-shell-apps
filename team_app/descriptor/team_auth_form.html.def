@@ -3,7 +3,7 @@
     <meta charset="UTF-8" />
     <title>auth</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <link rel="stylesheet" href="./team_css">
+    <link rel="stylesheet" href="%%static_url/team.css">
   </head>
   <body>
     <div class="container">
@@ -45,8 +45,8 @@
       });
 
       // handle key
-      var dummyValue = '***************************'
-      var storedKey = localStorage.getItem("team_key_%%rand");
+      const dummyValue = '***************************'
+      const storedKey = localStorage.getItem("team_key_%%rand");
 
       window.onload = function() {
         if (storedKey !== null) {
@@ -69,13 +69,13 @@
       }
 
       function setKey() {
-        const newValue = document.getElementById("dummy").value; 
+        let newValue = document.getElementById("dummy").value; 
         if (newValue !== dummyValue) {
-          const dummyChkresult = dummyFormatChk(newValue);
+          let dummyChkresult = dummyFormatChk(newValue);
           if (dummyChkresult === false){
             let newKey = newValue.replace(/^[^:]+:/, '');
-            const decodedString = atob(newKey);
-            const keyChkresult = keyFormatChk(decodedString); 
+            let decodedString = atob(newKey);
+            let keyChkresult = keyFormatChk(decodedString); 
             if (keyChkresult === true){
               localStorage.setItem("team_key_%%rand", newKey);
               document.getElementById("team_key_%%rand").value = newKey;

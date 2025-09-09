@@ -69,7 +69,8 @@ fi
 
 for src in `ls ./descriptor | grep -v common_parts | xargs basename -a`
 do
-  cat ./descriptor/$src | $SED "s#%%rand#$rand#g" | $SED "s#%%base_url/#$base_url#g" > $cgi_dir/../descriptor/$src
+  cat ./descriptor/$src | $SED "s#%%rand#$rand#g" | $SED "s#%%base_url/#$base_url#g" \
+  | $SED "s#%%static_url/#${static_url}#g" > $cgi_dir/../descriptor/$src
   chmod 755 $cgi_dir/../descriptor/$src
 done
 
@@ -77,6 +78,11 @@ for src in `ls ./descriptor/common_parts | xargs basename -a`
 do
   cat ./descriptor/common_parts/$src | $SED "s/%%rand/$rand/g" > $cgi_dir/../descriptor/common_parts/$src
   chmod 755 $cgi_dir/../descriptor/common_parts/$src
+done
+
+for src in `ls ./lib`
+do
+  cat ./lib/$src > $static_dir/$src
 done
 
 # create authkey for inquiry form
