@@ -7,19 +7,19 @@ databox=drive
 . %%www/descriptor/.small_shell_conf
 
 # load query string param
-for param in `echo $@`
+for param in $(echo $@)
 do
 
   if [[ $param == session:* ]]; then
-    session=`echo $param | $AWK -F":" '{print $2}'`
+    session=$(echo $param | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == pin:* ]]; then
-    pin=`echo $param | $AWK -F":" '{print $2}'`
+    pin=$(echo $param | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == id:* ]]; then
-    id=`echo $param | $AWK -F":" '{print $2}'`
+    id=$(echo $param | $AWK -F":" '{print $2}')
   fi
 
 done
@@ -34,7 +34,7 @@ fi
 DATA_SHELL="${small_shell_path}/bin/DATA_shell session:$session pin:$pin app:team"
 
 # load filename
-filename=`$DATA_SHELL databox:$databox action:get key:file id:$id format:none app:team | $SED "s/file://g" | $AWK -F " #" '{print $1}'`
+filename=$($DATA_SHELL databox:$databox action:get key:file id:$id format:none app:team | $SED "s/file://g" | $AWK -F " #" '{print $1}')
 
 # -----------------
 # render contents
