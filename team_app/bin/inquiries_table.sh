@@ -15,23 +15,23 @@ for param in $(echo $@)
 do
 
   if [[ $param == session:* ]]; then
-    session=$(echo $param | $AWK -F":" '{print $2}')
+    session=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == pin:* ]]; then
-    pin=$(echo $param | $AWK -F":" '{print $2}')
+    pin=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == user_name:* ]]; then
-    user_name=$(echo $param | $AWK -F":" '{print $2}')
+    user_name=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == page:* ]]; then
-    page=$(echo $param | $AWK -F":" '{print $2}')
+    page=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == line:* ]]; then
-    line=$(echo $param | $AWK -F":" '{print $2}')
+    line=$(echo "$param" | $AWK -F":" '{print $2}')
     if [ "$line" ];then
       num_of_line_per_page=$line
     fi
@@ -39,7 +39,7 @@ do
 
   # filter can be input both query string and post
   if [[ $param == table_command:* ]]; then
-    table_command=$(echo $param | $AWK -F":" '{print $2}' | $SED "s/{%%space}/ /g")
+    table_command=$(echo "$param" | $AWK -F":" '{print $2}' | $SED "s/{%%space}/ /g")
   fi
 
 done
@@ -62,19 +62,19 @@ fi
 
 org_table_command=$table_command
 default_key_label=$($META get.label:$databox{all} | $SED "s/#ID,//g" | $AWK -F "," '{print $1}' | $SED "s/ /{%%space}/g")
-sort_chk=$(echo $table_command | grep -e "^sort " -e "^sort,")
-num_of_line_chk=$(echo $table_command | grep -ie "^#line:" -e " #line:")
+sort_chk=$(echo "$table_command" | grep -e "^sort " -e "^sort,")
+num_of_line_chk=$(echo "$table_command" | grep -ie "^#line:" -e " #line:")
 
 if [ "$num_of_line_chk" ];then
-  num_of_line_per_page=$(echo $table_command | awk -F ":" '{print $2}')
+  num_of_line_per_page=$(echo "$table_command" | awk -F ":" '{print $2}')
   placeholder="Executed $table_command. if you want to clear the table, please click -CLR"
-  table_command=$(echo $table_command | $SED -r "s/ #(.*):(.*)//g" | $SED -r "s/^#(.*):(.*)//g")
+  table_command=$(echo "$table_command" | $SED -r "s/ #(.*):(.*)//g" | $SED -r "s/^#(.*):(.*)//g")
 fi
 
 if [ "$sort_chk" ];then
-  table_command=$(echo $table_command | $SED "s/ /,/g")
-  sort_option=$(echo $table_command | cut -f 2 -d ",")
-  sort_label=$(echo $table_command  | cut -f 3- -d "," | $SED "s/,/{%%space}/g" \
+  table_command=$(echo "$table_command" | $SED "s/ /,/g")
+  sort_option=$(echo "$table_command" | cut -f 2 -d ",")
+  sort_label=$(echo "$table_command"  | cut -f 3- -d "," | $SED "s/,/{%%space}/g" \
   | $SED "s/#reverse{%%space}sort{%%space}with{%%space}numetric{%%space}sort//g" \
   | $SED "s/#nature{%%space}sort//g" | $SED "s/#numetric{%%space}sort//g" | $SED "s/#reverse{%%space}sort//g" \
   | $SED "s/{%%space}$//g")
@@ -94,8 +94,8 @@ if [ "$sort_chk" ];then
 
 else
   if [[ $table_command == *{*} ]]; then
-    filter_key=$(echo $table_command | $AWK -F "{" '{print $1}')
-    filter_word=$(echo $table_command | $AWK -F "{" '{print $2}' | $SED "s/}//g" \
+    filter_key=$(echo "$table_command" | $AWK -F "{" '{print $1}')
+    filter_word=$(echo "$table_command" | $AWK -F "{" '{print $2}' | $SED "s/}//g" \
     | $SED "s/%/{%%%%%%%%%%%%%%%%}/g"\
     | $SED "s/'/{%%%%%%%%%%%%%%%%%}/g" \
     | $SED "s/*/{%%%%%%%%%%%%%%%}/g" \
@@ -130,7 +130,7 @@ else
     fi
 
   else
-    filter_table=$(echo $table_command  \
+    filter_table=$(echo "$table_command"  \
     | $SED "s/%/{%%%%%%%%%%%%%%%%}/g"\
     | $SED "s/'/{%%%%%%%%%%%%%%%%%}/g" \
     | $SED "s/*/{%%%%%%%%%%%%%%%}/g" \

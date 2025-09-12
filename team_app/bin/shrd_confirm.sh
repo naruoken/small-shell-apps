@@ -12,23 +12,23 @@ for param in $(echo $@)
 do
 
   if [[ $param == remote_addr:* ]]; then
-    remote_addr=$(echo $param | $AWK -F":" '{print $2}')
+    remote_addr=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == session:* ]]; then
-    session=$(echo $param | $AWK -F":" '{print $2}')
+    session=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == pin:* ]]; then
-    pin=$(echo $param | $AWK -F":" '{print $2}')
+    pin=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == user_name:* ]]; then
-    user_name=$(echo $param | $AWK -F":" '{print $2}')
+    user_name=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == id:* ]]; then
-    id=$(echo $param | $AWK -F":" '{print $2}')
+    id=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
 done
@@ -49,7 +49,7 @@ else
   scope=$($DATA_SHELL databox:drive action:get key:share id:$id format:none | $SED "s/share://g")
   if [ "$scope" = "share to external" ];then
     filename_with_size=$($DATA_SHELL databox:$databox action:get key:file id:$id format:none | $SED "s/file://g")
-    filename=$(echo $filename_with_size | $AWK -F " #" '{print $1}')
+    filename=$(echo "$filename_with_size" | $AWK -F " #" '{print $1}')
   else
     error_chk=error
   fi

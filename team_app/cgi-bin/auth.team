@@ -22,7 +22,7 @@ if [ "$IP_whitelisting" = "yes" ];then
   if [ "$whitelist_chk" ];then
     for IP in $whitelist_chk
     do
-      IP=$(echo $IP | $SED "s/*//g")
+      IP=$(echo "$IP" | $SED "s/*//g")
       if [[ ${REMOTE_ADDR} == ${IP}* ]] ;then
         IP_chk=yes
         break
@@ -38,12 +38,12 @@ fi
 
 # load header
 if [ "$IP_persistence" = "yes" ];then
-  remote_addr=$(echo $REMOTE_ADDR | $SED "s/:/-/g")
+  remote_addr=$(echo "$REMOTE_ADDR" | $SED "s/:/-/g")
 else
-  logging_IP=$(echo $REMOTE_ADDR | $SED "s/:/-/g")
+  logging_IP=$(echo "$REMOTE_ADDR" | $SED "s/:/-/g")
 fi
 if [ "$User_agent_persistence" = "yes" ];then
-  user_agent=$(echo $HTTP_USER_AGENT | $SED "s/:/-/g" | $SED "s/ /_/g")
+  user_agent=$(echo "$HTTP_USER_AGENT" | $SED "s/:/-/g" | $SED "s/ /_/g")
 fi
 
 param=$(date +%s)
@@ -61,10 +61,10 @@ do
 done
 
 # parse QUERY STRING
-echo $QUERY_STRING | $PHP -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | $SED "s/\&/\n/g" > %%www/tmp/${param}
+echo "$QUERY_STRING" | $PHP -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | $SED "s/\&/\n/g" > %%www/tmp/${param}
 
 # parse POST param
-echo $input | $SED "s/\$(//g" | $SED "s/&/\n/g"  | $SED -r "s/team_key(.*)=/team_key=/g" \
+echo "$input" | $SED "s/\$(//g" | $SED "s/&/\n/g"  | $SED -r "s/team_key(.*)=/team_key=/g" \
 | $PHP -r "echo urldecode(file_get_contents('php://stdin'));"  >> %%www/tmp/${param}
 cat %%www/tmp/${param} | $SED -e "s/=/=\"/1" | $SED "s/$/\"/g" | $SED "s/^\"//g" | tr -d \$ | tr -d \` > %%www/tmp/${param}.load
 
@@ -77,8 +77,8 @@ rm  %%www/tmp/${param}*
 
 # For the access with initialize hashkey which contain in query string and create new user_key
 if [ "$initialize" ];then
-  user_id=$(echo $initialize | $AWK -F "," '{print $1}')
-  initialize_hash_key=$(echo $initialize |  $AWK -F "," '{print $2}')
+  user_id=$(echo "$initialize" | $AWK -F "," '{print $1}')
+  initialize_hash_key=$(echo "$initialize" |  $AWK -F "," '{print $2}')
 
   if [ "$master" ];then
     key_gen=$(ssh ${master} ${small_shell_path}/bin/extension_auth app:team initialize:${user_id}{${initialize_hash_key}} \
@@ -94,8 +94,8 @@ if [ "$initialize" ];then
     remote_addr:${remote_addr} logging_IP:${logging_IP})
   fi
 
-  user_name=$(echo $key_gen | $AWK -F "," '{print $1}' | $AWK -F ":" '{print $2}')
-  user_key=$(echo $key_gen | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}')
+  user_name=$(echo "$key_gen" | $AWK -F "," '{print $1}' | $AWK -F ":" '{print $2}')
+  user_key=$(echo "$key_gen" | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}')
   server=$(${small_shell_path}/bin/meta get.server)
 
   # render initialize button HTML
@@ -122,15 +122,15 @@ fi
 if [ ! "$team_key" ];then
   # regenerate  query string
   if [ "$req" ];then
-    req="?req=$(echo $req)"
+    req="?req=$(echo "$req")"
   fi
 
   if [ "$id" ];then
-    id="\&id=$(echo $id)"
+    id="\&id=$(echo "$id")"
   fi
 
   if [ "$message" ];then
-    message="<p><b>$(echo $message)<\/b><\/p>"
+    message="<p><b>$(echo "$message")<\/b><\/p>"
   fi
 
   # render standard login form with queyr string and messge
@@ -147,15 +147,15 @@ fi
 # Authentication
 if [ "$team_key" ];then
   if [[ $team_key == *:* ]]; then
-    authkey=$(echo $team_key | $AWK -F ":" '{print $2}')
+    authkey=$(echo "$team_key" | $AWK -F ":" '{print $2}')
   else
     authkey="$team_key"
   fi
   auth_req=$(${small_shell_path}/bin/extension_auth app:team key_auth:${authkey} remote_addr:${remote_addr} \
   user_agent:${user_agent} logging_IP:${logging_IP})
-  user_name=$(echo $auth_req | $AWK -F "," '{print $1}' | $AWK -F ":" '{print $2}')
-  session=$(echo $auth_req | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}')
-  pin=$(echo $auth_req | $AWK -F "," '{print $3}' | $AWK -F ":" '{print $2}')
+  user_name=$(echo "$auth_req" | $AWK -F "," '{print $1}' | $AWK -F ":" '{print $2}')
+  session=$(echo "$auth_req" | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}')
+  pin=$(echo "$auth_req" | $AWK -F "," '{print $3}' | $AWK -F ":" '{print $2}')
 
   if [ "$user_name" -a "$session" -a "$pin" ];then
 

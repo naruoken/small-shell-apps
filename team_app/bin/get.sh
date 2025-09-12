@@ -8,32 +8,32 @@ for param in $(echo $@)
 do
 
   if [[ $param == databox:* ]]; then
-    databox=$(echo $param | $AWK -F":" '{print $2}')
+    databox=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == session:* ]]; then
-    session=$(echo $param | $AWK -F":" '{print $2}')
+    session=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == pin:* ]]; then
-    pin=$(echo $param | $AWK -F":" '{print $2}')
+    pin=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == user_name:* ]]; then
-    user_name=$(echo $param | $AWK -F":" '{print $2}')
+    user_name=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == id:* ]]; then
-    id=$(echo $param | $AWK -F":" '{print $2}')
+    id=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == duplicate:* ]]; then
-    duplicate=$(echo $param | $AWK -F":" '{print $2}')
+    duplicate=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
   if [ "$master" ];then
     if [[ $param == redirect* ]];then
-      redirect=$(echo $param | $AWK -F":" '{print $2}')
+      redirect=$(echo "$param" | $AWK -F":" '{print $2}')
     fi
   fi
 
@@ -102,7 +102,7 @@ else
     if [ ! "$primary_key" = "$key" ];then
       data=$($DATA_SHELL databox:$databox \
       action:get id:$id key:$key format:html_tag)
-      file_chk=$(echo $data | grep "<div class=\"file_form\">" )
+      file_chk=$(echo "$data" | grep "<div class=\"file_form\">" )
 
       if [ ! "$file_chk" ];then
         echo "$data"  >> /var/www/tmp/${session}/dataset
@@ -150,7 +150,7 @@ fi
 
 # overwritten by markdown logic
 if [[ $databox == images.db && ! "$id" == "new" ]];then
-  app=$(echo $databox | $SED "s/.image//g")
+  app=$(echo "$databox" | $SED "s/.image//g")
   if [ "$permission" = "rw" ];then
     view="get_rw_incf_image.html.def"
   else

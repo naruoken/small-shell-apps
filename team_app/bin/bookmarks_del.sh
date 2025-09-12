@@ -11,23 +11,23 @@ for param in $(echo $@)
 do
 
   if [[ $param == databox:* ]]; then
-    databox=$(echo $param | $AWK -F":" '{print $2}')
+    databox=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == session:* ]]; then
-    session=$(echo $param | $AWK -F":" '{print $2}')
+    session=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == pin:* ]]; then
-    pin=$(echo $param | $AWK -F":" '{print $2}')
+    pin=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == user_name:* ]]; then
-    user_name=$(echo $param | $AWK -F":" '{print $2}')
+    user_name=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
   if [[ $param == id:* ]]; then
-    id=$(echo $param | $AWK -F":" '{print $2}')
+    id=$(echo "$param" | $AWK -F":" '{print $2}')
   fi
 
 done

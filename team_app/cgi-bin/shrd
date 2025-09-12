@@ -15,7 +15,7 @@ if [ "$IP_whitelisting" = "yes" ];then
   if [ "$whitelist_chk" ];then
     for IP in $whitelist_chk
     do
-      IP=$(echo $IP | $SED "s/*//g")
+      IP=$(echo "$IP" | $SED "s/*//g")
       if [[ ${REMOTE_ADDR} == ${IP}* ]];then
         IP_chk_flag=yes
         break
@@ -30,15 +30,15 @@ if [ "$IP_whitelisting" = "yes" ];then
 fi
 
 # load remote addr
-remote_addr=$(echo $REMOTE_ADDR | $SED "s/:/-/g")
+remote_addr=$(echo "$REMOTE_ADDR" | $SED "s/:/-/g")
 
 # auth for small-shell databox
 # use api key
 authkey="%%authkey"
 auth_req=$(${small_shell_path}/bin/auth key_auth:${authkey} remote_addr:${remote_addr})
-user_name=$(echo $auth_req | $AWK -F "," '{print $1}' | $AWK -F ":" '{print $2}')
-session=$(echo $auth_req | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}')
-pin=$(echo $auth_req | $AWK -F "," '{print $3}' | $AWK -F ":" '{print $2}')
+user_name=$(echo "$auth_req" | $AWK -F "," '{print $1}' | $AWK -F ":" '{print $2}')
+session=$(echo "$auth_req" | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}')
+pin=$(echo "$auth_req" | $AWK -F "," '{print $3}' | $AWK -F ":" '{print $2}')
 
 while [ -f %%www/tmp/${param} ]
 do
@@ -51,7 +51,7 @@ do
 done
 
 # parse QUERY_STRING
-echo $QUERY_STRING | $PHP -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | $SED "s/\&/\n/g" > %%www/tmp/${param}
+echo "$QUERY_STRING" | $PHP -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | $SED "s/\&/\n/g" > %%www/tmp/${param}
 cat %%www/tmp/${param} | $SED -e "s/=/=\"/1" | $SED "s/$/\"/g" | $SED "s/^\"//g" > %%www/tmp/${param}.load
 chmod 755 %%www/tmp/${param}.load
 

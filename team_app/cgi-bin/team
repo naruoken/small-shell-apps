@@ -14,12 +14,12 @@ User_agent_persistence="yes"
 
 # load header
 if [ "$IP_persistence" = "yes" ];then
-  remote_addr=$(echo $REMOTE_ADDR | $SED "s/:/-/g")
+  remote_addr=$(echo "$REMOTE_ADDR" | $SED "s/:/-/g")
 else
-  logging_IP=$(echo $REMOTE_ADDR | $SED "s/:/-/g")
+  logging_IP=$(echo "$REMOTE_ADDR" | $SED "s/:/-/g")
 fi
 if [ "$User_agent_persistence" = "yes" ];then
-  user_agent=$(echo $HTTP_USER_AGENT | $SED "s/:/-/g" | $SED "s/ /_/g")
+  user_agent=$(echo "$HTTP_USER_AGENT" | $SED "s/:/-/g" | $SED "s/ /_/g")
 fi
 
 auth=required
@@ -37,7 +37,7 @@ do
 done
 
 # parse QUERY_STRING
-echo $QUERY_STRING | $PHP -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | $SED "s/\&/\n/g" > %%www/tmp/${param}
+echo "$QUERY_STRING" | $PHP -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | $SED "s/\&/\n/g" > %%www/tmp/${param}
 cat %%www/tmp/${param} | $SED -e "s/=/=\"/1" | $SED "s/$/\"/g" | $SED "s/^\"//g" > %%www/tmp/${param}.load
 chmod 755 %%www/tmp/${param}.load
 
@@ -94,9 +94,9 @@ if [ "$auth" = "required" ];then
     get_session=$(${small_shell_path}/bin/extension_auth session_persist:${session} \
     pin:${pin} remote_addr:${remote_addr} user_agent:${user_agent} app:team logging_IP:${logging_IP})
 
-    user_name=$(echo $get_session | $AWK -F "," '{print $1}' | $AWK -F ":" '{print $2}')
-    session=$(echo $get_session | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}')
-    pin=$(echo $get_session | $AWK -F "," '{print $3}' | $AWK -F ":" '{print $2}')
+    user_name=$(echo "$get_session" | $AWK -F "," '{print $1}' | $AWK -F ":" '{print $2}')
+    session=$(echo "$get_session" | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}')
+    pin=$(echo "$get_session" | $AWK -F "," '{print $3}' | $AWK -F ":" '{print $2}')
 
     if [ ! "$user_name" -o ! "$session" -o ! "${pin}" ];then
       if [[ $req == *table ]];then
@@ -124,13 +124,13 @@ fi
 
 
 # parse POST data
-if [ "$(echo $REQUEST_METHOD | grep -i "POST")" ];then
+if [ "$(echo "$REQUEST_METHOD" | grep -i "POST")" ];then
 
-  if [ "$(echo $CONTENT_TYPE | grep "application/json")" ];then
+  if [ "$(echo "$CONTENT_TYPE" | grep "application/json")" ];then
     method=json
-  elif [ "$(echo $CONTENT_TYPE | grep "multipart/form-data")" ];then
+  elif [ "$(echo "$CONTENT_TYPE" | grep "multipart/form-data")" ];then
     method=multipart
-  elif [ "$(echo $CONTENT_TYPE | grep "application/octet-stream")" ];then
+  elif [ "$(echo "$CONTENT_TYPE" | grep "application/octet-stream")" ];then
     method=data-binary
   else
     method=urlenc
@@ -144,7 +144,7 @@ if [ "$(echo $REQUEST_METHOD | grep -i "POST")" ];then
 fi
 
 # put space to table_command
-table_command="$(echo $table_command | $SED "s/ /{%%space}/g")"
+table_command="$(echo "$table_command" | $SED "s/ /{%%space}/g")"
 
 #----------------------------
 # routing to action scripts
