@@ -123,29 +123,24 @@ if [ "$auth" = "required" ];then
 fi
 
 
-# parse POST data
-post_chk=$(echo "$REQUEST_METHOD" | grep -i "POST")
-if [ "$post_chk" ];then
+# dump POST data
+if [ "$(echo "$REQUEST_METHOD" | grep -i "POST")" ];then
   
-  json_chk=$(echo "$CONTENT_TYPE" | grep "application/json")
-  multipart_chk=$(echo "$CONTENT_TYPE" | grep "multipart/form-data")
-  binary_chk=$(echo "$CONTENT_TYPE" | grep "application/octet-stream")
-
-  if [ "$json_chk" ];then
+  if [ "$(echo "$CONTENT_TYPE" | grep "application/json")" ];then
     method=json
-  elif [ "$multipart_chk" ];then
+  elif [ "$(echo "$CONTENT_TYPE" | grep "multipart/form-data")" ];then
     method=multipart
-  elif [ "$binary_chk" ];then
+  elif [ "$(echo "$CONTENT_TYPE" | grep "application/octet-stream")" ];then
     method=data-binary
   else
     method=urlenc
   fi
-
+ 
   mkdir %%www/tmp/${session}
   # dump posted data
   dd bs=${CONTENT_LENGTH} of=%%www/tmp/${session}/input 2>/dev/null
   %%www/bin/parse.sh $session $method
-
+ 
 fi
 
 # put space to table_command
