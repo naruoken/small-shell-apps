@@ -124,13 +124,18 @@ fi
 
 
 # parse POST data
-if [ "$(echo "$REQUEST_METHOD" | grep -i "POST")" ];then
+post_chk=$(echo "$REQUEST_METHOD" | grep -i "POST")
+if [ "$post_chk" ];then
+  
+  json_chk=$(echo "$CONTENT_TYPE" | grep "application/json")
+  multipart_chk=$(echo "$CONTENT_TYPE" | grep "multipart/form-data")
+  binary_chk=$(echo "$CONTENT_TYPE" | grep "application/octet-stream")
 
-  if [ "$(echo "$CONTENT_TYPE" | grep "application/json")" ];then
+  if [ "$json_chk" ];then
     method=json
-  elif [ "$(echo "$CONTENT_TYPE" | grep "multipart/form-data")" ];then
+  elif [ "$multipart_chk" ];then
     method=multipart
-  elif [ "$(echo "$CONTENT_TYPE" | grep "application/octet-stream")" ];then
+  elif [ "$binary_chk" ];then
     method=data-binary
   else
     method=urlenc
