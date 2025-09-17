@@ -23,15 +23,6 @@ if [ ! -d $ROOT ];then
   exit 1
 fi
 
-echo -n "Do you want to enable IP whitelisting for this APP ? (yes | no): "
-read IP_whitelisting
-while [ ! "$IP_whitelisting" = "yes" -a ! "$IP_whitelisting" = "no" ]
-do 
-  echo "please input yes or no"
-  echo -n "Do you want to enable IP whitelisting ? (yes | no): "
-  read IP_whitelisting
-done
-
 # loal global conf
 . ${ROOT}/global.conf
 
@@ -59,25 +50,25 @@ do
   chmod 755 ${www}/bin/${src}
 done
 
-if [ -f ${cgi_dir}/../descriptor/.team.rand ];then
-  . ${cgi_dir}/../descriptor/.team.rand
+if [ -f ${cgi_dir}/../def/.team.rand ];then
+  . ${cgi_dir}/../def/.team.rand
 else
   rand=$RANDOM
-  echo "rand=$rand" > ${cgi_dir}/../descriptor/.team.rand
-  chmod 755 ${cgi_dir}/../descriptor/.team.rand
+  echo "rand=$rand" > ${cgi_dir}/../def/.team.rand
+  chmod 755 ${cgi_dir}/../def/.team.rand
 fi
 
-for src in $(ls ./descriptor | grep -v common_parts | xargs basename -a)
+for src in $(ls ./def | grep -v common_parts | xargs basename -a)
 do
-  cat ./descriptor/${src} | $SED "s#%%rand#${rand}#g" | $SED "s#%%base_url/#${base_url}#g" \
-  | $SED "s#%%static_url/#${static_url}#g" > ${cgi_dir}/../descriptor/${src}
-  chmod 755 ${cgi_dir}/../descriptor/${src}
+  cat ./def/${src} | $SED "s#%%rand#${rand}#g" | $SED "s#%%base_url/#${base_url}#g" \
+  | $SED "s#%%static_url/#${static_url}#g" > ${cgi_dir}/../def/${src}
+  chmod 755 ${cgi_dir}/../def/${src}
 done
 
-for src in $(ls ./descriptor/common_parts | xargs basename -a)
+for src in $(ls ./def/common_parts | xargs basename -a)
 do
-  cat ./descriptor/common_parts/${src} | $SED "s/%%rand/${rand}/g" > ${cgi_dir}/../descriptor/common_parts/${src}
-  chmod 755 ${cgi_dir}/../descriptor/common_parts/${src}
+  cat ./def/common_parts/${src} | $SED "s/%%rand/${rand}/g" > ${cgi_dir}/../def/common_parts/${src}
+  chmod 755 ${cgi_dir}/../def/common_parts/${src}
 done
 
 for src in $(ls ./lib)
@@ -116,7 +107,7 @@ cat ./cgi-bin/inquiry | $SED "s#%%www#${www}#g" | $SED "s/%%authkey/${authkey}/g
 | $SED "s/%%IP_whitelisting/${IP_whitelisting}/g" >  ${cgi_dir}/inquiry
 
 # create databox
-for src in $(ls ./def | xargs basename -a)
+for src in $(ls ./def | grep db.def | xargs basename -a)
 do
   ${ROOT}/util/scripts/bat_gen.sh ./def/${src} 
 done
@@ -135,13 +126,13 @@ echo "--------------------------------------------------------------------------
 if [ ! -d ${www}/html/team ];then
   mkdir ${www}/html/team
 fi
-cat ${ROOT}/web/src/descriptor/redirect.html.def | $SED "s#%%APPURL#${base_url}auth.team#g" > ${www}/html/team/index.html
+cat ${ROOT}/web/src/def/redirect.html.def | $SED "s#%%APPURL#${base_url}auth.team#g" > ${www}/html/team/index.html
 chmod 755 ${www}/html/team/index.html
 
 if [ ! -d ${www}/html/inquiry ];then
   mkdir ${www}/html/inquiry
 fi
-cat ${ROOT}/web/src/descriptor/redirect.html.def | $SED "s#%%APPURL#${base_url}inquiry#g" > ${www}/html/inquiry/index.html
+cat ${ROOT}/web/src/def/redirect.html.def | $SED "s#%%APPURL#${base_url}inquiry#g" > ${www}/html/inquiry/index.html
 chmod 755 ${www}/html/inquiry/index.html
 
 exit 0

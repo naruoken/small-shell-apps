@@ -1,0 +1,46 @@
+#---------------------------------------------------------------
+# db definition
+#---------------------------------------------------------------
+
+# databox
+databox="announcements"
+
+# col1
+#-------------------------------------------
+primary_key="hashid"
+primary_key_label=""
+#-------------------------------------------
+
++addcol
+# col2
+#-------------------------------------------
+col2_key_name="subject"
+col2_key_label="Subject"
+col2_type="text"
+
+# only for select, radio
+col2_key_params=""
+
+# only for pdls
+col2_primary_databox=""
+
+# required
+col2_required="yes"
+#-------------------------------------------
+
++addcol
+# col3
+#-------------------------------------------
+col3_key_name="contents"
+col3_key_label="Contents"
+col3_type="textarea"
+
+# only for select, radio
+col3_key_params=""
+
+# only for pdls
+col3_primary_databox=""
+
+# required option
+col3_required="yes"
+#-------------------------------------------

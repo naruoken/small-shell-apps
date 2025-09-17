@@ -4,7 +4,7 @@
 databox=inquiries
 
 # load small-shell conf
-. %%www/descriptor/.small_shell_conf
+. %%www/def/.small_shell_conf
 
 # load query string param
 for param in $(echo $@)
@@ -79,8 +79,8 @@ fi
 error_chk=$(grep "^error" %%www/tmp/${session}/result)
 
 if [ "$error_chk" ];then
-  cat %%www/descriptor/inquiries_set_err.html.def | $SED -r "s/^( *)</</1" \
-  | $SED "/%%common_menu/r %%www/descriptor/common_parts/team_common_menu" \
+  cat %%www/def/inquiries_set_err.html.def | $SED -r "s/^( *)</</1" \
+  | $SED "/%%common_menu/r %%www/def/common_parts/team_common_menu" \
   | $SED "s/%%common_menu//g"\
   | $SED "s/%%user/${user_name}/g"\
   | $SED "/%%message/r %%www/tmp/${session}/result" \

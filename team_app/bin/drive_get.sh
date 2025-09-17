@@ -5,7 +5,7 @@ databox=drive
 keys=all
 
 # load small-shell conf
-. %%www/descriptor/.small_shell_conf
+. %%www/def/.small_shell_conf
 
 # load query string param
 for param in $(echo $@)
@@ -119,8 +119,8 @@ else
 fi
 
 # render HTML
-cat %%www/descriptor/${view} | $SED -r "s/^( *)</</1" \
-| $SED "/%%common_menu/r %%www/descriptor/common_parts/team_common_menu" \
+cat %%www/def/${view} | $SED -r "s/^( *)</</1" \
+| $SED "/%%common_menu/r %%www/def/common_parts/team_common_menu" \
 | $SED "/%%common_menu/d" \
 | $SED "s/%%user/${user_name}/g"\
 | $SED "/%%dataset/r %%www/tmp/${session}/dataset" \

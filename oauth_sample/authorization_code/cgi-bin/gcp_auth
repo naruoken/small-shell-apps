@@ -18,7 +18,7 @@ echo "Content-Type: text/html"
 echo ""
 
 # load small-shell conf
-. ../descriptor/.small_shell_conf
+. ../def/.small_shell_conf
 
 # load header
 if [ "$IP_persistence" = "yes" ];then
@@ -100,10 +100,10 @@ if [ ! "$code" ];then
   fi
 
   # render standard login form with queyr string and messge
-  cat ../descriptor/oauth_test_auth_form.html.def | $SED "s/^ *</</g"\
-  | $SED "/%%auth_form_menu/r ../descriptor/common_parts/oauth_test_auth_form_menu" \
+  cat ../def/oauth_test_auth_form.html.def | $SED "s/^ *</</g"\
+  | $SED "/%%auth_form_menu/r ../def/common_parts/oauth_test_auth_form_menu" \
   | $SED "s/%%auth_form_menu//g"\
-  | $SED "/%%footer/r ../descriptor/common_parts/oauth_test_footer" \
+  | $SED "/%%footer/r ../def/common_parts/oauth_test_footer" \
   | $SED "/%%footer/d"\
   | $SED "s/%%message/${message}/g" \
   | $SED "s/?%%params/${req}${id}/g"

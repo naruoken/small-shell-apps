@@ -10,7 +10,7 @@ IP_persistence="no"
 User_agent_persistence="yes"
 
 # load small-shell params
-. %%www/descriptor/.small_shell_conf
+. %%www/def/.small_shell_conf
 
 # load header
 if [ "$IP_persistence" = "yes" ];then

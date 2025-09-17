@@ -1,0 +1,64 @@
+#---------------------------------------------------------------
+# db definition
+#---------------------------------------------------------------
+
+# databox
+databox="bookmarks"
+
+# col1
+#-------------------------------------------
+primary_key="hashid"
+primary_key_label=""
+#-------------------------------------------
+
++addcol
+# col2
+#-------------------------------------------
+col2_key_name="name"
+col2_key_label="Site Name"
+col2_type="text"
+
+# only for select, radio
+col2_key_params=""
+
+# only for pdls
+col2_primary_databox=""
+
+# required
+col2_required="yes"
+#-------------------------------------------
+
++addcol
+# col3
+#-------------------------------------------
+col3_key_name="url"
+col3_key_label="URL"
+col3_type="url"
+
+# only for select, radio
+col3_key_params=""
+
+# only for pdls
+col3_primary_databox=""
+
+# required option
+col3_required="yes"
+#-------------------------------------------
+
++addcol
+# col4
+#-------------------------------------------
+col4_key_name="description"
+col4_key_label="Description"
+col4_type="text"
+
+# only for select, radio
+col4_key_params=""
+
+# only for pdls
+col4_primary_databox=""
+
+# required option
+col4_required="no"
+#-------------------------------------------
+

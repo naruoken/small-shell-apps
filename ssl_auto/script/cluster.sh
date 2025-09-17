@@ -134,7 +134,7 @@ cat $ROOT/web/base | $SED "s/\"http\"/\"https\"/g" | $SED "s/http:/https:/g" | g
 echo "reverse_proxy=\"yes\"" >> $ROOT/web/.base
 cat $ROOT/web/.base > $ROOT/web/base
 
-# update descriptors
+# update html def
 new_static_url=`echo $static_url | $SED "s/http:/https:/g"`
 grep -rl ${static_url} $www  > .list.tmp
 while read line

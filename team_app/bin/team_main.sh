@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # load small-shell conf
-. %%www/descriptor/.small_shell_conf
+. %%www/def/.small_shell_conf
 
 # load query string param
 for param in $(echo $@)
@@ -79,10 +79,10 @@ $JQ -s add %%www/tmp/${session}/events %%www/tmp/${session}/tasks > %%www/tmp/${
 # render HTML
 # -----------------
 
-cat %%www/descriptor/team_main.html.def | $SED -r "s/^( *)</</1" \
-| $SED "/%%common_menu/r %%www/descriptor/common_parts/team_common_menu" \
+cat %%www/def/team_main.html.def | $SED -r "s/^( *)</</1" \
+| $SED "/%%common_menu/r %%www/def/common_parts/team_common_menu" \
 | $SED "s/%%common_menu//g"\
-| $SED "/%%team_main_menu/r %%www/descriptor/common_parts/team_main_menu_${permission}" \
+| $SED "/%%team_main_menu/r %%www/def/common_parts/team_main_menu_${permission}" \
 | $SED "s/%%team_main_menu//g"\
 | $SED "s/%%user/${user_name}/g" \
 | $SED "/%%json/r %%www/tmp/${session}/merged_events"\

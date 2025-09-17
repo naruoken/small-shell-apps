@@ -5,7 +5,7 @@ databox=drive
 keys=all
 
 # load small-shell conf
-. %%www/descriptor/.small_shell_conf
+. %%www/def/.small_shell_conf
 
 # load query string param
 for param in $(echo $@)
@@ -63,7 +63,7 @@ else
 fi
 
 # render HTML
-cat %%www/descriptor/${view} | $SED -r "s/^( *)</</1" \
+cat %%www/def/${view} | $SED -r "s/^( *)</</1" \
 | $SED "s/%%remote_addr/${remote_addr}/g" \
 | $SED "s/%%filename_with_size/${filename_with_size}/g" \
 | $SED "s/%%filename/${filename}/g" \

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # load small-shell conf
-. %%www/descriptor/.small_shell_conf
+. %%www/def/.small_shell_conf
 
 # load query string param
 for param in $(echo $@)
@@ -69,17 +69,17 @@ error_chk=$(cat %%www/tmp/${session}/dataset | grep "^error:")
 
 # render HTML
 if [ "$error_chk" ];then
-  cat %%www/descriptor/inquiry_get_err.html.def | $SED -r "s/^( *)</</1" \
+  cat %%www/def/inquiry_get_err.html.def | $SED -r "s/^( *)</</1" \
   | $SED "s/%%id/${id}/g" \
   | $SED "s/%%params/session=${session}\&pin=${pin}/g"
 elif [ "$id" = "new" ];then
-  cat %%www/descriptor/inquiry_get_new.html.def | $SED -r "s/^( *)</</1" \
+  cat %%www/def/inquiry_get_new.html.def | $SED -r "s/^( *)</</1" \
   | $SED "/%%dataset/r %%www/tmp/${session}/dataset" \
   | $SED "s/%%dataset//g"\
   | $SED "s/%%id/${id}/g" \
   | $SED "s/%%params/session=${session}\&pin=${pin}/g"
 else
-  cat %%www/descriptor/inquiry_get.html.def | $SED -r "s/^( *)</</1" \
+  cat %%www/def/inquiry_get.html.def | $SED -r "s/^( *)</</1" \
   | $SED "/%%dataset/r %%www/tmp/${session}/dataset" \
   | $SED "s/%%dataset//g"\
   | $SED "/%%history/r %%www/tmp/${session}/history" \

@@ -3,38 +3,15 @@
 # set persistence option
 IP_persistence="no"
 User_agent_persistence="yes"
-IP_whitelisting=%%IP_whitelisting
 
 #read posted param
 input=$(dd bs=${CONTENT_LENGTH} 2>/dev/null | cat -)
 
 # load small-shell conf
-. %%www/descriptor/.small_shell_conf
+. %%www/def/.small_shell_conf
 
 echo "Content-Type: text/html"
 echo ""
-
-
-# IP restriction check
-if [ "$IP_whitelisting" = "yes" ];then
-
-  whitelist_chk=$(${small_shell_path}/bin/meta get.IP | grep -v "NO IP RESTRICTION")
-  if [ "$whitelist_chk" ];then
-    for IP in $whitelist_chk
-    do
-      IP=$(echo "$IP" | $SED "s/*//g")
-      if [[ ${REMOTE_ADDR} == ${IP}* ]] ;then
-        IP_chk=yes
-        break
-      fi
-    done
-
-    if [ ! "$IP_chk" = "yes" ];then
-      echo "error: your IP is not allowed to access"
-      exit 1
-    fi
-  fi
-fi
 
 # load header
 if [ "$IP_persistence" = "yes" ];then
@@ -64,7 +41,7 @@ done
 echo "$QUERY_STRING" | $PHP -r "echo urldecode(file_get_contents('php://stdin'));" | tr -d \$ | tr -d \` | $SED "s/\&/\n/g" > %%www/tmp/${param}
 
 # parse POST param
-echo "$input" | $SED "s/\$(//g" | $SED "s/&/\n/g"  | $SED -r "s/team_key(.*)=/team_key=/g" \
+echo "$input" | $SED "s/\$(//g" | $SED "s/&/\n/g"  | $SED -r "s/team_authkey(.*)=/received_key=/g" \
 | $PHP -r "echo urldecode(file_get_contents('php://stdin'));"  >> %%www/tmp/${param}
 cat %%www/tmp/${param} | $SED -e "s/=/=\"/1" | $SED "s/$/\"/g" | $SED "s/^\"//g" | tr -d \$ | tr -d \` > %%www/tmp/${param}.load
 
@@ -85,7 +62,7 @@ if [ "$initialize" ];then
     remote_addr:${remote_addr} logging_IP:${logging_IP})
     if [ $? -eq 255 ];then
       message="Master server failed. please contact to WEB admin"
-      cat %%www/descriptor/key_initialize_err.html.def \
+      cat %%www/def/key_initialize_err.html.def \
       | $SED "s/%%message/${message}/g"
       exit 1
     fi
@@ -103,7 +80,7 @@ if [ "$initialize" ];then
     if [ ! "$remote_addr" ];then
       remote_addr=$logging_IP
     fi
-    cat %%www/descriptor/team_auth_initialize.html.def | $SED -r "s/^( *)</</1" \
+    cat %%www/def/team_auth_initialize.html.def | $SED -r "s/^( *)</</1" \
     | $SED "s/%%IP/${remote_addr}/g" \
     | $SED "s/%%user_name/${user_name}/g" \
     | $SED "s/%%user_key/${user_key}/g" \
@@ -111,7 +88,7 @@ if [ "$initialize" ];then
     exit 0
   else
     message="error: Your initialize URL should be wrong or expired"
-    cat %%www/descriptor/key_initialize_err.html.def \
+    cat %%www/def/key_initialize_err.html.def \
     | $SED "s/%%message/${message}/g"
     rm -rf %%www/tmp/${timestamp}
     exit 1
@@ -119,7 +96,7 @@ if [ "$initialize" ];then
 fi
 
 # Render auth form html
-if [ ! "$team_key" ];then
+if [ ! "$received_key" ];then
   # regenerate  query string
   if [ "$req" ];then
     req="?req=$(echo "$req")"
@@ -134,10 +111,10 @@ if [ ! "$team_key" ];then
   fi
 
   # render standard login form with queyr string and messge
-  cat %%www/descriptor/team_auth_form.html.def | $SED -r "s/^( *)</</1" \
-  | $SED "/%%auth_form_menu/r %%www/descriptor/common_parts/team_auth_form_menu" \
+  cat %%www/def/team_auth_form.html.def | $SED -r "s/^( *)</</1" \
+  | $SED "/%%auth_form_menu/r %%www/def/common_parts/team_auth_form_menu" \
   | $SED "s/%%auth_form_menu//g"\
-  | $SED "/%%footer/r %%www/descriptor/common_parts/team_footer" \
+  | $SED "/%%footer/r %%www/def/common_parts/team_footer" \
   | $SED "/%%footer/d"\
   | $SED "s/%%message/${message}/g" \
   | $SED "s/?%%params/${req}${page}${id}/g"
@@ -145,11 +122,11 @@ if [ ! "$team_key" ];then
 fi
 
 # Authentication
-if [ "$team_key" ];then
-  if [[ $team_key == *:* ]]; then
-    authkey=$(echo "$team_key" | $AWK -F ":" '{print $2}')
+if [ "$received_key" ];then
+  if [[ $received_key == *:* ]]; then
+    authkey=$(echo "$received_key" | $AWK -F ":" '{print $2}')
   else
-    authkey="$team_key"
+    authkey=$received_key
   fi
   auth_req=$(${small_shell_path}/bin/extension_auth app:team key_auth:${authkey} remote_addr:${remote_addr} \
   user_agent:${user_agent} logging_IP:${logging_IP})
@@ -174,11 +151,11 @@ if [ "$team_key" ];then
 
   else
     # render standard login form with error message
-    cat %%www/descriptor/team_auth_form.html.def | $SED -r "s/^( *)</</1" \
-    | $SED "s/%%message/<p><b>! Key is wrong, please try again<\/b><\/p>/g" \
-    | $SED "/%%auth_form_menu/r %%www/descriptor/common_parts/team_auth_form_menu" \
+    cat %%www/def/team_auth_form.html.def | $SED -r "s/^( *)</</1" \
+    | $SED "s/%%message/<p id=\"message\"><b>! Key is wrong, please try again<\/b><\/p>/g" \
+    | $SED "/%%auth_form_menu/r %%www/def/common_parts/team_auth_form_menu" \
     | $SED "s/%%auth_form_menu//g"\
-    | $SED "/%%footer/r %%www/descriptor/common_parts/footer" \
+    | $SED "/%%footer/r %%www/def/common_parts/footer" \
     | $SED "/%%footer/d"\
     | $SED "s/?%%params//g"
     exit 1

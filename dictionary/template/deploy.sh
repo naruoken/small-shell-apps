@@ -37,7 +37,7 @@ do
   org="`echo $line | $AWK -F"{%%%%%%}" '{print $1}'`"
   new="`echo $line | $AWK -F"{%%%%%%}" '{print $2}'`"
 
-  for dir in descriptor bin cgi-bin
+  for dir in def bin cgi-bin
   do
     grep -rl "${org}" $ROOT/web/src/$dir > .list.tmp
     while read target
@@ -54,7 +54,7 @@ do
   org="`echo $line | $AWK -F"{%%%%%%}" '{print $1}'`"
   new="`echo $line | $AWK -F"{%%%%%%}" '{print $2}'`"
 
-  for dir in descriptor bin cgi-bin
+  for dir in def bin cgi-bin
   do
     grep -rl "${org}" $www/$dir > .list.tmp
     while read target
@@ -92,10 +92,10 @@ if [ "$logout" ];then
   cat .target.new > $ROOT/adm/gen
 fi
 
-scratch_APP_chk=`ls ${www}/descriptor/common_parts/*_common_menu* 2>/dev/null`
+scratch_APP_chk=`ls ${www}/def/common_parts/*_common_menu* 2>/dev/null`
 
 if [ "$scratch_APP_chk" ];then
-  for target in `ls ${www}/descriptor/common_parts/*_common_menu* | grep -v .org$ | xargs basename -a`
+  for target in `ls ${www}/def/common_parts/*_common_menu* | grep -v .org$ | xargs basename -a`
   do
     app=`echo "${target}" | $AWK -F "_common_menu" '{print $1}'`
     chk_team=`grep "# controller for Scratch APP #team" ${cgi_dir}/${app}`
@@ -124,13 +124,13 @@ if [ "$scratch_APP_chk" ];then
 
   # update team
   if [ -d ./team -a -f ${www}/cgi-bin/team ];then
-    rand=`grep team_key ${www}/descriptor/common_parts/team_common_menu  | $AWK -F "team_key_" '{print $2}'| $AWK -F "\"" '{print $1}'`
-    cat ./team/descriptor/common_parts/team_common_menu | $SED "s/%%rand/${rand}/g" > ${www}/descriptor/common_parts/team_common_menu
+    rand=`grep team_key ${www}/def/common_parts/team_common_menu  | $AWK -F "team_key_" '{print $2}'| $AWK -F "\"" '{print $1}'`
+    cat ./team/def/common_parts/team_common_menu | $SED "s/%%rand/${rand}/g" > ${www}/def/common_parts/team_common_menu
 
-    if [ -d ./team/descriptor ];then
-      for target in `ls ./team/descriptor | xargs basename -a | grep -v common_parts`
+    if [ -d ./team/def ];then
+      for target in `ls ./team/def | xargs basename -a | grep -v common_parts`
       do
-        cat ./team/descriptor/${target} | $SED "s#%%www#${www}#g" > ${www}/descriptor/${target}
+        cat ./team/def/${target} | $SED "s#%%www#${www}#g" > ${www}/def/${target}
       done
     fi
 

@@ -14,7 +14,7 @@
           <h1>Team APP</h1>
           <div class="wrapper">
             <input type="text" id="dummy" name="dummy" placeholder="Your Key" autocomplete="off" required>
-            <input type="hidden" id="team_key_%%rand" name="team_key_%%rand">
+            <input type="hidden" id="team_authkey_%%rand" name="team_authkey_%%rand">
             <datalist id="keylist">
             </datalist>
             <button class="button" type="submit" onclick="setKey()">LOGIN</button>
@@ -26,33 +26,20 @@
 
     <script>
 
-      // handle menu
-      const btn = document.querySelector('.even-btn');
-      const nav = document.querySelector('nav');
+     // handle key
+      const dummyValue = '***************************';
+      const storedKey = localStorage.getItem("team_authkey_%%rand");
+      let initValue = 'no';
 
-      document.addEventListener('click', (e) => {
-        if(e.target.closest('.even-btn')) {
-          nav.classList.toggle('open-menu')
-          if (btn.innerHTML === '=') {
-            btn.innerHTML = '-';
-          } else {
-            btn.innerHTML = '=';
-          }
-        }else{
-          nav.classList.remove('open-menu')
-          btn.innerHTML = '=';
-        }
-      });
-
-      // handle key
-      const dummyValue = '***************************'
-      const storedKey = localStorage.getItem("team_key_%%rand");
+      if ( storedKey !== null ){
+        initValue = 'yes';
+      }
 
       window.onload = function() {
         if (storedKey !== null) {
           document.getElementById("dummy").value = dummyValue;
-          document.getElementById("team_key_%%rand").value = storedKey;
-        }
+          document.getElementById("team_authkey_%%rand").value = storedKey;
+         }
       }
 
       function dummyFormatChk(str) {
@@ -63,28 +50,38 @@
         return /^[^:]+:[^:]+$/.test(str);
       }
 
-      function keyAlert(str) {
-        alert('key value is changed, please reload this page');
-        document.getElementById("dummy").value = '';
-      }
-
+      function keyAlert() {
+        if ( initValue == 'yes' ) {
+          let errMessage = document.getElementById("message"); 
+          if ( errMessage == null ){
+            alert('key value is changed, please reload this page');
+            document.getElementById("dummy").value = '';
+          } else {
+            alert('key format is wrong');
+            document.getElementById("dummy").value = '';
+          }
+        } else {
+          alert('key format is wrong');
+        }
+      }   
+          
       function setKey() {
-        let newValue = document.getElementById("dummy").value; 
-        if (newValue !== dummyValue) {
+        let newValue = document.getElementById("dummy").value;
+        if (newValue !== dummyValue ) {
           let dummyChkresult = dummyFormatChk(newValue);
-          if (dummyChkresult === false){
+          if (dummyChkresult === false){ 
             let newKey = newValue.replace(/^[^:]+:/, '');
             let decodedString = atob(newKey);
             let keyChkresult = keyFormatChk(decodedString); 
             if (keyChkresult === true){
-              localStorage.setItem("team_key_%%rand", newKey);
-              document.getElementById("team_key_%%rand").value = newKey;
+              localStorage.setItem("team_authkey_%%rand", newKey);
+              document.getElementById("team_authkey_%%rand").value = newKey;
             } else {
                keyAlert();
-            }
+            }  
           } else {
              keyAlert();
-          }
+          } 
         } 
       }
 
