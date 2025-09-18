@@ -39,14 +39,14 @@ for src in $(ls ./cgi-bin | xargs basename -a)
 do
   cat ./cgi-bin/${src} | $SED "s#%%www#${www}#g" | $SED "s#%%authkey#${api_authkey}#g" \
   | $SED "s/%%IP_whitelisting/${IP_whitelisting}/g" > ${cgi_dir}/${src}
-  chown $cgiusr:$cgiusr ${cgi_dir}/${src}
+  chown ${cgi_usr}:${cgi_usr} ${cgi_dir}/${src}
   chmod 700 ${cgi_dir}/${src}
 done
 
 for src in $(ls ./bin | xargs basename -a)
 do
   cat ./bin/${src} | $SED "s#%%www#${www}#g" > ${www}/bin/${src}
-  chown $cgiusr:$cgiusr ${www}/bin/${src}
+  chown ${cgi_usr}:${cgi_usr} ${www}/bin/${src}
   chmod 755 ${www}/bin/${src}
 done
 
