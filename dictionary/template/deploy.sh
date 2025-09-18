@@ -130,7 +130,7 @@ if [ "$scratch_APP_chk" ];then
     if [ -d ./team/def ];then
       for target in `ls ./team/def | xargs basename -a | grep -v common_parts`
       do
-        cat ./team/def/${target} | $SED "s#%%www#${www}#g" > ${www}/def/${target}
+        cat ./team/def/${target} | $SED "s#%%www#${www}#g" | $SED "s#%%static_url/#${static_url}#g" > ${www}/def/${target}
       done
     fi
 
