@@ -43,10 +43,14 @@ vi ./def/${provider}_oauth_form.html.def
 #-------------------------------------------------
 
 # DEPLOY
-authkey=`grep authkey= /usr/lib/cgi-bin/auth.$app | $SED "s/authkey=\"//g" | $SED "s/\"//g"`
+authkey=$(grep authkey= /var/www/cgi-bin/auth.$app | sed "s/authkey=\"//g" | sed "s/\"//g")
 echo $authkey
-cat ./cgi-bin/${provider}_auth | $SED "s/%%authkey/$authkey/g" > /usr/lib/cgi-bin/auth.$app
-cat ./def/${provider}_oauth_form.html.def > /var/www/def/${app}_auth_form.html.def
+cat ./cgi-bin/${provider}_auth | sed "s/%%authkey/${authkey}/g" | sed "s/%%app/${app}/g" > .auth.$app
+sudo cp .auth.$app /var/www/cgi-bin/auth.$app
+. /usr/local/small-shell/web/base 
+cat ./def/${provider}_oauth_form.html.def | sed "s#%%static_url/#$static_url#g" | sed "s/%%app/${app}/g" > .${app}_auth_form.html.def
+sudo cp .${app}_auth_form.html.def /var/www/def/${app}_auth_form.html.def
+sudo chmod 755 /var/www/cgi-bin/auth.$app
 
 Then you can try to connect the APP.
 https://XXXX/cgi-bin/auth.$app
