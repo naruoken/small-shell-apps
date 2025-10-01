@@ -3,13 +3,13 @@
         <meta charset="UTF-8" />
         <title>auth</title>
         <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-        <link rel="stylesheet" href="../oauth_test.css">
+        <link rel="stylesheet" href="%%static_url/%%app.css">
     </head>
     <body>
     <div class="container">
       <div class="auth-container">
       <div class="auth-form">
-      <h1>Oauth_test</h1>
+      <h1>%%app</h1>
       <div class="wrapper">
         <p>Please step in to the APP through Enter button</p>
         <button onclick="oauth2SignIn();">Enter</button>

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # set persistence option
-IP_persistence="yes"
+IP_persistence="no"
 User_agent_persistence="yes"
 
 #read posted param 
@@ -22,10 +22,12 @@ echo ""
 
 # load header
 if [ "$IP_persistence" = "yes" ];then
-  remote_addr=`echo $REMOTE_ADDR | $SED "s/:/-/g"`
+  remote_addr=$(echo "$REMOTE_ADDR" | $SED "s/:/-/g")
+else
+  logging_IP=$(echo "$REMOTE_ADDR" | $SED "s/:/-/g")
 fi
 if [ "$User_agent_persistence" = "yes" ];then
-  user_agent=`echo $HTTP_USER_AGENT | $SED "s/:/-/g" | $SED "s/ /_/g"`
+  user_agent=$(echo "$HTTP_USER_AGENT" | $SED "s/:/-/g" | $SED "s/ /_/g")
 fi
 
 # IP restriction check
@@ -100,10 +102,10 @@ if [ ! "$code" ];then
   fi
 
   # render standard login form with queyr string and messge
-  cat ../def/oauth_test_auth_form.html.def | $SED "s/^ *</</g"\
-  | $SED "/%%auth_form_menu/r ../def/common_parts/oauth_test_auth_form_menu" \
+  cat ../def/%%app_auth_form.html.def | $SED "s/^ *</</g"\
+  | $SED "/%%auth_form_menu/r ../def/common_parts/%%app_auth_form_menu" \
   | $SED "s/%%auth_form_menu//g"\
-  | $SED "/%%footer/r ../def/common_parts/oauth_test_footer" \
+  | $SED "/%%footer/r ../def/common_parts/%%app_footer" \
   | $SED "/%%footer/d"\
   | $SED "s/%%message/${message}/g" \
   | $SED "s/?%%params/${req}${id}/g"
@@ -126,10 +128,10 @@ if [ "$code" ];then
   user=`echo "$res" | jq .${target_claim} | $SED "s/\"//g"`
 
   if [ "$access_token" -a "$user" -a ! "$user" = "null" ];then
-    user=`echo $user | $AWK -F"@" '{print $1}'`
-    auth_req=`${small_shell_path}/bin/extension_auth app:oauth_test key_auth:${authkey} force_user:${user} remote_addr:${remote_addr} user_agent:${user_agent}`
-    session=`echo $auth_req | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}'`
-    pin=`echo $auth_req | $AWK -F "," '{print $3}' | $AWK -F ":" '{print $2}'`
+    auth_req=$(${small_shell_path}/bin/extension_auth app:%%app key_auth:${authkey} \
+    remote_addr:${remote_addr} force_user:${user} user_agent:${user_agent} logging_IP:${logging_IP})
+    session=$(echo "$auth_req" | $AWK -F "," '{print $2}' | $AWK -F ":" '{print $2}')
+    pin=$(echo "$auth_req" | $AWK -F "," '{print $3}' | $AWK -F ":" '{print $2}')
    
     if [ "$session" -a "$pin" ];then
       if [ ! "$req" ];then
@@ -138,11 +140,11 @@ if [ "$code" ];then
 
       # redirect to APP if key auth is OK
       if [[ $req == *table ]];then
-        echo "<meta http-equiv=\"refresh\" content=\"0; url=./oauth_test?session=$session&pin=$pin&req=$req\">"
+        echo "<meta http-equiv=\"refresh\" content=\"0; url=./%%app?session=$session&pin=$pin&req=$req\">"
       elif [[ $req == *get ]];then
-        echo "<meta http-equiv=\"refresh\" content=\"0; url=./oauth_test?session=$session&pin=$pin&req=$req&id=$id\">"
+        echo "<meta http-equiv=\"refresh\" content=\"0; url=./%%app?session=$session&pin=$pin&req=$req&id=$id\">"
       else
-        echo "<meta http-equiv=\"refresh\" content=\"0; url=./oauth_test?session=$session&pin=$pin&req=$req\">"
+        echo "<meta http-equiv=\"refresh\" content=\"0; url=./%%app?session=$session&pin=$pin&req=$req\">"
       fi
     fi
   else

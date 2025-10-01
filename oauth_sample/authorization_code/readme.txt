@@ -1,5 +1,5 @@
 # -----------------------------------------------
-# This sample is made for okta or google Oauth 2.0
+# This sample is made for google Oauth 2.0
 # -----------------------------------------------
 
 # input small-shell app name
@@ -17,7 +17,6 @@ git clone https://github.com/naruoken/small-shell-apps
 
 # select provider
 provider="gcp"
-#provider="okta"
 
 cd small-shell-apps/oauth_sample/authorization_code
 
