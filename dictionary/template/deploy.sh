@@ -22,18 +22,18 @@ fi
 # loal global conf
 . $ROOT/global.conf
 
-# load web base
-. $ROOT/web/base
-
 if [ ! $SED ];then
   echo "please execute $ROOT/adm/gen first"
   exit 1
 fi
 
-if [ ! $www ];then
+if [ ! -f $ROOT/web/base ];then
   echo "please generate Base APP first"
   exit 1
 fi
+
+# load web base
+. $ROOT/web/base
 
 cat ./keywords | grep -v "^#" > ${tmp_dir}/.dictionary
 # update web/src
