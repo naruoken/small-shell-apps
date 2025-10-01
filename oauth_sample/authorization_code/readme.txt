@@ -33,7 +33,7 @@ client_secret=""
 target_claim=""
 #-------------------------------------------------
 
-vi ./descriptor/${provider}_oauth_form.html.def
+vi ./def/${provider}_oauth_form.html.def
 #------------------------------------------------
 # target params
   var CLIENT_ID = '';
@@ -47,7 +47,7 @@ vi ./descriptor/${provider}_oauth_form.html.def
 authkey=`grep authkey= /usr/lib/cgi-bin/auth.$app | $SED "s/authkey=\"//g" | $SED "s/\"//g"`
 echo $authkey
 cat ./cgi-bin/${provider}_auth | $SED "s/%%authkey/$authkey/g" > /usr/lib/cgi-bin/auth.$app
-cat ./descriptor/${provider}_oauth_form.html.def > /var/www/descriptor/${app}_auth_form.html.def
+cat ./def/${provider}_oauth_form.html.def > /var/www/def/${app}_auth_form.html.def
 
 Then you can try to connect the APP.
 https://XXXX/cgi-bin/auth.$app
