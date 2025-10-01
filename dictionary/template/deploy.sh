@@ -30,6 +30,11 @@ if [ ! $SED ];then
   exit 1
 fi
 
+if [ ! $www ];then
+  echo "please generate Base APP first"
+  exit 1
+fi
+
 cat ./keywords | grep -v "^#" > ${tmp_dir}/.dictionary
 # update web/src
 while read line
