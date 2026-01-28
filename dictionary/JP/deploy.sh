@@ -1,10 +1,15 @@
 #!/bin/bash
 
-tmp_dir=./tmp
 WHOAMI=`whoami`
 if [ ! "$WHOAMI" = "root" ];then
   echo "error: user must be root"
   exit 1
+fi
+
+tmp_dir=/var/tmp/small-shell-apps/.tmp
+if [ ! -d $tmp_dir ];then
+  mkdir -p $tmp_dir
+  chown small-shell:small-shell $tmp_dir
 fi
 
 if [ ! -f ./keywords ];then
@@ -109,16 +114,16 @@ if [ "$scratch_APP_chk" ];then
       # update UI.md.def
       mkdir ${tmp_dir}/${app}
 
-      id=`sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:get command:head_-1 format:none | awk -F "," '{print $1}'`
-      sudo -u small-shell $ROOT/bin/DATA_shell authkey:$authkey databox:${app}.UI.md.def action:get id:${id} key:righth format:none \
+      id=`(cd ${tmp_dir} && sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:get command:head_-1 format:none | awk -F "," '{print $1}')`
+      (cd ${tmp_dir} && sudo -u small-shell $ROOT/bin/DATA_shell authkey:$authkey databox:${app}.UI.md.def action:get id:${id} key:righth format:none \
       | $SED "s#App Portal#${portal}#g" | $SED "s/Table/${table}/g" | $SED "s/Log Out/${logout}/g" \
-      | $SED "s/_%%enter_/\n/g" | $SED "s/righth://g" > ${tmp_dir}/${app}/righth
-      sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:set id:${id} key:righth input_dir:${tmp_dir}/${app}
+      | $SED "s/_%%enter_/\n/g" | $SED "s/righth://g" > ${tmp_dir}/${app}/righth)
+      (cd ${tmp_dir} && sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:set id:${id} key:righth input_dir:${tmp_dir}/${app})
 
       # update body
       if [ -f ./tmplt.UI.md.def/body ];then
         cat ./tmplt.UI.md.def/body | $SED "s/%%app/${app}/g" > ${tmp_dir}/${app}/body
-        sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:set id:${id} key:body input_dir:${tmp_dir}/${app}
+        (cd ${tmp_dir} && sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:set id:${id} key:body input_dir:${tmp_dir}/${app})
       fi
     fi
   done
