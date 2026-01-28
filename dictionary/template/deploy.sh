@@ -70,10 +70,10 @@ do
   done
 done <  ${tmp_dir}/.dictionary 
 
-# update menu for Scratch APP
-portal=`grep "ScratchAPP:APP Portal" ./keywords | $SED "s/ScratchAPP:APP Portal{%%%%%%}//g"`
-table=`grep "ScratchAPP:Table" ./keywords | $SED "s/ScratchAPP:Table{%%%%%%}//g"`
-logout=`grep "ScratchAPP:Log Out" ./keywords | $SED "s/ScratchAPP:Log Out{%%%%%%}//g"`
+# update menu for Custom App
+portal=`grep "CustomApp:APP Portal" ./keywords | $SED "s/CustomApp:App Portal{%%%%%%}//g"`
+table=`grep "CustomApp:Table" ./keywords | $SED "s/CustomApp:Table{%%%%%%}//g"`
+logout=`grep "CustomApp:Log Out" ./keywords | $SED "s/CustomApp:Log Out{%%%%%%}//g"`
 . $ROOT/util/scripts/.authkey
 permission=`$ROOT/bin/meta get.attr:sys`
 if [ "$permission" = "ro" ];then
@@ -103,7 +103,7 @@ if [ "$scratch_APP_chk" ];then
   for target in `ls ${www}/def/common_parts/*_common_menu* | grep -v .org$ | xargs basename -a`
   do
     app=`echo "${target}" | $AWK -F "_common_menu" '{print $1}'`
-    chk_team=`grep "# controller for Scratch APP #team" ${cgi_dir}/${app}`
+    chk_team=`grep "# controller for Custom App #team" ${cgi_dir}/${app}`
 
     if [ -f ${cgi_dir}/${app} -a ! -d ${tmp_dir}/${app} -a ! "${chk_team}" ];then       
       # update UI.md.def

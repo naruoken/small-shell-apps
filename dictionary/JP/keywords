@@ -1,11 +1,11 @@
 ##########################################################
 # usage: original_word{%%%%%%}translated_word
 ##########################################################
-ScratchAPP:APP Portal{%%%%%%}ポータル
-ScratchAPP:Table{%%%%%%}テーブル
-ScratchAPP:Log Out{%%%%%%}ログアウト
+CustomApp:App Portal{%%%%%%}ポータル
+CustomApp:Table{%%%%%%}テーブル
+CustomApp:Log Out{%%%%%%}ログアウト
 Your Key is successfully generated.{%%%%%%}あなた専用の鍵が生成されました。
-Your APP Key is successfully generated.{%%%%%%}あなた専用の鍵が生成されました。
+Your App Key is successfully generated.{%%%%%%}あなた専用の鍵が生成されました。
 When you click the button, the key will be saved in your browser. but please copy and save the key text manually just in case.{%%%%%%}鍵は自動でブラウザに記憶されますが、念の為テキストで保存しておくことをお勧めします
 Your access key is duplicated and copied to your clipboard. key text is available on your other device.{%%%%%%}あなたの鍵が複製されクリップボードにコピーされました。コピーされた鍵は別のデバイスでも利用可能です
 Type keywords or sort command{%%%%%%}検索ワードまたはsortコマンドを入力してください
