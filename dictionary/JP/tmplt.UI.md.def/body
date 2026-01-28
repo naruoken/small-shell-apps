@@ -1,5 +1,5 @@
 # テンプレートページ
-本ページは自動生成されたテンプレートのポータルページです、Base.APPの%%app.UI.md.defにて編集が可能です。MarkdownもしくはHTMLにて記述をしてください。Markdownの文法は以下をご確認ください。詳細レシピは[cookbook](https://www.small-shell.org/cook_book/#portal-design-recipe) にて紹介されています。
+本ページは自動生成されたテンプレートのポータルページです、Base App上で%%app.UI.md.defデータボックスのデータを更新することで編集が可能です。MarkdownもしくはHTMLにて記述をしてください。Markdownの文法は以下をご確認ください。詳細レシピは[cookbook](https://www.small-shell.org/cook_book/#portal-design-recipe) にて紹介されています。
 
 <a href="./%%app?req=table"><button class="button">DataBox</button></a>
 
