@@ -1,4 +1,4 @@
-<li><a href="./team?%%session&&req=main">APP Portal</a></li>
+<li><a href="./team?%%session&&req=main">App Portal</a></li>
 <li><a href="./team?%%session&req=table">Events</a></li>
 <li><a href="./team?%%session&subapp=tasks&req=table">Tasks</a></li>
 <li><a href="./team?%%session&subapp=inquiries&req=table">Inquiries</a></li>
