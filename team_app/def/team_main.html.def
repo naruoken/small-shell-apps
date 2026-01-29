@@ -13,7 +13,7 @@
     <div class="container">
       <div class="portal-navbar">
         <div class="navbar-left-links">
-        <a href="./team?%%params&req=main"><h3>Team APP</h3></a>
+        <a href="./team?%%params&req=main"><h3>Team App</h3></a>
         </div>
         <div class="navbar-right-menu">
         <button class="portal-even-btn">=</button>

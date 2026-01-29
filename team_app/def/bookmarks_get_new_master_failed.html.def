@@ -9,7 +9,7 @@
     <div class="container">
       <div class="navbar">
         <div class="navbar-left-links">
-          <h4><a href="./team?%%params&req=main">Team APP</a></h4>
+          <h4><a href="./team?%%params&req=main">Team App</a></h4>
         </div>
         <div class="navbar-right-menu">
           <button class="even-btn">=</button>

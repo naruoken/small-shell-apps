@@ -140,7 +140,7 @@ if [ "$received_key" ];then
       req=main
     fi
 
-    # redirect to APP if key auth is OK
+    # redirect to App if key auth is OK
     if [[ $req == *table ]];then
       echo "<meta http-equiv=\"refresh\" content=\"0; url=./team?session=$session&pin=$pin&req=${req}\">"
     elif [[ $req == *get || $req == *log_viewer ]];then

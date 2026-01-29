@@ -11,7 +11,7 @@
         <div class="auth-form">
           <form method="post" action="./auth.team?%%params">
           %%message
-          <h1>Team APP</h1>
+          <h1>Team App</h1>
           <div class="wrapper">
             <input type="text" id="dummy" name="dummy" placeholder="Your Key" autocomplete="off" required>
             <input type="hidden" id="team_authkey_%%rand" name="team_authkey_%%rand">
