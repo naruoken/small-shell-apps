@@ -76,7 +76,7 @@ do
 done <  ${tmp_dir}/.dictionary 
 
 # update menu for Custom App
-portal=`grep "CustomApp:App Portal" ./keywords | $SED "s/CustomApp:App Portal{%%%%%%}//g"`
+main=`grep "CustomApp:Home" ./keywords | $SED "s/CustomApp:Home{%%%%%%}//g"`
 table=`grep "CustomApp:Table" ./keywords | $SED "s/CustomApp:Table{%%%%%%}//g"`
 logout=`grep "CustomApp:Log Out" ./keywords | $SED "s/CustomApp:Log Out{%%%%%%}//g"`
 . $ROOT/util/scripts/.authkey
@@ -89,10 +89,10 @@ fi
 if [ -f ./tmplt.UI.md.def/body ];then
   cat ./tmplt.UI.md.def/body > $ROOT/tmp/gen/.tmplt.UI.md.def/body
 fi
-if [ "$portal" -a "$table" ];then
+if [ "$main" -a "$table" ];then
   for target in `ls $ROOT/tmp/gen/.tmplt.UI.md.def | xargs basename -a`
   do
-      cat $ROOT/tmp/gen/.tmplt.UI.md.def/$target | $SED "s#App Portal#${portal}#g" | $SED "s/Table/${table}/g" \
+      cat $ROOT/tmp/gen/.tmplt.UI.md.def/$target | $SED "s#Home#${main}#g" | $SED "s/Table/${table}/g" \
       > .target.new
       cat .target.new > $ROOT/tmp/gen/.tmplt.UI.md.def/$target
   done
@@ -116,7 +116,7 @@ if [ "$scratch_APP_chk" ];then
 
       id=`(cd ${tmp_dir} && sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:get command:head_-1 format:none | awk -F "," '{print $1}')`
       (cd ${tmp_dir} && sudo -u small-shell $ROOT/bin/DATA_shell authkey:$authkey databox:${app}.UI.md.def action:get id:${id} key:righth format:none \
-      | $SED "s#App Portal#${portal}#g" | $SED "s/Table/${table}/g" | $SED "s/Log Out/${logout}/g" \
+      | $SED "s#Home#${main}#g" | $SED "s/Table/${table}/g" | $SED "s/Log Out/${logout}/g" \
       | $SED "s/_%%enter_/\n/g" | $SED "s/righth://g" > ${tmp_dir}/${app}/righth)
       (cd ${tmp_dir} && sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:set id:${id} key:righth input_dir:${tmp_dir}/${app})
 
