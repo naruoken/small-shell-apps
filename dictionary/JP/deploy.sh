@@ -114,7 +114,7 @@ if [ "$scratch_APP_chk" ];then
       # update UI.md.def
       mkdir ${tmp_dir}/${app}
 
-      id=`(cd ${tmp_dir} && sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:get command:head_-1 format:none | awk -F "," '{print $1}')`
+      id=$(cd ${tmp_dir} && sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:get command:head_-1 format:none | awk -F "," '{print $1}')
       (cd ${tmp_dir} && sudo -u small-shell $ROOT/bin/DATA_shell authkey:$authkey databox:${app}.UI.md.def action:get id:${id} key:righth format:none \
       | $SED "s#Home#${main}#g" | $SED "s/Table/${table}/g" | $SED "s/Log Out/${logout}/g" \
       | $SED "s/_%%enter_/\n/g" | $SED "s/righth://g" > ${tmp_dir}/${app}/righth)
