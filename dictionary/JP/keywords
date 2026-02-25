@@ -24,7 +24,7 @@ nature{%%space}sort{%%%%%%}自然なかたちでソートする
 numetric{%%space}sort{%%%%%%}数としてソートする
 reverse{%%space}sort{%%%%%%}降順にソートする
 SortTips{%%%%%%}ソートヒント
-Data.Num{%%%%%%}データ数
+Total{%%%%%%}データ数
 Import Data{%%%%%%}データインポート
 Table View{%%%%%%}テーブル
 Console{%%%%%%}コンソール
