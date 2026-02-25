@@ -44,7 +44,7 @@ if [ ! "$chk_permission" = "rw" ];then
 fi
 
 # pyshell check
-. $ROOT/util/pyshell/env
+. $ROOT/util/pyshell/pyenv
 $PYTHON --version
 if [ $? -eq 0 ];then
   echo "pyshell should be ready"
