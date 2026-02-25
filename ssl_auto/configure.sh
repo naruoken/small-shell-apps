@@ -28,8 +28,8 @@ if [ ! "$ROOT" ];then
   ROOT=/usr/local/small-shell
 fi
 
-# load global conf and base
-. $ROOT/global.conf
+# load env and base
+. $ROOT/.env
 . $ROOT/web/base
 
 if [ ! "$www" ];then

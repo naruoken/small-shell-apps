@@ -20,8 +20,8 @@ if [ ! "$ROOT" ];then
   exit 1
 fi
 
-# load global conf and base
-. $ROOT/global.conf
+# load env and base
+. $ROOT/.env
 . $ROOT/web/base
 
 if [ ! "$www" ];then

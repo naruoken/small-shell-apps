@@ -4,7 +4,7 @@
 databox=tasks
 
 # load small-shell conf
-. %%www/def/.small_shell_conf
+. %%www/def/.env
 
 # load query string param
 for param in $(echo $@)
@@ -29,7 +29,7 @@ do
 done
 
 # load small-shell conf
-. %%www/def/.small_shell_conf
+. %%www/def/.env
 
 # check posted param
 if [ -d %%www/tmp/${session} ];then

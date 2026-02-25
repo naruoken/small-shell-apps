@@ -8,7 +8,7 @@ User_agent_persistence="yes"
 input=$(dd bs=${CONTENT_LENGTH} 2>/dev/null | cat -)
 
 # load small-shell conf
-. %%www/def/.small_shell_conf
+. %%www/def/.env
 
 echo "Content-Type: text/html"
 echo ""

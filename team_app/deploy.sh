@@ -23,8 +23,8 @@ if [ ! -d $ROOT ];then
   exit 1
 fi
 
-# loal global conf
-. ${ROOT}/global.conf
+# loal env
+. ${ROOT}/.env
 
 # load web base
 . ${ROOT}/web/base

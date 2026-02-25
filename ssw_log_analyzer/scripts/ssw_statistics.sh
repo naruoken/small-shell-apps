@@ -2,7 +2,7 @@
 
 # load param
 SCRIPT_DIR=`dirname $0`
-. ${SCRIPT_DIR}/../../global.conf
+. ${SCRIPT_DIR}/../../.env
 date=`date +%Y-%m-%d --date '1 day ago'`
 
 # load authkey

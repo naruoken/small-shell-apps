@@ -24,8 +24,8 @@ if [ ! "$ROOT" ];then
   ROOT=/usr/local/small-shell
 fi
 
-# loal global conf
-. $ROOT/global.conf
+# loal env
+. $ROOT/.env
 
 if [ ! $SED ];then
   echo "please execute $ROOT/adm/gen first"
