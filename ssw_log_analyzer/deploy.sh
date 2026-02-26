@@ -83,6 +83,6 @@ echo "small-shell web log analyzer is successfully deployed"
 echo "--------------------------------------------------------------------------"
 echo "1. analyzer will analyze srvdump.log.1 once it's made at 00:00"
 echo "2. analytics will be done about 1 day ago log"
-echo "3. you can check graph and data on Base APP"
+echo "3. you can check graph and data on Base App"
 
 exit 0
