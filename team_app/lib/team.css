@@ -493,11 +493,13 @@ a {
   flex-wrap: wrap;
   white-space: nowrap;
   margin : 0px ;
+  padding-top: 8px;
   padding-left: 4px;
 } 
+  
 
-.table-box .custome-button-add {
-  width: 48px;
+.table-box .custom-add-btn {
+  width: 58px;
   font-size: 90%;
   text-align: center;
   border: 1px dotted #9dc2fa;
@@ -508,12 +510,12 @@ a {
   margin-bottom: 2px;
 }
 
-.table-box .custome-button-add:hover {
+.table-box .custom-add-btn:hover {
   border: 1px solid #9dc2fa;
 }
 
-.table-box .custome-button-clr {
-  width: 48px;
+.table-box .custom-clr-btn {
+  width: 58px;
   font-size: 90%;
   text-align: center;
   border: 1px dotted #9dc2fa;
@@ -524,21 +526,23 @@ a {
   margin-bottom: 2px;
 }
 
-.table-box .custome-button-clr:hover {
+.table-box .custom-clr-btn:hover {
   border: 1px solid #9dc2fa;
 }
 
-.table-box .custome-button-add p {
+.table-box .custom-add-btn p {
   font-weight: bold;
-  padding: 0px 8px;
+  padding-left: 8px;
+  padding-right: 8px;
   color: #0646a0;
   text-transform: uppercase;
   letter-spacing: .09em;
 }
 
-.table-box .custome-button-clr p {
+.table-box .custom-clr-btn p {
   font-weight: bold;
-  padding: 0px 8px;
+  padding-left: 8px;
+  padding-right: 8px;
   color: #0646a0;
   text-transform: uppercase;
   letter-spacing: .09em;
@@ -827,7 +831,7 @@ a {
 .form-box input[type="datetime-local"] {
   letter-spacing: .09em;
   font-size: 12px;
-  padding: 6px 8px;
+  padding: 8px 8px;
   border: 1px solid #d3d3d3;
   border-radius: 4px;
   flex: auto;
