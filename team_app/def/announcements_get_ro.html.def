@@ -23,7 +23,7 @@
 
       <div class="announcement-form-box">
         <div class="description">
-          <h1>#announcements.data</h1>
+          <h1>>Record details / announcements</h1>
           <p>id:%%id</p>
         </div>
         <ul>
