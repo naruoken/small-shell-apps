@@ -35,17 +35,16 @@ if [ ! "$id" -a ! "$databox" -a ! "$pin" -a "$session" ];then
 fi
 
 # SET BASE_COMMAND
-META="${small_shell_path}/bin/meta"
 DATA_SHELL="${small_shell_path}/bin/DATA_shell session:$session pin:$pin"
 
 # load filename
-filename=$($DATA_SHELL databox:$databox action:get key:file id:$id format:none | $SED "s/file://g" | $AWK -F " #" '{print $1}')
+file_name=$($DATA_SHELL databox:$databox action:get keys:all id:$id format:none \
+|grep ^file_name: | $SED "s/file_name://g")
 
 # -----------------
 # render contents
 # -----------------
-
-echo "Content-Disposition: attachment; filename=\"$filename\""
+echo "Content-Disposition: attachment; filename=\"$file_name\""
 echo "Content-Type: application/octet-stream"
 echo ""
 ${small_shell_path}/bin/dl session:$session remote_addr:$remote_addr pin:$pin databox:$databox id:$id
