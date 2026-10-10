@@ -109,7 +109,7 @@ cat ./cgi-bin/inquiry | $SED "s#%%www#${www}#g" | $SED "s/%%authkey/${authkey}/g
 # create databox
 for src in $(ls ./def | grep db.def | xargs basename -a)
 do
-  ${ROOT}/util/scripts/bat_gen.sh ./def/${src} 
+  ${ROOT}/util/scripts/gen_db.sh ./def/${src} 
 done
 
 clear

@@ -54,7 +54,7 @@ else
 fi
 
 # db creation
-$ROOT/util/scripts/bat_gen.sh ./db.def
+$ROOT/util/scripts/gen_db.sh ./db.def
 
 # deploy analyzer to util/scripts
 cat ./scripts/ssw_log_analyzer.sh  | $SED "s#%%log_dir#$log_dir#g" > $ROOT/util/scripts/ssw_log_analyzer.sh

@@ -19,7 +19,7 @@ col2_key_label="Subject"
 col2_type="text"
 
 # only for select, radio
-col2_key_params=""
+col2_values=""
 
 # only for pdls
 col2_primary_databox=""
@@ -36,7 +36,7 @@ col3_key_label="Contents"
 col3_type="textarea"
 
 # only for select, radio
-col3_key_params=""
+col3_values=""
 
 # only for pdls
 col3_primary_databox=""
