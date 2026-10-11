@@ -72,7 +72,7 @@ if [ $? -eq 0 ];then
 
   cat $ROOT/web/src/app/index.js | $SED "s/%%protocol/https/g" | $SED "s/%%port/443/g" \
   | $SED "s#%%sed#$SED#g" | $SED "s#// https ##g" | $SED "s#/\* forward option start##g" \
-  | $SED "s#option end \*/##g" | $SED "s/%%cluster/$cluster/g" \
+  | $SED "s#forward option end \*/##g" | $SED "s/%%cluster/$cluster/g" \
   | $SED "s#%%any_routing#$any_routing#g" > ${www}/app/index.js
 
   # upgrade web/base
