@@ -21,7 +21,7 @@
 テーブルの例は以下をご確認ください
 
 |header1|header2|header3|
--------------------------
+|---|---|---|
 |col1text|col2text|col3text|
 |col1text|col2text|col3text|
 |col1text|col2text|col3text|
@@ -29,7 +29,7 @@
 
 ````
 |header1|header2|header3|
--------------------------
+|---|---|---|
 |col1text|col2text|col3text|
 |col1text|col2text|col3text|
 |col1text|col2text|col3text|
