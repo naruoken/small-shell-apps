@@ -97,14 +97,19 @@ if [ "$main" -a "$table" ];then
       cat .target.new > $ROOT/tmp/gen/.tmplt.UI.md.def/$target
   done
 fi
+
 if [ "$logout" ];then
   cat $ROOT/adm/gen | $SED "s#Log Out#${logout}#g" > .target.new
   cat .target.new > $ROOT/adm/gen
 fi
+if [ "$table" ];then
+  cat $ROOT/adm/gen | $SED "s#Table: #${table}: #g" > .target.new
+  cat .target.new > $ROOT/adm/gen
+fi
 
-scratch_APP_chk=`ls ${www}/def/common_parts/*_common_menu* 2>/dev/null`
+custom_APP_chk=`ls ${www}/def/common_parts/*_common_menu* 2>/dev/null`
 
-if [ "$scratch_APP_chk" ];then
+if [ "$custom_APP_chk" ];then
   for target in `ls ${www}/def/common_parts/*_common_menu* | grep -v .org$ | xargs basename -a`
   do
     app=`echo "${target}" | $AWK -F "_common_menu" '{print $1}'`
@@ -123,8 +128,14 @@ if [ "$scratch_APP_chk" ];then
       # update body
       if [ -f ./tmplt.UI.md.def/body ];then
         cat ./tmplt.UI.md.def/body | $SED "s/%%app/${app}/g" > ${tmp_dir}/${app}/body
+        table_chk=$(cat  ${tmp_dir}/${app}/righth | grep "${table}")
+        if [ ! "$table_chk" ];then
+          cat ${tmp_dir}/${app}/body | $SED "s#./${app}?req=table##g" > ${tmp_dir}/${app}/.body
+          cat ${tmp_dir}/${app}/.body > ${tmp_dir}/${app}/body
+        fi
         (cd ${tmp_dir} && sudo -u small-shell $ROOT/bin/DATA_shell authkey:${authkey} databox:${app}.UI.md.def action:set id:${id} key:body input_dir:${tmp_dir}/${app})
       fi
+
     fi
   done
 
