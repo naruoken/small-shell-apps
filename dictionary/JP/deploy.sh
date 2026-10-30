@@ -24,18 +24,13 @@ if [ ! "$ROOT" ];then
   ROOT=/usr/local/small-shell
 fi
 
-# loal env
-. $ROOT/.env
-
-if [ ! $SED ];then
-  echo "please execute $ROOT/adm/gen first"
-  exit 1
-fi
-
 if [ ! -f $ROOT/web/base ];then
   echo "please generate Base App first"
   exit 1
 fi
+
+# loal env
+. $ROOT/.env
 
 # load web base
 . $ROOT/web/base
