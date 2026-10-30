@@ -13,7 +13,7 @@ if [ ! -d $tmp_dir ];then
 fi
 
 if [ ! -f ./keywords ];then
-  echo "please execute this script at `dirname $0`"
+  echo "error: please execute this script at `dirname $0`"
   exit 1
 fi
 
@@ -25,7 +25,7 @@ if [ ! "$ROOT" ];then
 fi
 
 if [ ! -f $ROOT/web/base ];then
-  echo "please generate Base App first"
+  echo "error: please generate Base App first"
   exit 1
 fi
 
