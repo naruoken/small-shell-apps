@@ -93,6 +93,10 @@ if [ "$main" -a "$table" ];then
   done
 fi
 
+if [ -f ./calendar.events/databox.def ];then
+  cat ./calendar.events/databox.def > $ROOT/tmp/gen/.calendar.events/databox.def
+fi
+
 if [ "$logout" ];then
   cat $ROOT/adm/gen | $SED "s#Log Out#${logout}#g" > .target.new
   cat .target.new > $ROOT/adm/gen

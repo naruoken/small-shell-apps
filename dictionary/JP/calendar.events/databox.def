@@ -1,0 +1,83 @@
+#---------------------------------------------------------------
+# db definition
+#---------------------------------------------------------------
+
+# databox
+databox="%%app.events"
+
+# col1
+#-------------------------------------------
+primary_key="hashid"
+primary_key_label=""
+#-------------------------------------------
+
++addcol
+# col2
+#-------------------------------------------
+col2_key_name="title"
+col2_key_label="イベント名"
+col2_type="text"
+
+# only for select, radio
+col2_values=""
+
+# required
+col2_required="yes"
+#-------------------------------------------
+
++addcol
+# col3
+#-------------------------------------------
+col3_key_name="start"
+col3_key_label="開始"
+col3_type="date-time"
+
+# only for select, radio
+col3_values=""
+
+# required option
+col3_required="yes"
+#-------------------------------------------
+
++addcol
+# col4
+#-------------------------------------------
+col4_key_name="end"
+col4_key_label="終了"
+col4_type="date-time"
+
+# only for select, radio
+col4_values=""
+
+# required option
+col4_required="no"
+#-------------------------------------------
+
++addcol
+# col5
+#-------------------------------------------
+col5_key_name="color"
+col5_key_label="Color"
+col5_type="select"
+
+# only for select, radio
+col5_values="blue,green,purple,black"
+
+# required option
+col5_required=""
+#-------------------------------------------
+
++addcol
+# col6
+#-------------------------------------------
+col6_key_name="description"
+col6_key_label="詳細"
+col6_type="textarea"
+
+# only for select, radio
+col6_values=""
+
+# required option
+col6_required="no"
+#-------------------------------------------
+
