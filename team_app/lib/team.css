@@ -1244,7 +1244,6 @@ a {
 
 @media screen and (min-width: 641px) {
   .checkbox-label { 
-    padding-top: 20px;
     font-size: 84%;
     color: #616166;
     font-weight: 300;
