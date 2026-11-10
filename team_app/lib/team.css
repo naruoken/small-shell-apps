@@ -839,19 +839,15 @@ a {
 }
 
 @media screen and (min-width: 641px) {
-  .form-box input[type="checkbox"]{
+  .form-box .checkbox-item {
     margin-top: 24px;
   }
 }
 
 @media screen and (max-width: 640px) {
-  .form-box input[type="checkbox"]{
+  .form-box .checkbox-item {
     margin-top: 4px;
   }
-}
-
-.form-box input[type="radio"]{
-  margin-top: 4px;
 }
 
 /* comment for admin */
@@ -1252,7 +1248,7 @@ a {
     font-size: 84%;
     color: #616166;
     font-weight: 300;
-    margin-right: 2px;
+    margin-left: 4px;
     letter-spacing: .09em;
     font-weight: bold;
   } 
@@ -1263,7 +1259,7 @@ a {
     font-size: 84%;
     color: #616166;
     font-weight: 300;
-    margin-right: 2px;
+    margin-left: 4px;
     letter-spacing: .09em;
     font-weight: bold;
   }
@@ -1271,8 +1267,7 @@ a {
 
 .radio-label {
   text-align: left;
-  margin-top: 2px;
-  margin-left: 2px;
+  margin-right: 4px;
   font-size: 80%;
 }
 
