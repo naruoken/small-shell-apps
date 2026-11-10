@@ -93,7 +93,7 @@ col6_values="open,on-going,pending,closed"
 col6_primary_databox=""
 
 # required option
-col6_required="no"
+col6_required=""
 #-------------------------------------------
 
 +addcol
@@ -110,7 +110,7 @@ col7_values=""
 col7_primary_databox=""
 
 # required option
-col7_required="no"
+col7_required=""
 #-------------------------------------------
 
 +addcol
